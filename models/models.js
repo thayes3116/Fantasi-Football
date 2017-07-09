@@ -2,8 +2,23 @@
 var orm = require("../config/orm.js");
 
 var models = {
-	connected: orm.connected    	  
-}
+	qbRanking: function(cols, vals, cb) {
+		orm.ranking("nfl", cols, vals, function(res) {
+			cb(res);
+		});
+	},
+	
+	player: function(cols, vals,cb) {
+		orm.player("nfl", cols, vals, function(res) {
+			cb(res);
+		});
+	},
+	team: function(cols, vals, cb) {
+		orm.team("nfl", cols, vals, function(res) {
+			cb(res);
+		});
+	}
+};	
 
-// Export the database functions for the controller (catsController.js).
+// Export the database functions for the controller (controller.js).
 module.exports = models;
