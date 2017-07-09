@@ -49,6 +49,6 @@ var routes = require("./controllers/controllers.js");
 app.use("/", routes);
 
 //listening
-app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
+app.listen(port, function() {
+  console.log("App listening on PORT " + port);
 });	
