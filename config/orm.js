@@ -1,45 +1,49 @@
 // Import MySQL connection.
 var connection = require("../config/connection.js");
 
+var yearArray = ["2016", "2015", "2014"];
+
+var teamResultsArray = [];
 // Helper function for SQL syntax.
-function printQuestionMarks(num) {
-  var arr = [];
+// function printQuestionMarks(num) {
+//   var arr = [];
 
-  for (var i = 0; i < num; i++) {
-    arr.push("?");
-  }
+//   for (var i = 0; i < num; i++) {
+//     arr.push("?");
+//   }
 
-  return arr.toString();
-}
+//   return arr.toString();
+// }
 
-// Helper function for SQL syntax.
-function objToSql(ob) {
-  var arr = [];
+// // Helper function for SQL syntax.
+// function objToSql(ob) {
+//   var arr = [];
 
-  for (var key in ob) {
-    if (Object.hasOwnProperty.call(ob, key)) {
-      arr.push(key + "=" + ob[key]);
-    }
-  }
+//   for (var key in ob) {
+//     if (Object.hasOwnProperty.call(ob, key)) {
+//       arr.push(key + "=" + ob[key]);
+//     }
+//   }
 
-  return arr.toString();
-}
+//   return arr.toString();
+// }
 
 var orm = {
   ranking: function(table, cols, vals, cb) {
-    var queryString = "SELECT * FROM " + table;
+    var queryString = "SELECT `Rank`, `Player`, `Team` FROM " + table;
 
     queryString += " WHERE ";   
     for( var i = 0; i < cols.length; i++){
       queryString += cols[i] + " = " + "\"" + vals[i] + "\"" + " AND "
     }
-    queryString += "`Rank` < 20 ORDER BY `Rank` ASC;";
+    queryString += "`Season Type` = 'Regular Season' AND `Rank` < 20 ORDER BY `Rank` ASC;";
     
     console.log(queryString);    
     connection.query(queryString, function(err, result) {
       if (err) {
         throw err;
       }
+      console.log(result);
       cb(result);
     });
   },
@@ -54,13 +58,16 @@ var orm = {
         }
         console.log(result[0].Position);
     
-      if(result[0].Position === "Quarterback"){      
+      if(result[0].Position === "Quarterback"){
+        var category = "Passing";      
         var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs`, `Passer_Rating`, `Yards_Per_Game_Average`, `Interception`, `Time` FROM " + table;
 
       }else if(result[0].Position === "Running Back"){
+        var category = "Rushing";
         var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`,`Touch Downs`, `Yards_Per_Game_Average`,     `Attempts_Per_Game`, `Average_Yards`, `Time` FROM " + table;
        
       }else if(result[0].Position === "Wide Receiver"){
+        var category = "Receiving";
         var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs`, `Yards`, `Yards_Per_Game_Average`, `Receptions`, `Time` FROM " + table;
       }
 
@@ -68,31 +75,42 @@ var orm = {
         for( var i = 0; i < cols.length; i++){
           queryString += cols[i] + " = " + "\"" + vals[i] + "\"" + " AND "
         }
-        queryString += "`Season Type` = 'Regular Season'";
+        queryString += "`Category` = " + "\"" + category + "\"" + " AND `Season Type` = 'Regular Season'";
         
         console.log(queryString);    
         connection.query(queryString, function(err, result) {
           if (err) {
             throw err;
           }
+          console.log(result);
           cb(result);
         });     
     });    
   },
   team: function(table, cols, vals, cb) {
-    var queryString = "SELECT `Team`, sum(`Touch Downs`), sum(`Total_Points_Game_Average`), sum(`Sacked`), sum(`Fumbles_Total`), sum(`Interception`) FROM " + table;
 
-    queryString += " WHERE " + cols[0] + " = " + "\"" + vals[0] + "\"";   
-    
-    queryString += " AND `Season Type` = 'Regular Season'";
-    
-    console.log(queryString);    
-    connection.query(queryString, function(err, result) {
-      if (err) {
-        throw err;
-      }
-      cb(result);
-    });
+    for( var i = 0; i < yearArray.length; i ++){
+
+      var queryString = "SELECT `Team`, `Time`, sum(`Touch Downs`), sum(`Total_Points_Game_Average`), sum(`Sacked`), sum(`Fumbles_Total`), sum(`Interception`) FROM " + table;
+
+      queryString += " WHERE " + cols[0] + " = " + "\"" + vals[0] + "\"";   
+      
+      queryString += " AND `Season Type` = 'Regular Season' AND `Time` = " + yearArray[i] + ";";
+      
+      console.log(queryString);    
+      connection.query(queryString, function(err, result) {
+        if (err) {
+          throw err;
+        }
+        teamResultsArray.push(result);
+        console.log(result);
+      });
+
+    }
+
+    console.log(teamResultsArray);
+
+    cb(teamResultsArray);  
   },
 }
 
