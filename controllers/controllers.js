@@ -5,9 +5,10 @@ var router = express.Router();
 // Import the model (models.js) to use its database functions.
 var models = require("../models/models.js");
 
-// router.get("/", function(req, res) {
-//   res.render("index");
-// });
+router.get("/", function(req, res) {
+  res.render("index");
+});
+
 var rankPosition = "Quarterback",
 	rankYear = "2016",
 	rankCategory,
@@ -56,6 +57,18 @@ router.get("/team", function(req, res) {
   	function() {
   		res.redirect("/");
   });
+});
+
+router.get("/login", function(req, res) {
+
+	res.render("login");
+	
+});
+
+router.get("/signup", function(req, res) {
+
+	res.render("signup");
+
 });
 
 
