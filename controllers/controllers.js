@@ -8,14 +8,27 @@ var models = require("../models/models.js");
 // router.get("/", function(req, res) {
 //   res.render("index");
 // });
+var rankPosition = "Quarterback",
+	rankYear = "2016",
+	rankCategory,
+	playerToSearch = "Odell Beckham",
+	teamToSearch = "Miami Dolphins";
+
+if(rankPosition === "Quarterback"){
+	rankCategory = "Passing";
+}else if(rankPosition === "Runnning Back"){
+	rankCategory = "Rushing";
+}else if(rankPosition === "Wide Receiver"){
+	rankCategory = "Receiving";
+}
 
 router.get("/ranking", function(req, res) {
 
-	console.log("controllers line 15");
+	console.log("controllers line 27");
 
-  models.qbRanking(
+  models.ranking(
   	["Category", "Time", "Position"], 
-  	["Passing", "2016", "Quarterback"], 
+  	[rankCategory, rankYear, rankPosition], 
   	function() {
   		res.redirect("/");
   });
@@ -23,11 +36,11 @@ router.get("/ranking", function(req, res) {
 
 router.get("/player", function(req, res) {
 
-	console.log("controllers line 28");
+	console.log("controllers line 39");
 
   models.player(
   	["Player",], 
-  	["Odell Beckham"], 
+  	[playerToSearch], 
   	function() {
   		res.redirect("/");
   });
@@ -35,11 +48,11 @@ router.get("/player", function(req, res) {
 
 router.get("/team", function(req, res) {
 
-	console.log("controllers line 28");
+	console.log("controllers line 51");
 
   models.team(
   	["Team",], 
-  	['Miami Dolphins'], 
+  	[teamToSearch], 
   	function() {
   		res.redirect("/");
   });

@@ -1,33 +1,36 @@
 // Import MySQL connection.
 var connection = require("../config/connection.js");
 
+var yearArray = ["2016", "2015", "2014"];
+
+var teamResultsArray = [];
 // Helper function for SQL syntax.
-function printQuestionMarks(num) {
-  var arr = [];
+// function printQuestionMarks(num) {
+//   var arr = [];
 
-  for (var i = 0; i < num; i++) {
-    arr.push("?");
-  }
+//   for (var i = 0; i < num; i++) {
+//     arr.push("?");
+//   }
 
-  return arr.toString();
-}
+//   return arr.toString();
+// }
 
-// Helper function for SQL syntax.
-function objToSql(ob) {
-  var arr = [];
+// // Helper function for SQL syntax.
+// function objToSql(ob) {
+//   var arr = [];
 
-  for (var key in ob) {
-    if (Object.hasOwnProperty.call(ob, key)) {
-      arr.push(key + "=" + ob[key]);
-    }
-  }
+//   for (var key in ob) {
+//     if (Object.hasOwnProperty.call(ob, key)) {
+//       arr.push(key + "=" + ob[key]);
+//     }
+//   }
 
-  return arr.toString();
-}
+//   return arr.toString();
+// }
 
 var orm = {
   ranking: function(table, cols, vals, cb) {
-    var queryString = "SELECT * FROM " + table;
+    var queryString = "SELECT `Rank`, `Player`, `Team` FROM " + table;
 
     queryString += " WHERE ";   
     for( var i = 0; i < cols.length; i++){
@@ -40,6 +43,7 @@ var orm = {
       if (err) {
         throw err;
       }
+      console.log(result);
       cb(result);
     });
   },
@@ -75,24 +79,35 @@ var orm = {
           if (err) {
             throw err;
           }
+          console.log(result);
           cb(result);
         });     
     });    
   },
   team: function(table, cols, vals, cb) {
-    var queryString = "SELECT `Team`, sum(`Touch Downs`), sum(`Total_Points_Game_Average`), sum(`Sacked`), sum(`Fumbles_Total`), sum(`Interception`) FROM " + table;
 
-    queryString += " WHERE " + cols[0] + " = " + "\"" + vals[0] + "\"";   
-    
-    queryString += " AND `Season Type` = 'Regular Season'";
-    
-    console.log(queryString);    
-    connection.query(queryString, function(err, result) {
-      if (err) {
-        throw err;
-      }
-      cb(result);
-    });
+    for( var i = 0; i < yearArray.length; i ++){
+
+      var queryString = "SELECT `Team`, `Time`, sum(`Touch Downs`), sum(`Total_Points_Game_Average`), sum(`Sacked`), sum(`Fumbles_Total`), sum(`Interception`) FROM " + table;
+
+      queryString += " WHERE " + cols[0] + " = " + "\"" + vals[0] + "\"";   
+      
+      queryString += " AND `Season Type` = 'Regular Season' AND `Time` = " + yearArray[i] + ";";
+      
+      console.log(queryString);    
+      connection.query(queryString, function(err, result) {
+        if (err) {
+          throw err;
+        }
+        teamResultsArray.push(result);
+        console.log(result);
+      });
+
+    }
+
+    console.log(teamResultsArray);
+
+    cb(teamResultsArray);  
   },
 }
 

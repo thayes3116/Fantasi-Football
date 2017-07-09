@@ -2,7 +2,7 @@
 var orm = require("../config/orm.js");
 
 var models = {
-	qbRanking: function(cols, vals, cb) {
+	ranking: function(cols, vals, cb) {
 		orm.ranking("nfl", cols, vals, function(res) {
 			cb(res);
 		});
