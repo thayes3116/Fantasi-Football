@@ -36,7 +36,7 @@ var orm = {
     for( var i = 0; i < cols.length; i++){
       queryString += cols[i] + " = " + "\"" + vals[i] + "\"" + " AND "
     }
-    queryString += "`Rank` < 20 ORDER BY `Rank` ASC;";
+    queryString += "`Season Type` = 'Regular Season' AND `Rank` < 20 ORDER BY `Rank` ASC;";
     
     console.log(queryString);    
     connection.query(queryString, function(err, result) {
@@ -58,13 +58,16 @@ var orm = {
         }
         console.log(result[0].Position);
     
-      if(result[0].Position === "Quarterback"){      
+      if(result[0].Position === "Quarterback"){
+        var category = "Passing";      
         var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs`, `Passer_Rating`, `Yards_Per_Game_Average`, `Interception`, `Time` FROM " + table;
 
       }else if(result[0].Position === "Running Back"){
+        var category = "Rushing";
         var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`,`Touch Downs`, `Yards_Per_Game_Average`,     `Attempts_Per_Game`, `Average_Yards`, `Time` FROM " + table;
        
       }else if(result[0].Position === "Wide Receiver"){
+        var category = "Receiving";
         var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs`, `Yards`, `Yards_Per_Game_Average`, `Receptions`, `Time` FROM " + table;
       }
 
@@ -72,7 +75,7 @@ var orm = {
         for( var i = 0; i < cols.length; i++){
           queryString += cols[i] + " = " + "\"" + vals[i] + "\"" + " AND "
         }
-        queryString += "`Season Type` = 'Regular Season'";
+        queryString += "`Category` = " + "\"" + category + "\"" + " AND `Season Type` = 'Regular Season'";
         
         console.log(queryString);    
         connection.query(queryString, function(err, result) {
