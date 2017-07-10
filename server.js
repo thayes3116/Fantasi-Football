@@ -36,7 +36,7 @@ app.use(bodyParser()); // get information from html forms
 
 // required for passport
 app.use(session({ secret: 'testing123'})) // session secret
-app.use(passport.initialize());
+app.use(passport.initialize()); 
 app.use(passport.session()); // login sessions
 app.use(flash()); // use connect-flash for flash messages stroed in session
 
