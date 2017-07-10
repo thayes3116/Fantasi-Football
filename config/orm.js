@@ -53,38 +53,53 @@ var orm = {
     var positionString = "SELECT `Position` FROM " + table + " WHERE " + cols[0] + " = " + "\"" + vals[0] + "\" LIMIT 1;"
 
     connection.query(positionString, function(err, result) {
-        if (err) {
-          throw err;
-        }
-        console.log(result[0].Position);
-    
-      if(result[0].Position === "Quarterback"){
-        var category = "Passing";      
-        var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs`, `Passer_Rating`, `Yards_Per_Game_Average`, `Interception`, `Time` FROM " + table;
 
-      }else if(result[0].Position === "Running Back"){
-        var category = "Rushing";
-        var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`,`Touch Downs`, `Yards_Per_Game_Average`,     `Attempts_Per_Game`, `Average_Yards`, `Time` FROM " + table;
-       
-      }else if(result[0].Position === "Wide Receiver"){
-        var category = "Receiving";
-        var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs`, `Yards`, `Yards_Per_Game_Average`, `Receptions`, `Time` FROM " + table;
-      }
+      if (err) throw err;
 
-        queryString += " WHERE ";   
-        for( var i = 0; i < cols.length; i++){
-          queryString += cols[i] + " = " + "\"" + vals[i] + "\"" + " AND "
-        }
-        queryString += "`Category` = " + "\"" + category + "\"" + " AND `Season Type` = 'Regular Season' ORDER BY Time ASC";
+      try{
+
+        if(!result[0]) {
         
-        console.log(queryString);    
-        connection.query(queryString, function(err, result) {
-          if (err) {
-            throw err;
+          throw new Error("sorry player not found");
+        
+        }else {
+         
+          console.log(result[0].Position);
+        
+          if(result[0].Position === "Quarterback"){
+            var category = "Passing";      
+            var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs`, `Passer_Rating`, `Yards_Per_Game_Average`, `Interception`, `Time` FROM " + table;
+
+          }else if(result[0].Position === "Running Back"){
+            var category = "Rushing";
+            var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`,`Touch Downs`, `Yards_Per_Game_Average`,     `Attempts_Per_Game`, `Average_Yards`, `Time` FROM " + table;
+           
+          }else if(result[0].Position === "Wide Receiver"){
+            var category = "Receiving";
+            var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs`, `Yards`, `Yards_Per_Game_Average`, `Receptions`, `Time` FROM " + table;
           }
-          console.log(result);
-          cb(result);
-        });     
+
+          queryString += " WHERE ";   
+          for( var i = 0; i < cols.length; i++){
+            queryString += cols[i] + " = " + "\"" + vals[i] + "\"" + " AND "
+          }
+          queryString += "`Category` = " + "\"" + category + "\"" + " AND `Season Type` = 'Regular Season' ORDER BY Time ASC";
+          
+          console.log(queryString); 
+
+          connection.query(queryString, function(err, result) {
+
+            if (err) throw err;
+
+            cb(result[0]);
+        
+          }); 
+        } 
+
+      }catch(ex){
+        console.log(ex.message);
+        cb(ex.message);
+      }
     });    
   },
   team: function(table, cols, vals, cb) {
@@ -154,8 +169,6 @@ var orm = {
  
         console.log(result[0]);
         cb(result[0]);
-        
-
       }
       
     })
