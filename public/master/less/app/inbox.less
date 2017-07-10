@@ -1,0 +1,119 @@
+/* ========================================================================
+   Component: mailbox.less
+ ========================================================================== */
+
+@mail-box-active-item:          @brand-primary;
+@mail-box-hover-item:           #efefef;
+@mail-mails-active:             #f7f8f9;
+
+
+.inbox-boxes {
+  
+  height: 0;
+  overflow: hidden;
+
+  .nav > li > a {
+    font-weight: 600;
+    color: @gray-dark;
+    margin: 5px 0;
+    .transition(background-color .3s ease);
+
+    &:hover,
+    &:focus {
+      background-color: @mail-box-hover-item;
+    }
+  }
+
+  .nav > li.active > a {
+    background-color: @mail-box-active-item !important;
+    color: #fff;
+    .label {
+      border: 1px solid #fff !important;
+    }
+  }
+  
+  @media @desktop-lg {
+    height: auto !important;
+    display: block;
+  }
+
+}
+
+@media @desktop-lg {
+  .inbox-compose-button {
+    // .btn-block
+    display: block;
+    width: 100%;
+  }
+}
+
+.inbox-mails {
+
+  > tbody > tr > td {
+    border-top-color: transparent;
+  }
+  
+  .inbox-mail-starred {
+    cursor: pointer;
+  }
+
+  .inbox-mail-active {
+    background-color: @mail-mails-active !important;
+  }
+
+  .inbox-mail-avatar {
+    float: left;
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 500px;
+  }
+
+  .inbox-mail-date {
+    display: block;
+    float: right;
+    color: @text-muted;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .inbox-mail-from {
+    display: block;
+    color: @gray-dark;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .inbox-mail-subject {
+    color: @gray-darker;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.8;
+  }
+
+  .inbox-mail-preview {
+    clear: both;
+    margin-top: 10px;
+    color: @text-muted;
+  }
+}
+
+.inbox-panel {
+  > h3 {
+    font-weight: 600;
+    margin-top: 0;
+    font-size: 48px;
+  }
+  
+  .inbox-panel-form {
+    .inbox-panel-form-reply {
+      min-height: 120px;
+      border-color: transparent;
+      .transition(border-color .3s ease);
+      &:focus {
+        border-color: @gray;
+      }
+    }
+  }
+}

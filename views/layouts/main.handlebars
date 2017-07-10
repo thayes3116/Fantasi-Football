@@ -30,8 +30,179 @@
     <script src="vendor/fastclick/fastclick.js" type="application/javascript"></script>
 </head>
 <body>
-{{{body}}}
+<!-- Main wrapper-->
+<section class="wrapper">
+    <!-- Top Navbar-->
+    <nav role="navigation" class="navbar navbar-default navbar-top navbar-fixed-top">
+        <!-- Navbar header-->
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">
+                <div class="brand-logo">SPORTS</div>
+                <div class="brand-logo-collapsed"></div>
+            </a>
+        </div>
+        <!-- END navbar header-->
 
+        <!-- START Nav wrapper-->
+        <div class="nav-wrapper">
+            <!-- START Left navbar-->
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#" data-toggle="aside">
+                        <em class="fa fa-align-left"></em>
+                    </a>
+                </li>
+                <li>
+                    <button type="button" class="btn btn-default">
+                        <strong>TEAMS</strong>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="btn btn-default">
+                        <strong>PLAYERS</strong>
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="btn btn-default">
+                        <strong>POSITIONS</strong>
+                    </button>
+                </li>
+                <!-- ADD BUTTTONS HERE-->
+                <li>
+                    <a href="#" data-toggle="navbar-search">
+                        <em class="fa fa-search"></em>
+                    </a>
+                </li>
+            </ul>
+            <!-- END Left navbar-->
+
+            <!-- START Right Navbar-->
+            <ul class="nav navbar-nav navbar-right">
+                <!-- PUT USER AVATAR HERE-->
+            </ul>
+            <!-- END Right Navbar-->
+
+        </div>
+        <!-- END Nav wrapper-->
+        <!-- START Search form-->
+        <form role="search" class="navbar-form">
+            <div class="form-group has-feedback">
+                <input type="text" placeholder="Type and hit Enter.." class="form-control">
+                <div data-toggle="navbar-search-dismiss" class="fa fa-times form-control-feedback"></div>
+            </div>
+            <button type="submit" class="hidden btn btn-default">Submit</button>
+        </form>
+        <!-- END Search form-->
+    </nav>
+    <!-- END Top Navbar-->
+    <!-- START aside-->
+    <aside class="aside">
+        <!-- START Sidebar (left)-->
+        <nav class="sidebar">
+            <ul class="nav">
+                <!-- START user info-->
+                <li>
+                    <div data-toggle="collapse-next" class="item user-block has-submenu">
+                        <!-- User picture-->
+                        <div class="user-block-picture">
+                            <img src="http://via.placeholder.com/150x150" alt="Avatar" width="60" height="60"
+                                 class="img-thumbnail img-circle">
+                            <!-- Status when collapsed-->
+                            <div class="user-block-status">
+                                <div class="point point-success point-lg"></div>
+                            </div>
+                        </div>
+                        <!-- Name-->
+                        <div class="user-block-info">
+                            <span class="user-block-name item-text">Welcome, User</span>
+                        </div>
+                    </div>
+                </li>
+                <!-- END user info-->
+                <!-- START Menu-->
+                <!-- TEAMS-->
+                <li class="active">
+                    <a href="dashboard.html" title="Dashboard" data-toggle="collapse-next" class="has-submenu">
+                        <div class="label label-primary pull-right"></div>
+                        <span class="item-text">Teams</span>
+                    </a>
+                    <!-- TEAMS SubMenu item-->
+                    <!--<ul class="nav collapse in">-->
+                    <!--<li>-->
+                    <!--<a href="dashboard.html" title="Default" data-toggle="" class="no-submenu">-->
+                    <!--<span class="item-text"></span>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li class="active">-->
+                    <!--<a href="dashboard-nosidebar.html" title="No Sidebar" data-toggle="" class="no-submenu">-->
+                    <!--<span class="item-text"></span>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="dashboard-noprofile.html" title="No Profile" data-toggle="" class="no-submenu">-->
+                    <!--<span class="item-text"></span>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--</ul>-->
+                    <!-- END TEAMS SubMenu item-->
+                </li>
+                <!-- PLAYERS-->
+                <li>
+                    <a href="#" title="Players" data-toggle="collapse-next" class="has-submenu">
+                        <span class="item-text">Players</span>
+                    </a>
+                    <!-- START PLAYERS SubMenu item-->
+                    <!--<ul class="nav collapse ">-->
+                    <!--<li>-->
+                    <!--<a href="chart-flot.html" title="player1" data-toggle="" class="no-submenu">-->
+                    <!--<span class="item-text"></span>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                    <!--<a href="chart-radial.html" title="player2" data-toggle="" class="no-submenu">-->
+                    <!--<span class="item-text"></span>-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <!--</ul>-->
+                    <!-- END SubMenu item-->
+                </li>
+
+                <!-- END Menu-->
+                <!-- Sidebar footer    -->
+                <li class="nav-footer">
+                    <div class="nav-footer-divider"></div>
+                    <!-- START button group-->
+                    <div class="btn-group text-center">
+                        <button type="button" data-toggle="tooltip" data-title="Settings" class="btn btn-link">
+                            <em class="fa fa-cog text-muted"></em>
+                        </button>
+                        <button type="button" data-toggle="tooltip" data-title="Logout" class="btn btn-link">
+                            <em class="fa fa-sign-out text-muted"></em>
+                        </button>
+                    </div>
+                    <!-- END button group-->
+                </li>
+            </ul>
+        </nav>
+        <!-- END Sidebar (left)-->
+    </aside>
+    <!-- End aside-->
+    <!-- START Main section-->
+    <section>
+        <!-- START Page content-->
+        <!--<section class="main-content">-->
+        <!--<h3>-->
+        <!--Dashboard-->
+        <!--<br>-->
+        <!--<small>Welcome Kind Heart Warming Soul</small>-->
+        <!--</h3>-->
+        <!--</section>-->
+        <!-- END Page content-->
+    </section>
+    <!-- END Main section-->
+</section>
+
+{{{body}}}
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <!-- Plugins-->
