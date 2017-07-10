@@ -8,7 +8,7 @@ var models = require("../models/models.js");
 var rankPosition = "Quarterback",
 	rankYear = "2016",
 	rankCategory,
-	playerToSearch = "Odell Beckham",
+	playerToSearch = "Tom Brady",
 	teamToSearch = "Miami Dolphins";
 
 if(rankPosition === "Quarterback"){
@@ -25,16 +25,20 @@ router.get("/", function(req, res) {
 
 });
 
-
 router.get("/profile", function(req, res) {
-	// var id = req.params.id;
+	
 	var savedData = sessionStore.get("userData", function(error,data) {
 		if (error) throw error;
 		console.log("line 33", data);	
-		models.displayUser(data.id, function(modelData) {
-			console.log('modelData', modelData[0]);
-			res.render("profile", modelData[0]);	
-		});
+		try{
+			models.displayUser(data.id, function(modelData) {
+				console.log('modelData', modelData[0]);
+				res.render("profile", modelData[0]);	
+			});
+		}catch (err) {
+			console.error("40", err.message);
+			// res.render("Player not found. Please enter a valid player")			
+		}	
 	});
 		
 })
@@ -51,16 +55,22 @@ router.get("/ranking", function(req, res) {
   });
 });
 
-router.get("/player", function(req, res) {
+router.post("/player", function(req, res) {
 
-	console.log("controllers line 39");
+	console.log("controllers line 60");
 
-  models.player(
-  	["Player",], 
-  	[playerToSearch], 
-  	function() {
-  		res.redirect("/");
-  });
+		models.player(
+	  	["Player",], 
+	  	[playerToSearch], 
+	  	function(data) {
+	  		console.log("Controller line 66" + data);
+	  		if(data === "sorry player not found"){
+	  			res.render("profile", {Player:data})
+	  		}else{
+	  			res.render("profile", data);
+	  		}
+	  		
+	  });	  
 });
 
 router.get("/team", function(req, res) {
@@ -90,9 +100,7 @@ router.post("/signup", function(req, res) {
 
 			// console.log("data");
 			res.redirect("/login");
-		});
-
-	
+		});	
 });
 
 router.get("/signup", function(req, res) {
@@ -118,11 +126,8 @@ router.post("/login", function(req, res) {
 			// localStorage.setItem(data.id, data);
 			// res.end();
 			 res.redirect("/profile");
-		});
-
-	
+		});	
 });
-
 
 // Export routes for server.js to use.
 module.exports = router;
