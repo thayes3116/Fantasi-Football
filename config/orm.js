@@ -75,7 +75,7 @@ var orm = {
         for( var i = 0; i < cols.length; i++){
           queryString += cols[i] + " = " + "\"" + vals[i] + "\"" + " AND "
         }
-        queryString += "`Category` = " + "\"" + category + "\"" + " AND `Season Type` = 'Regular Season'";
+        queryString += "`Category` = " + "\"" + category + "\"" + " AND `Season Type` = 'Regular Season' ORDER BY Time ASC";
         
         console.log(queryString);    
         connection.query(queryString, function(err, result) {
@@ -112,6 +112,67 @@ var orm = {
 
     cb(teamResultsArray);  
   },
+  
+  createUser: function(table, valName, valEmail, valPassword, cb) {
+
+    var queryString = "INSERT INTO " + table;
+
+    queryString += " (name, email_address, password) VALUES ('" + valName + "',";
+    
+    queryString += " '"  + valEmail + "', '" + valPassword + "')";
+
+    console.log(queryString);
+
+    connection.query(queryString, function(err, result) {
+
+      if (err) throw err;
+      
+      console.log("created new user");
+    })
+  },
+
+  loginAs: function(table, valEmail, valPassword, cb) {
+
+    var queryString = "SELECT * FROM " + table;
+
+    queryString += " WHERE email_address = '" + valEmail + "'";
+
+    queryString +=  " AND password = '" + valPassword + "'";
+
+    console.log(queryString);
+
+    connection.query(queryString, function(err, result) {
+
+      if (err) throw err;
+      
+      if(!result[0]) {
+        
+        console.log("sorry email and password does not match");
+     
+      } else {
+
+        console.log(result[0]);
+     
+      }
+      
+    })
+  },
+
+  displayUser: function(table, id, cb) {
+
+    var queryString = "SELECT * FROM " + table;
+
+    queryString += " WHERE id = " + id;
+
+    console.log(queryString);
+
+    connection.query(queryString, function(err, result) {
+
+      if (err) throw err;
+
+      console.log(result);
+    })
+  }
 }
 
 // Export the orm object for the model (models.js).
