@@ -1,14 +1,19 @@
 // // Set up MySQL connection.
 var mysql = require("mysql");
+var session = require('express-session');
+var mysqlStore = require('express-mysql-session')(session);
 
-var connection = mysql.createConnection({
+
+var options = {
   port: 3306,
   host: "localhost",
-  user: "root",	
+  user: "root", 
   password: "",
-  database: "Fantasy"
-});
+  database: "Fantasy",
+}
 
+var connection = mysql.createConnection(options);
+var sessionStore = new mysqlStore({}, connection)
 // // // Make connection.
 connection.connect(function(err) {
   if (err) {
@@ -19,4 +24,8 @@ connection.connect(function(err) {
 });
 
 // // // Export connection for our ORM to use.
-module.exports = connection;
+module.exports = {
+  connection: connection,
+  sessionStore: sessionStore
+};
+

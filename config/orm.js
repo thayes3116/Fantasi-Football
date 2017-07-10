@@ -1,5 +1,5 @@
 // Import MySQL connection.
-var connection = require("../config/connection.js");
+var connection = require("../config/connection.js")['connection'];
 
 var yearArray = ["2016", "2015", "2014"];
 
@@ -128,6 +128,7 @@ var orm = {
       if (err) throw err;
       
       console.log("created new user");
+      cb(result);
     })
   },
 
@@ -150,7 +151,7 @@ var orm = {
         console.log("sorry email and password does not match");
      
       } else {
-
+ 
         console.log(result[0]);
         cb(result[0]);
         
@@ -160,11 +161,11 @@ var orm = {
     })
   },
 
-  displayUser: function(table, valEmail, cb) {
+  displayUser: function(table, id, cb) {
 
     var queryString = "SELECT * FROM " + table;
 
-    queryString += " WHERE email_address = " + id;
+    queryString += " WHERE id = " + id;
 
     console.log(queryString);
 
@@ -173,7 +174,9 @@ var orm = {
       if (err) throw err;
 
       console.log(result);
+       cb(result);
     })
+    
   }
 }
 
