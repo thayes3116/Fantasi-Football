@@ -133,7 +133,7 @@ var orm = {
 
   loginAs: function(table, valEmail, valPassword, cb) {
 
-    var queryString = "SELECT * FROM " + table;
+    var queryString = "SELECT id, name, favorite_players, favorite_teams FROM " + table;
 
     queryString += " WHERE email_address = '" + valEmail + "'";
 
@@ -152,17 +152,19 @@ var orm = {
       } else {
 
         console.log(result[0]);
-     
+        cb(result[0]);
+        
+
       }
       
     })
   },
 
-  displayUser: function(table, id, cb) {
+  displayUser: function(table, valEmail, cb) {
 
     var queryString = "SELECT * FROM " + table;
 
-    queryString += " WHERE id = " + id;
+    queryString += " WHERE email_address = " + id;
 
     console.log(queryString);
 

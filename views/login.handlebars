@@ -11,8 +11,8 @@
     <% } %> --}}
 
     <!-- LOGIN FORM -->
-    <form action="/profile/{{this.id}}" method="post">
-        <input type="hidden" name="id">
+    <form action="/profile" method="post">
+        {{!-- <input type="hidden" name="email"> --}}
         <div class="form-group">
             <label>Email</label>
             <input type="text" class="form-control" name="emailAddress">

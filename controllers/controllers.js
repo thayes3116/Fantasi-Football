@@ -26,22 +26,21 @@ router.get("/", function(req, res) {
 });
 
 
-router.get("/profile/:id", function(req, res) {
-	var id = req.params.id;
+router.get("/profile", function(req, res) {
+	// var id = req.params.id;
 	var testData;
-
+	
 	// console.log("get", res);
-		models.displayUser(
-			[req.params.id],
-			function (res) {
-				console.log("data", data);
-				vtestData = {
-					test: data
-				};
-				console.log("res", res);
+		// models.displayUser(
+		// 	function (data) {
+		// 		// console.log("data", data);
+		// 		testData = {
+		// 			test: data
+		// 		};
+		// 		// console.log("res", res);
 
 				
-			})
+			// })
 		// console.log(res);
 		res.render("profile");
 
@@ -109,19 +108,25 @@ router.get("/signup", function(req, res) {
 
 });
 
-router.post("/profile/:id", function(req, res) {
-
-	var id  = req.params.id;
+router.post("/profile", function(req, res) {
+	// console.log(req.body.emailAddress + " controller line 112 " + req.body.password);
+	// var id  = req.params.id;
 
 	models.loginAs(
 		[req.body.emailAddress],
 		[req.body.password], 
-		function() {
+		function(data) {
 
-			
+					
+ 
+			console.log("data", data);
+
+			console.log(data.id);
+			// localStorage.setItem(data.id, data);
+			res.redirect("/profile", data);
 		});
 
-	res.redirect("/profile/id");
+	
 });
 
 
