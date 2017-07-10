@@ -21,7 +21,7 @@ if(rankPosition === "Quarterback"){
 
 router.get("/", function(req, res) {
   
-  res.render("index");
+  res.render("index", {layout: "register"});
 
 });
 
@@ -77,10 +77,10 @@ router.get("/team", function(req, res) {
 
 router.get("/login", function(req, res) {
 
-	res.render("login");
+	res.render("login", {layout: "register"});
 });
 
-router.post("/profile/:id", function(req, res) {
+router.post("/signup", function(req, res) {
 
 	models.createUser(
 		[req.body.name],
@@ -89,7 +89,7 @@ router.post("/profile/:id", function(req, res) {
 		function() {
 
 			// console.log("data");
-			res.redirect("/profile");
+			res.redirect("/login");
 		});
 
 	
@@ -97,7 +97,7 @@ router.post("/profile/:id", function(req, res) {
 
 router.get("/signup", function(req, res) {
 
-	res.render("signup");
+	res.render("signup", {layout: "register"});
 
 });
 
