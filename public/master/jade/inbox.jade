@@ -1,0 +1,211 @@
+extends layout/main-layout
+
+block active-item
+  - menu['Pages']['active'] = 1
+  - menu['Pages']['S']['Mail Inbox']['active'] = 1
+
+block content
+
+  // START action buttons
+  .pull-right
+    .btn-group
+      button.btn.btn-default.btn-sm(type="button", data-toggle="tooltip", data-title="Reply")
+        em.fa.fa-fw.fa-mail-reply
+      button.btn.btn-default.btn-sm(type="button", data-toggle="tooltip", data-title="Reply All")
+        em.fa.fa-fw.fa-mail-reply-all
+      button.btn.btn-default.btn-sm(type="button", data-toggle="tooltip", data-title="Forward")
+        em.fa.fa-fw.fa-mail-forward
+      button.btn.btn-default.btn-sm(type="button", data-toggle="tooltip", data-title="Mark Spam")
+        em.fa.fa-fw.fa-exclamation
+      button.btn.btn-default.btn-sm(type="button", data-toggle="tooltip", data-title="Delete")
+        em.fa.fa-fw.fa-times
+  h3 Mail Inbox
+
+  .row
+    .col-lg-2.col-md-12
+      .clearfix.mb-lg
+        button.btn.btn-sm.btn-default.hidden-lg.pull-right(type="button",data-toggle="collapse", data-target=".inbox-boxes")
+          em.fa.fa-bars.fa-fw.fa-lg
+        button.btn.btn-purple.inbox-compose-button(type="button") 
+          strong NEW MAIL
+      // START mailbox list
+      .inbox-boxes
+        .panel.panel-default
+          .panel-body
+            ul.nav.nav-pills.nav-stacked
+              li.active
+                a(href='#')
+                  span.label.label-primary.pull-right 12
+                  em.fa.fa-inbox.fa-fw.fa-lg
+                  span Inbox
+              li
+                a(href='#') 
+                  span.label.label-primary.pull-right 6
+                  em.fa.fa-star.fa-fw.fa-lg
+                  span Starred
+              li
+                a(href='#') 
+                  span.label.label-primary.pull-right 5
+                  em.fa.fa-paper-plane-o.fa-fw.fa-lg
+                  span Sent
+              li
+                a(href='#') 
+                  span.label.label-primary.pull-right 1
+                  em.fa.fa-edit.fa-fw.fa-lg
+                  span Drafts
+              li
+                a(href='#') 
+                  span.label.label-primary.pull-right
+                  em.fa.fa-trash-o.fa-fw.fa-lg
+                  span Trash
+              li.p
+                form
+                  .form-group.has-feedback.m0
+                    span.fa.fa-search.form-control-feedback.text-muted
+                    input#input-mail-search.form-control(type='text', placeholder="Search here..")
+        .panel.panel-default
+          .panel-body
+            p: small Quota (60%)
+            .progress.progress-striped.progress-xs
+                .progress-bar.progress-bar-warning(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width: 60%;')
+                  span.sr-only 60% Complete
+      // END mailbox list
+    
+    .clearfix.hidden-lg
+
+    .col-lg-10.col-sm-12
+
+      // END action buttons
+      // START Mails
+      .panel.panel-default
+        .panel-body
+          table.table.table-hover.inbox-mails
+            thead
+              tr
+                th.check-all
+                  .checkbox.c-checkbox(data-toggle="tooltip",data-title="Check All")
+                    label
+                      input(type='checkbox')
+                      span.fa.fa-check
+            tbody
+              tr.inbox-mail-active
+                td
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox', checked="checked")
+                      span.fa.fa-check
+                td.text-center
+                  em.fa.fa-star.fa-lg.text-warning.inbox-mail-starred
+                td 
+                  .inbox-mail-date 01:45am
+                  img.inbox-mail-avatar(src="app/img/user/01.jpg", alt="Contact picture")
+                  .pull-left
+                    .inbox-mail-from Dana Weaver
+                    .inbox-mail-subject Donec ullamcorper vestibulum lorem
+                  .inbox-mail-preview Sed molestie eros sit amet diam hendrerit vel faucibus magna tincidunt. Cras fermentum posuere quam, sed iaculis justo rutrum at...
+              tr
+                td
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox')
+                      span.fa.fa-check
+                td.text-center
+                  em.fa.fa-star-o.fa-lg.text-muted.inbox-mail-starred
+                td 
+                  .inbox-mail-date 01:45am
+                  img.inbox-mail-avatar(src="app/img/user/02.jpg", alt="Contact picture")
+                  .pull-left
+                    .inbox-mail-from Beverly Douglas
+                    .inbox-mail-subject Donec ullamcorper vestibulum lorem
+                  .inbox-mail-preview Sed molestie eros sit amet diam hendrerit vel faucibus magna tincidunt. Cras fermentum posuere quam, sed iaculis justo rutrum at...
+              tr
+                td
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox')
+                      span.fa.fa-check
+                td.text-center
+                  em.fa.fa-star-o.fa-lg.text-muted.inbox-mail-starred
+                td 
+                  .inbox-mail-date 01:45am
+                  img.inbox-mail-avatar(src="app/img/user/03.jpg", alt="Contact picture")
+                  .pull-left
+                    .inbox-mail-from Bryan Marshall
+                    .inbox-mail-subject Donec ullamcorper vestibulum lorem
+                  .inbox-mail-preview Sed molestie eros sit amet diam hendrerit vel faucibus magna tincidunt. Cras fermentum posuere quam, sed iaculis justo rutrum at...
+              tr
+                td
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox')
+                      span.fa.fa-check
+                td.text-center
+                  em.fa.fa-star-o.fa-lg.text-muted.inbox-mail-starred
+                td 
+                  .inbox-mail-date 08:20am
+                  img.inbox-mail-avatar(src="app/img/user/04.jpg", alt="Contact picture")
+                  .pull-left
+                    .inbox-mail-from Carter George
+                    .inbox-mail-subject Donec ullamcorper vestibulum lorem
+                  .inbox-mail-preview Sed molestie eros sit amet diam hendrerit vel faucibus magna tincidunt. Cras fermentum posuere quam, sed iaculis justo rutrum at...
+              tr
+                td
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox')
+                      span.fa.fa-check
+                td.text-center
+                  em.fa.fa-star-o.fa-lg.text-muted.inbox-mail-starred
+                td 
+                  .inbox-mail-date 01:45am
+                  img.inbox-mail-avatar(src="app/img/user/05.jpg", alt="Contact picture")
+                  .pull-left
+                    .inbox-mail-from Olivia Ford
+                    .inbox-mail-subject Morbi dapibus sollicitudin lorem vel tempus. 
+                  .inbox-mail-preview Sed molestie eros sit amet diam hendrerit vel faucibus magna tincidunt. Cras fermentum posuere quam, sed iaculis justo rutrum at...
+              tr
+                td
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox')
+                      span.fa.fa-check
+                td.text-center
+                  em.fa.fa-star-o.fa-lg.text-muted.inbox-mail-starred
+                td 
+                  .inbox-mail-date 08:20am
+                  img.inbox-mail-avatar(src="app/img/user/06.jpg", alt="Contact picture")
+                  .pull-left
+                    .inbox-mail-from Jackie Lopez
+                    .inbox-mail-subject Morbi dapibus sollicitudin lorem vel tempus. 
+                  .inbox-mail-preview Sed molestie eros sit amet diam hendrerit vel faucibus magna tincidunt. Cras fermentum posuere quam, sed iaculis justo rutrum at...
+              tr
+                td
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox')
+                      span.fa.fa-check
+                td.text-center
+                  em.fa.fa-star-o.fa-lg.text-muted.inbox-mail-starred
+                td 
+                  .inbox-mail-date 01:45am
+                  img.inbox-mail-avatar(src="app/img/user/07.jpg", alt="Contact picture")
+                  .pull-left
+                    .inbox-mail-from Elizabeth Robinson
+                    .inbox-mail-subject Donec ullamcorper vestibulum lorem
+                  .inbox-mail-preview Sed molestie eros sit amet diam hendrerit vel faucibus magna tincidunt. Cras fermentum posuere quam, sed iaculis justo rutrum at...
+              tr
+                td
+                  .checkbox.c-checkbox
+                    label
+                      input(type='checkbox')
+                      span.fa.fa-check
+                td.text-center
+                  em.fa.fa-star-o.fa-lg.text-muted.inbox-mail-starred
+                td 
+                  .inbox-mail-date 08:20am
+                  img.inbox-mail-avatar(src="app/img/user/08.jpg", alt="Contact picture")
+                  .pull-left
+                    .inbox-mail-from Cindy Fields
+                    .inbox-mail-subject Morbi dapibus sollicitudin lorem vel tempus. 
+                  .inbox-mail-preview Sed molestie eros sit amet diam hendrerit vel faucibus magna tincidunt. Cras fermentum posuere quam, sed iaculis justo rutrum at...
+      // END Mails
