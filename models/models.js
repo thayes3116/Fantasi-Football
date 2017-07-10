@@ -17,6 +17,22 @@ var models = {
 		orm.team("nfl", cols, vals, function(res) {
 			cb(res);
 		});
+	},
+	createUser: function(valName, valEmail, valPassword, cb) {
+		orm.createUser("user", valName, valEmail, valPassword, function(res) {
+			cb(res);
+		})
+	},
+	loginAs: function(valEmail, valPassword, cb) {
+		orm.loginAs("user", valEmail, valPassword, function(res) {
+			cb(res);
+		})
+	},
+
+	displayUser: function(id, cb) {
+		orm.displayUser("user", id, function(res) {
+			cb(res);
+		})
 	}
 };	
 
