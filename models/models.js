@@ -29,11 +29,11 @@ var models = {
 		})
 	},
 
-	displayUser: function(id, cb) {
-		orm.displayUser("user", id, function(res) {
-			cb(res);
-		})
-	}
+	// displayUser: function(id, cb) {
+	// 	orm.displayUser("user", id, function(res) {
+	// 		cb(res);
+	// 	})
+	// }
 };	
 
 // Export the database functions for the controller (controller.js).
