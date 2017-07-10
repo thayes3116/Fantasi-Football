@@ -1,7 +1,7 @@
 var express = require("express");
 
 var router = express.Router();
-
+var sessionStore = require("../config/connection.js")['sessionStore'];
 // Import the model (models.js) to use its database functions.
 var models = require("../models/models.js");
 
@@ -28,22 +28,15 @@ router.get("/", function(req, res) {
 
 router.get("/profile", function(req, res) {
 	// var id = req.params.id;
-	var testData;
-	
-	// console.log("get", res);
-		// models.displayUser(
-		// 	function (data) {
-		// 		// console.log("data", data);
-		// 		testData = {
-		// 			test: data
-		// 		};
-		// 		// console.log("res", res);
-
-				
-			// })
-		// console.log(res);
-		res.render("profile");
-
+	var savedData = sessionStore.get("userData", function(error,data) {
+		if (error) throw error;
+		console.log("line 33", data);	
+		models.displayUser(data.id, function(modelData) {
+			console.log('modelData', modelData[0]);
+			res.render("profile", modelData[0]);	
+		});
+	});
+		
 })
 
 router.get("/ranking", function(req, res) {
@@ -87,20 +80,20 @@ router.get("/login", function(req, res) {
 	res.render("login");
 });
 
-// router.post("/profile/:id", function(req, res) {
+router.post("/profile/:id", function(req, res) {
 
-// 	models.createUser(
-// 		[req.body.name],
-// 		[req.body.emailAddress],
-// 		[req.body.password],
-// 		function() {
+	models.createUser(
+		[req.body.name],
+		[req.body.emailAddress],
+		[req.body.password],
+		function() {
 
-// 			// console.log("data");
-// 			res.redirect("/profile");
-// 		});
+			// console.log("data");
+			res.redirect("/profile");
+		});
 
 	
-// });
+});
 
 router.get("/signup", function(req, res) {
 
@@ -108,22 +101,23 @@ router.get("/signup", function(req, res) {
 
 });
 
-router.post("/profile", function(req, res) {
+router.post("/login", function(req, res) {
 	// console.log(req.body.emailAddress + " controller line 112 " + req.body.password);
 	// var id  = req.params.id;
 
 	models.loginAs(
 		[req.body.emailAddress],
 		[req.body.password], 
-		function(data) {
 
-					
+		function(data) {
  
 			console.log("data", data);
 
-			console.log(data.id);
+			console.log("line 122", data);
+			sessionStore.set("userData",{id: data.id});
 			// localStorage.setItem(data.id, data);
-			res.redirect("/profile", data);
+			// res.end();
+			 res.redirect("/profile");
 		});
 
 	
