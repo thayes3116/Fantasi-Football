@@ -76,7 +76,7 @@ router.post("/player", function(req, res) {
 	  		}else{
 	  			res.render("player", {player: data});
 	  		}
-  		console.log("data 63", data);
+  		// console.log("data 63", data);
 
   });
 });	  	
