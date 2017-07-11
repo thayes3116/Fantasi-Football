@@ -1,23 +1,117 @@
 <div class="window">
-	{{#each player}}
-	<h1>{{this.Player}}</h1>
-	<h1>{{this.Team}}</h1>
-	<h1>{{this.Position}}
-	<h1>{{this.Time}}</h1>
-
-	<h3>Touch Downs: {{this.TD}}</h3>
-	<h3>Total Yards: {{this.Yards}}</h3>
-	<h3>Yards Per Game: {{this.YPG}}</h3>
-	<h3>Total Receptions: {{this.Receptions}}</h3>
-	<h3>Position Rank: {{this.Rank}}</h3>
-
+	<!-- {{#each player}} -->
+	<h1 id ="name"></h1>
+	<h1 id ="team"></h1>
+	<h1 id ="position"></h1>
+	<h1 id ="rank"></h1>	
+	<!-- {{/each}} -->
 	<hr>
-	{{/each}}
-
-</div>
+	<canvas id = "myChart"></canvas>
 <style type="text/css">
 	.window {
 		margin: 40px;
 		margin-top: 180px;
 	}
 </style>
+
+<script>
+	var data1 = [];
+	var data2 = [];
+	var data3 = [];
+	var data4 = [];
+	var label1;
+	var label2;
+	var label3;
+	var label4;
+
+{{#each player}}
+
+console.log("{{this.Position}}");
+
+	$("#name").html("{{this.Player}}")
+	$("#team").html("{{this.Team}}")
+	$("#position").html("{{this.Position}}")
+	$("#rank").html("{{this.Rank}}")
+
+if("{{this.Position}}" === "Wide Receiver"){
+	data1.push({{this.TD}})
+	data2.push({{this.Yards}})
+	data3.push({{this.YPG}})
+	data4.push({{this.Receptions}})
+	var label1 = "Touch Downs";
+	var label2 = "Total Receiving Yards";
+	var label3 = "Yard Per Game";
+	var label4 = "Receptions" ;
+
+}else if("{{this.Position}}" === "Quarterback"){
+
+	data1.push({{this.TD}})
+	data2.push({{this.PasserRating}})
+	data3.push({{this.YPG}})
+	data4.push({{this.Interception}})
+	var label1 = "Touch Downs";
+	var label2 = "Passer Rating";
+	var label3 = "Yard Per Game";
+	var label4 = "Interception" ;
+
+}else if("{{this.Position}}" === "Running Back"){
+	data1.push({{this.TD}})
+	data2.push({{this.YPG}})
+	data3.push({{this.RushAttempts}})
+	data4.push({{this.AvgYards}})
+	var label1 = "Touch Downs";
+	var label2 = "Yard Per Game";
+	var label3 = "Rushing Attempts";
+	var label4 = "Average Yards Per Carry" ;
+}
+{{/each}}
+	console.log(data1);
+	console.log(data2);
+	console.log(data3);
+	console.log(data4);
+
+	var ctx = $("#myChart");
+    var myChart = new Chart(ctx, {
+
+        type: 'bar',
+        data: {
+            labels: ["2014", "2015", "2016"],
+            datasets: [{
+                label: label1,
+                backgroundColor: "blue",
+                data: data1
+            },
+            {
+                label: label2,
+                backgroundColor: "red",
+                data: data2
+            },
+            {
+                label: label3,
+                backgroundColor: "green",
+                data: data3                        },
+            {
+                label: label4,
+                backgroundColor: "yellow",
+                data: data4
+            },
+            ]
+
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    categorySpacing: 0
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+
+</script>
+
+	
