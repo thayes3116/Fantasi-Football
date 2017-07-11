@@ -11,14 +11,6 @@ var rankPosition = "Quarterback",
 	playerToSearch = "Tom Brady",
 	teamToSearch = "Miami Dolphins";
 
-if(rankPosition === "Quarterback"){
-	rankCategory = "Passing";
-}else if(rankPosition === "Running Back"){
-	rankCategory = "Rushing";
-}else if(rankPosition === "Wide Receiver"){
-	rankCategory = "Receiving";
-}
-
 router.get("/", function(req, res) {
   
   res.render("index", {layout: "register"});
@@ -43,47 +35,51 @@ router.get("/profile", function(req, res) {
 		
 })
 
-router.post("/ranking", function(req, res) {
 
+router.post("/position", function(req, res) {
+	var positionSearch =req.body.positionSearch;
+	console.log(positionSearch);
+	if(positionSearch === "Quarterback"){
+	rankCategory = "Passing";
+}else if(positionSearch === "Running Back"){
+	rankCategory = "Rushing";
+}else if(positionSearch === "Wide Receiver"){
+	rankCategory = "Receiving";
+}
 	console.log("controllers line 27");
 
   models.ranking(
-
   	["Category", "Position"], 
-  	[rankCategory, rankPosition], 
-
+  	[rankCategory, positionSearch], 
   	function(data) {
-
-  		console.log("Controller line 66" , data);
-
-	  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
+      
+  		console.log("data 50", data);
+  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
 	  			
 	  			res.render("profile", {Player:data})
 
 	  		}else{
 
-	  			res.render("profile", {ranking:data}); 			
+	  			res.render("profile", {rank:data}); 			
 	  		}
   });
 });
 
 router.post("/player", function(req, res) {
 
-	console.log("controllers line 60");
-
-		models.player(
-	  	["Player",], 
-	  	[playerToSearch], 
-	  	function(data) {
-	  		console.log("Controller line 66" + data);
-	  		if(data === "sorry player not found"){
+  models.player(
+  	["Player",], 
+  	[req.body.playerSearch], 
+  	function(data) {
+        if(data === "sorry player not found"){
 	  			res.render("profile", {Player:data})
 	  		}else{
-	  			res.render("profile", data);
+	  			res.render("profile", {player: data});
 	  		}
-	  		
-	  });	  
-});
+  		console.log("data 63", data);
+
+  });
+});	  	
 
 router.post("/team", function(req, res) {
 
@@ -91,16 +87,17 @@ router.post("/team", function(req, res) {
 
   models.team(
   	["Team",], 
-  	[teamToSearch], 
+  	[req.body.teamSearch], 
   	function(data) {
   		console.log(data);
   		if(data === "sorry team not found"){
 	  			res.render("profile", {Player:data})
 	  		}else{
-	  			res.render("profile", data);
+	  			res.render("profile", {team: data});
 	  		}
 	});  		
 });
+
 
 router.get("/login", function(req, res) {
 
@@ -138,6 +135,7 @@ router.post("/login", function(req, res) {
 			res.redirect("/profile");
 		});	
 });
+
 
 // Export routes for server.js to use.
 module.exports = router;

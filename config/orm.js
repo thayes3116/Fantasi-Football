@@ -98,6 +98,7 @@ var orm = {
           for( var i = 0; i < cols.length; i++){
             queryString += cols[i] + " = " + "\"" + vals[i] + "\"" + " AND "
           }
+
           queryString += "`Category` = " + "\"" + category + "\"" + " AND `Season Type` = 'Regular Season' ORDER BY Time ASC";
           
           console.log(queryString); 
@@ -119,15 +120,19 @@ var orm = {
   },
   team: function(table, cols, vals, cb) {
 
+
       var queryString = "SELECT `Team`, `Time`, sum(`Touch Downs`), sum(`Total_Points_Game_Average`), sum(`Sacked`), sum(`Fumbles_Total`), sum(`Interception`) FROM " + table;
 
       queryString += " WHERE " + cols[0] + " = " + "\"" + vals[0] + "\"";   
       
+
       queryString += " AND `Season Type` = 'Regular Season' GROUP BY `TIME` DESC;";
+
       
       console.log(queryString);    
 
       connection.query(queryString, function(err, result) {
+
 
         if (err) throw err;
           
@@ -150,6 +155,7 @@ var orm = {
           }  
         
       })    
+
   },
   
   createUser: function(table, valName, valEmail, valPassword, cb) {
