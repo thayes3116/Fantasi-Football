@@ -1,9 +1,6 @@
 // Import MySQL connection.
 var connection = require("../config/connection.js")['connection'];
 
-var yearArray = ["2016", "2015", "2014"];
-
-var teamResultsArray = [];
 // Helper function for SQL syntax.
 // function printQuestionMarks(num) {
 //   var arr = [];
@@ -29,22 +26,40 @@ var teamResultsArray = [];
 // }
 
 var orm = {
+
   ranking: function(table, cols, vals, cb) {
+    
     var queryString = "SELECT `Rank`, `Player`, `Team` FROM " + table;
 
     queryString += " WHERE ";   
     for( var i = 0; i < cols.length; i++){
       queryString += cols[i] + " = " + "\"" + vals[i] + "\"" + " AND "
     }
-    queryString += "`Season Type` = 'Regular Season' AND `Rank` < 20 ORDER BY `Rank` ASC;";
+    queryString += "`Season Type` = 'Regular Season' AND `Time` = 2016 AND `Rank` < 11 ORDER BY `Rank` ASC;";
     
-    console.log(queryString);    
+    console.log(queryString); 
+
     connection.query(queryString, function(err, result) {
-      if (err) {
-        throw err;
-      }
-      console.log(result);
-      cb(result);
+
+       if (err) throw err;
+          
+          try{
+
+            if(!result[0]) {
+            
+              throw new Error("Please enter Running Back, Quarterback, or Wide Receiver");
+            
+            }else {
+
+              cb(result);
+
+            }
+
+          }catch(ex){
+
+            console.log(ex.message);
+            cb(ex.message);
+          } 
     });
   },
 
@@ -104,28 +119,37 @@ var orm = {
   },
   team: function(table, cols, vals, cb) {
 
-    for( var i = 0; i < yearArray.length; i ++){
-
       var queryString = "SELECT `Team`, `Time`, sum(`Touch Downs`), sum(`Total_Points_Game_Average`), sum(`Sacked`), sum(`Fumbles_Total`), sum(`Interception`) FROM " + table;
 
       queryString += " WHERE " + cols[0] + " = " + "\"" + vals[0] + "\"";   
       
-      queryString += " AND `Season Type` = 'Regular Season' AND `Time` = " + yearArray[i] + ";";
+      queryString += " AND `Season Type` = 'Regular Season' GROUP BY `TIME` DESC;";
       
       console.log(queryString);    
+
       connection.query(queryString, function(err, result) {
-        if (err) {
-          throw err;
-        }
-        teamResultsArray.push(result);
-        console.log(result);
-      });
 
-    }
+        if (err) throw err;
+          
+          try{
 
-    console.log(teamResultsArray);
+            if(!result[0]) {
+            
+              throw new Error("sorry team not found");
+            
+            }else {
 
-    cb(teamResultsArray);  
+              cb(result);
+
+            }
+
+          }catch(ex){
+
+            console.log(ex.message);
+            cb(ex.message);
+          }  
+        
+      })    
   },
   
   createUser: function(table, valName, valEmail, valPassword, cb) {

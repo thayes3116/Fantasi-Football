@@ -13,7 +13,7 @@ var rankPosition = "Quarterback",
 
 if(rankPosition === "Quarterback"){
 	rankCategory = "Passing";
-}else if(rankPosition === "Runnning Back"){
+}else if(rankPosition === "Running Back"){
 	rankCategory = "Rushing";
 }else if(rankPosition === "Wide Receiver"){
 	rankCategory = "Receiving";
@@ -43,15 +43,27 @@ router.get("/profile", function(req, res) {
 		
 })
 
-router.get("/ranking", function(req, res) {
+router.post("/ranking", function(req, res) {
 
 	console.log("controllers line 27");
 
   models.ranking(
-  	["Category", "Time", "Position"], 
-  	[rankCategory, rankYear, rankPosition], 
-  	function() {
-  		res.redirect("/");
+
+  	["Category", "Position"], 
+  	[rankCategory, rankPosition], 
+
+  	function(data) {
+
+  		console.log("Controller line 66" , data);
+
+	  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
+	  			
+	  			res.render("profile", {Player:data})
+
+	  		}else{
+
+	  			res.render("profile", {ranking:data}); 			
+	  		}
   });
 });
 
@@ -73,16 +85,21 @@ router.post("/player", function(req, res) {
 	  });	  
 });
 
-router.get("/team", function(req, res) {
+router.post("/team", function(req, res) {
 
-	console.log("controllers line 51");
+	console.log("controllers line 78");
 
   models.team(
   	["Team",], 
   	[teamToSearch], 
-  	function() {
-  		res.redirect("/");
-  });
+  	function(data) {
+  		console.log(data);
+  		if(data === "sorry team not found"){
+	  			res.render("profile", {Player:data})
+	  		}else{
+	  			res.render("profile", data);
+	  		}
+	});  		
 });
 
 router.get("/login", function(req, res) {
@@ -110,22 +127,15 @@ router.get("/signup", function(req, res) {
 });
 
 router.post("/login", function(req, res) {
-	// console.log(req.body.emailAddress + " controller line 112 " + req.body.password);
-	// var id  = req.params.id;
 
 	models.loginAs(
 		[req.body.emailAddress],
 		[req.body.password], 
 
 		function(data) {
- 
-			console.log("data", data);
-
 			console.log("line 122", data);
 			sessionStore.set("userData",{id: data.id});
-			// localStorage.setItem(data.id, data);
-			// res.end();
-			 res.redirect("/profile");
+			res.redirect("/profile");
 		});	
 });
 
