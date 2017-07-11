@@ -72,9 +72,9 @@ router.post("/player", function(req, res) {
   	[req.body.playerSearch], 
   	function(data) {
         if(data === "sorry player not found"){
-	  			res.render("profile", {Player:data})
+	  			res.render("player", {Player:data})
 	  		}else{
-	  			res.render("profile", {player: data});
+	  			res.render("player", {player: data});
 	  		}
   		console.log("data 63", data);
 
@@ -91,9 +91,9 @@ router.post("/team", function(req, res) {
   	function(data) {
   		console.log(data);
   		if(data === "sorry team not found"){
-	  			res.render("profile", {Player:data})
+	  			res.render("team", {Player:data})
 	  		}else{
-	  			res.render("profile", {team: data});
+	  			res.render("team", {team: data});
 	  		}
 	});  		
 });
