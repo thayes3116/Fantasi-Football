@@ -5,11 +5,7 @@
 <h1>{{this.favorite_teams}}</h1>
 
 
-{{#each team}}
-<h1>{{this.Team}}</h1>
-<h1>{{this.Time}}</h1>
 
-{{/each}}
 
 {{#each player}}
 <h1>{{this.Player}}</h1>
@@ -18,9 +14,10 @@
 
 {{/each}}
 
-{{#each rank}}
 <h1>{{this.Position}}</h1>
-<h1>{{this.Player}}</h1>
-<h1>{{this.Rank}}</h1>
+{{#each rank}}
+
+<h1>{{this.Rank}}. {{this.Player}}</h1>
+
 {{/each}}
 

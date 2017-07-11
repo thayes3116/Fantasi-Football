@@ -83,15 +83,15 @@ var orm = {
         
           if(result[0].Position === "Quarterback"){
             var category = "Passing";      
-            var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs`, `Passer_Rating`, `Yards_Per_Game_Average`, `Interception`, `Time` FROM " + table;
+            var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs` AS TD, `Passer_Rating` AS PasserRating, `Yards_Per_Game_Average` AS YPG, `Interception`, `Time` FROM " + table;
 
           }else if(result[0].Position === "Running Back"){
             var category = "Rushing";
-            var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`,`Touch Downs`, `Yards_Per_Game_Average`,     `Attempts_Per_Game`, `Average_Yards`, `Time` FROM " + table;
+            var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`,`Touch Downs` AS TD, `Yards_Per_Game_Average` AS YPG, `Attempts_Per_Game` AS RushAttempts, `Average_Yards` AS AvgYards, `Time` FROM " + table;
            
           }else if(result[0].Position === "Wide Receiver"){
             var category = "Receiving";
-            var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs`, `Yards`, `Yards_Per_Game_Average`, `Receptions`, `Time` FROM " + table;
+            var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs` AS TD, `Yards`, `Yards_Per_Game_Average` AS YPG, `Receptions`, `Time` FROM " + table;
           }
 
           queryString += " WHERE ";   
@@ -107,7 +107,7 @@ var orm = {
 
             if (err) throw err;
 
-            cb(result[0]);
+            cb(result);
         
           }); 
         } 
@@ -121,7 +121,7 @@ var orm = {
   team: function(table, cols, vals, cb) {
 
 
-      var queryString = "SELECT `Team`, `Time`, sum(`Touch Downs`), sum(`Total_Points_Game_Average`), sum(`Sacked`), sum(`Fumbles_Total`), sum(`Interception`) FROM " + table;
+      var queryString = "SELECT `Team`, `Time`, sum(`Touch Downs`) AS TD, sum(`Total_Points_Game_Average`) AS PPG, sum(`Sacked`) AS Sacked, sum(`Fumbles_Total`) AS Fumbles, sum(`Interception`) AS Interceptions FROM " + table;
 
       queryString += " WHERE " + cols[0] + " = " + "\"" + vals[0] + "\"";   
       

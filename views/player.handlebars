@@ -1,0 +1,23 @@
+<div class="window">
+	{{#each player}}
+	<h1>{{this.Player}}</h1>
+	<h1>{{this.Team}}</h1>
+	<h1>{{this.Position}}
+	<h1>{{this.Time}}</h1>
+
+	<h3>Touch Downs: {{this.TD}}</h3>
+	<h3>Total Yards: {{this.Yards}}</h3>
+	<h3>Yards Per Game: {{this.YPG}}</h3>
+	<h3>Total Receptions: {{this.Receptions}}</h3>
+	<h3>Position Rank: {{this.Rank}}</h3>
+
+	<hr>
+	{{/each}}
+
+</div>
+<style type="text/css">
+	.window {
+		margin: 40px;
+		margin-top: 180px;
+	}
+</style>
