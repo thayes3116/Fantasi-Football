@@ -11,13 +11,7 @@ var rankPosition = "Quarterback",
 	playerToSearch = "Odell Beckham",
 	teamToSearch = "Miami Dolphins";
 
-if(rankPosition === "Quarterback"){
-	rankCategory = "Passing";
-}else if(rankPosition === "Runnning Back"){
-	rankCategory = "Rushing";
-}else if(rankPosition === "Wide Receiver"){
-	rankCategory = "Receiving";
-}
+
 
 router.get("/", function(req, res) {
   
@@ -39,41 +33,52 @@ router.get("/profile", function(req, res) {
 		
 })
 
-router.get("/ranking", function(req, res) {
-
+router.post("/position", function(req, res) {
+	var positionSearch =req.body.positionSearch;
+	console.log(positionSearch);
+	if(positionSearch === "Quarterback"){
+	rankCategory = "Passing";
+}else if(positionSearch === "Running Back"){
+	rankCategory = "Rushing";
+}else if(positionSearch === "Wide Receiver"){
+	rankCategory = "Receiving";
+}
 	console.log("controllers line 27");
 
   models.ranking(
   	["Category", "Time", "Position"], 
-  	[rankCategory, rankYear, rankPosition], 
-  	function() {
-  		res.redirect("/");
+  	[rankCategory, rankYear, positionSearch], 
+  	function(data) {
+  		console.log("data 50", data);
+  		res.render('profile', {rank: data});
   });
 });
 
-router.get("/player", function(req, res) {
+router.post("/player", function(req, res) {
 
 	console.log("controllers line 39");
 
   models.player(
   	["Player",], 
-  	[playerToSearch], 
-  	function() {
-  		res.redirect("/");
+  	[req.body.playerSearch], 
+  	function(data) {
+
+  		console.log("data 63", data);
+  		res.render("profile", {player: data});
   });
 });
 
-router.get("/team", function(req, res) {
+// router.get("/team", function(req, res) {
 
-	console.log("controllers line 51");
+// 	console.log("controllers line 51");
 
-  models.team(
-  	["Team",], 
-  	[teamToSearch], 
-  	function() {
-  		res.redirect("/");
-  });
-});
+//   models.team(
+//   	["Team",], 
+//   	[teamToSearch], 
+//   	function() {
+//   		res.redirect("/");
+//   });
+// });
 
 router.get("/login", function(req, res) {
 
@@ -122,6 +127,21 @@ router.post("/login", function(req, res) {
 
 	
 });
+
+router.post("/team", function(req, res) {
+	console.log("team button", req.body.teams);
+	console.log("team search", req.body.teamSearch);
+
+	models.team(
+  	["Team"],  
+  	[req.body.teamSearch], 
+  	function(data) {
+  		console.log("data 134", data);
+  		res.render('profile', {team: data});
+  	});
+
+	
+})
 
 
 // Export routes for server.js to use.

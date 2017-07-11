@@ -82,35 +82,38 @@ var orm = {
           if (err) {
             throw err;
           }
-          console.log(result);
+          // console.log(result);
           cb(result);
         });     
     });    
   },
   team: function(table, cols, vals, cb) {
 
-    for( var i = 0; i < yearArray.length; i ++){
+    
 
       var queryString = "SELECT `Team`, `Time`, sum(`Touch Downs`), sum(`Total_Points_Game_Average`), sum(`Sacked`), sum(`Fumbles_Total`), sum(`Interception`) FROM " + table;
 
       queryString += " WHERE " + cols[0] + " = " + "\"" + vals[0] + "\"";   
       
-      queryString += " AND `Season Type` = 'Regular Season' AND `Time` = " + yearArray[i] + ";";
+      queryString += " AND `Season Type` = 'Regular Season' GROUP BY `Time` DESC;";
       
       console.log(queryString);    
       connection.query(queryString, function(err, result) {
         if (err) {
           throw err;
         }
-        teamResultsArray.push(result);
-        console.log(result);
+     
+        // console.log(result);
+        cb(result);
+
+      
       });
 
-    }
+    
 
-    console.log(teamResultsArray);
+    // console.log(teamResultsArray);
 
-    cb(teamResultsArray);  
+    // cb(teamResultsArray);  
   },
   
   createUser: function(table, valName, valEmail, valPassword, cb) {
