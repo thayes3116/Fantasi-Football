@@ -60,42 +60,53 @@
                         <em class="fa fa-align-left"></em>
                     </a>
                 </li>
-                <form method="post" action="/team">
+                <!-- <form method="post" action="/team"> -->
 	                <li>
-	                    <button type="submit" class="btn btn-default" name="teamsBtn">
+	                    <button type="submit" class="btn btn-default" id="teamBtn">
 	                        <strong>TEAMS</strong>
 	                    </button>
-	                    <input id="searchTeam" class="searches" type="text" placeholder="Search by Team" name="teamSearch">
+	                   <!-- <input id="searchTeam" class="searches" type="text" placeholder="Search by Team" name="teamSearch"> -->
 	                </li>
-	            </form>
-	            <form method="post" action="/player">    
+	            <!-- </form> -->
+	         <!--   <form method="post" action="/player">   -->  
 	                <li>
-	                    <button type="submit" class="btn btn-default">
+	                    <button type="submit" class="btn btn-default" id="playerBtn">
 	                        <strong>PLAYERS</strong>
 	                    </button>
-	                    <input id="searchPlayers" class="searches" type="text" placeholder="Search by Players" name="playerSearch">
+	                   <!-- <input id="searchPlayers" class="searches" type="text" placeholder="Search by Players" name="playerSearch"> -->
 	                </li>
-	            </form>
-	            <form method="post" action="/position">
+	            <!-- </form> -->
+	           <!--  <form method="post" action="/position"> -->
 	                <li>
-	                    <button type="submit" class="btn btn-default">
+	                    <button type="submit" class="btn btn-default" id="positionBtn">
 	                        <strong>POSITIONS</strong>
 	                    </button>
-	                    <input id="searchPosition" class="searches" type="text" placeholder="Search by Position" name="positionSearch">
+	                   <!-- <input id="searchPosition" class="searches" type="text" placeholder="Search by Position" name="positionSearch"> -->
 	                </li>
-                </form>
+               <!-- </form> -->
                 <!-- ADD BUTTTONS HERE-->
-                <li>
+<!--                 <li>
                     <a href="#" data-toggle="navbar-search">
                         <em class="fa fa-search"></em>
                     </a>
-                </li>
+                </li> -->
             </ul>
+
+            <form method="post" action="/team">
+                <input id="searchTeam" class="searches" type="text" placeholder="Search by Team" name="teamSearch">
+            </form>
+            <form method="post" action="/player">
+                <input id="searchPlayers" class="searches" type="text" placeholder="Search by Players" name="playerSearch">
+            </form>
+            <form method="post" action="/position">
+                <input id="searchPosition" class="searches" type="text" placeholder="Search by Position" name="positionSearch">
+            </form>
+
             <!-- END Left navbar-->
 
             <!-- START Right Navbar-->
             <!-- <ul class="nav navbar-nav navbar-right">
-                <!-- PUT USER AVATAR HERE-->
+                <! PUT USER AVATAR HERE-->
             <!-- </ul> --> 
             <!-- END Right Navbar-->
 
@@ -234,6 +245,33 @@
 <script src="vendor/sparklines/jquery.sparkline.min.js"></script>
 <!-- Slimscroll-->
 <script src="vendor/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script>
+
+$(document).ready(function(){
+    $("#searchTeam").toggle();
+    $("#teamBtn").on("click", function(event) {
+        event.preventDefault();
+        $("#searchTeam").toggle(500);
+  });
+
+    $("#searchPlayers").toggle();
+    $("#playerBtn").on("click", function(event) {
+        event.preventDefault();
+        $("#searchPlayers").toggle(500);
+    });
+
+    $("#searchPosition").toggle();
+
+    $("#positionBtn").on("click", function(event) {
+        event.preventDefault();
+        $("#searchPosition").toggle(500);
+  });  
+});
+
+
+
+</script>
 
 <!-- App Main-->
 <script src="app/js/app.js"></script>
