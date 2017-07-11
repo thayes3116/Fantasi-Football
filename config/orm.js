@@ -107,7 +107,7 @@ var orm = {
 
             if (err) throw err;
 
-            cb(result[0]);
+            cb(result);
         
           }); 
         } 

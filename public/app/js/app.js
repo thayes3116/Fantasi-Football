@@ -1352,8 +1352,10 @@
  * Auto dismiss on ESC key
  =========================================================*/
 
+
 (function($, window, document){
-  
+
+  // this is pineapple
   $(function() {
 
     var openSelector    = '[data-toggle="navbar-search"]',
