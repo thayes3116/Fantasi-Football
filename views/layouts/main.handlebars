@@ -44,38 +44,38 @@
         <!-- END navbar header-->
 
         <!-- START Nav wrapper-->
-        <div class="nav-wrapper">
-            <!-- START Left navbar-->
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="#" data-toggle="aside">
-                        <em class="fa fa-align-left"></em>
-                    </a>
-                </li>
-                <form method="post" action="/team">
-	                <li>
-	                    <button type="submit" class="btn btn-default" name="teamsBtn">
-	                        <strong>TEAMS</strong>
-	                    </button>
-	                    <input id="searchTeam" class="searches" type="text" placeholder="Search by Team" name="teamSearch">
-	                </li>
-	            </form>
-	            <form method="post" action="/player">    
-	                <li>
-	                    <button type="submit" class="btn btn-default">
-	                        <strong>PLAYERS</strong>
-	                    </button>
-	                    <input id="searchPlayers" class="searches" type="text" placeholder="Search by Players" name="playerSearch">
-	                </li>
-	            </form>
-	            <form method="post" action="/position">
-	                <li>
-	                    <button type="submit" class="btn btn-default">
-	                        <strong>POSITIONS</strong>
-	                    </button>
-	                    <input id="searchPosition" class="searches" type="text" placeholder="Search by Position" name="positionSearch">
-	                </li>
-                </form>
+        <!--<div class="nav-wrapper">-->
+            <!--&lt;!&ndash; START Left navbar&ndash;&gt;-->
+            <!--<ul class="nav navbar-nav">-->
+                <!--<li>-->
+                    <!--<a href="#" data-toggle="aside">-->
+                        <!--<em class="fa fa-align-left"></em>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<form method="post" action="/team">-->
+	                <!--<li>-->
+	                    <!--<button type="submit" class="btn btn-default" name="teamsBtn">-->
+	                        <!--<strong>TEAMS</strong>-->
+	                    <!--</button>-->
+	                    <!--<input id="searchTeam" class="searches" type="text" placeholder="Search by Team" name="teamSearch">-->
+	                <!--</li>-->
+	            <!--</form>-->
+	            <!--<form method="post" action="/player">    -->
+	                <!--<li>-->
+	                    <!--<button type="submit" class="btn btn-default">-->
+	                        <!--<strong>PLAYERS</strong>-->
+	                    <!--</button>-->
+	                    <!--<input id="searchPlayers" class="searches" type="text" placeholder="Search by Players" name="playerSearch">-->
+	                <!--</li>-->
+	            <!--</form>-->
+	            <!--<form method="post" action="/position">-->
+	                <!--<li>-->
+	                    <!--<button type="submit" class="btn btn-default">-->
+	                        <!--<strong>POSITIONS</strong>-->
+	                    <!--</button>-->
+	                    <!--<input id="searchPosition" class="searches" type="text" placeholder="Search by Position" name="positionSearch">-->
+	                <!--</li>-->
+                <!--</form>-->
                 <!-- ADD BUTTTONS HERE-->
                 <li>
                     <a href="#" data-toggle="navbar-search">
@@ -136,23 +136,13 @@
                         <span class="item-text">Teams</span>
                     </a>
                     <!-- TEAMS SubMenu item-->
-                    <!--<ul class="nav collapse in">-->
-                    <!--<li>-->
-                    <!--<a href="dashboard.html" title="Default" data-toggle="" class="no-submenu">-->
-                    <!--<span class="item-text"></span>-->
-                    <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="active">-->
-                    <!--<a href="dashboard-nosidebar.html" title="No Sidebar" data-toggle="" class="no-submenu">-->
-                    <!--<span class="item-text"></span>-->
-                    <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<a href="dashboard-noprofile.html" title="No Profile" data-toggle="" class="no-submenu">-->
-                    <!--<span class="item-text"></span>-->
-                    <!--</a>-->
-                    <!--</li>-->
-                    <!--</ul>-->
+                    <ul class="nav collapse in">
+                    <li>
+                    <a href="#" title="Default" data-toggle="" class="no-submenu">
+                    <span class="item-text">{{this.favorite_teams}}</span>
+                    </a>
+                    </li>
+                    </ul>
                     <!-- END TEAMS SubMenu item-->
                 </li>
                 <!-- PLAYERS-->
@@ -161,20 +151,15 @@
                         <span class="item-text">Players</span>
                     </a>
                     <!-- START PLAYERS SubMenu item-->
-                    <!--<ul class="nav collapse ">-->
-                    <!--<li>-->
-                    <!--<a href="chart-flot.html" title="player1" data-toggle="" class="no-submenu">-->
-                    <!--<span class="item-text"></span>-->
-                    <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<a href="chart-radial.html" title="player2" data-toggle="" class="no-submenu">-->
-                    <!--<span class="item-text"></span>-->
-                    <!--</a>-->
-                    <!--</li>-->
-                    <!--</ul>-->
+                    <ul class="nav collapse ">
+                    <li>
+                    <a href="" title="player1" data-toggle="" class="no-submenu">
+                    <!--<span class="item-text">{{this.favorite_players}}</span>-->
+                    </a>
+                    </li>
+                    </ul>
                     <!-- END SubMenu item-->
-                </li>
+
 
                 <!-- END Menu-->
                 <!-- Sidebar footer    -->
