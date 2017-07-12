@@ -11,7 +11,7 @@
 
 	<hr>
 	{{/each}}
-
+	<canvas id = "teamChart"></canvas>
 </div>
 <style type="text/css">
 	.window {
@@ -19,3 +19,121 @@
 		margin-top: 180px;
 	}
 </style>
+
+<script>
+	var data1 = [];
+	var data2 = [];
+	var data3 = [];
+	var data4 = [];
+	var label1;
+	var label2;
+	var label3;
+	var label4;
+
+{{#each team}}
+
+/*
+	$("#name").html("{{this.Player}}")
+	$("#team").html("{{this.Team}}")
+	$("#position").html("{{this.Position}}")
+	$("#rank").html("{{this.Rank}}")*/
+
+
+	data1.push({{this.TD}})
+	data2.push({{this.PPG}})
+	data3.push({{this.Fumbles}})
+	data4.push({{this.Interceptions}})
+	var label1 = "Touch Downs";
+	var label2 = "Average Points Per Game";
+	var label3 = "Fumbles";
+	var label4 = "Interceptions" ;
+
+
+{{/each}}
+
+	console.log(data1);
+	console.log(data2);
+	console.log(data3);
+	console.log(data4);
+
+new Chart(document.getElementById("teamChart"), {
+  type: 'horizontalBar',
+  data: {
+    labels: ['2014', '2015', '2016'],
+    datasets: [{ 
+        data: data1,
+        label: label1,
+        backgroundColor: "#3e95cd",
+        fill: false
+      }, { 
+        data: data2,
+        label: label2,
+        backgroundColor: "#8e5ea2",
+        fill: false
+      }, { 
+        data: data3,
+        label: label3,
+        backgroundColor: "#3cba9f",
+        fill: false
+      }, { 
+        data: data4,
+        label: label4,
+        backgroundColor: "#e8c3b9",
+        fill: false
+      }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Team Stats (Last Three Years)'
+    }
+  }
+});
+
+
+
+	// var ctx = $("#myChart");
+
+
+    /*var myChart = new Chart(ctx, {
+
+        type: 'line',
+        data: {
+            labels: ["2014", "2015", "2016"],
+            datasets: [{
+                label: label1,
+                backgroundColor: "blue",
+                data: data1
+            },
+            {
+                label: label2,
+                backgroundColor: "red",
+                data: data2
+            },
+            {
+                label: label3,
+                backgroundColor: "green",
+                data: data3                        },
+            {
+                label: label4,
+                backgroundColor: "yellow",
+                data: data4
+            },
+            ]
+
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    categorySpacing: 0
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });*/
+
+</script>
