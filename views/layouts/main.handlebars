@@ -95,13 +95,13 @@
             </ul>
 
             <form method="post" action="/team">
-                <input id="searchTeam" class="searches" type="text" placeholder="Search by Team" name="teamSearch">
+                <input id="searchTeam" class="searches" type="text" placeholder="Search by Team" name="teamSearch" style="display:none">
             </form>
             <form method="post" action="/player">
-                <input id="searchPlayers" class="searches" type="text" placeholder="Search by Players" name="playerSearch">
+                <input id="searchPlayers" class="searches" type="text" placeholder="Search by Players" name="playerSearch" style="display:none">
             </form>
             <form method="post" action="/position">
-                <input id="searchPosition" class="searches" type="text" placeholder="Search by Position" name="positionSearch">
+                <input id="searchPosition" class="searches" type="text" placeholder="Search by Position" name="positionSearch" style="display:none">
             </form>
 
             <!-- END Left navbar-->
@@ -241,22 +241,28 @@
 <script>
 
 $(document).ready(function(){
-    $("#searchTeam").toggle();
+    // $("#searchTeam").toggle();
     $("#teamBtn").on("click", function(event) {
         event.preventDefault();
+        $("#searchPlayers").hide();
+        $("#searchPosition").hide();
         $("#searchTeam").toggle(500);
   });
 
-    $("#searchPlayers").toggle();
+    // $("#searchPlayers").toggle();
     $("#playerBtn").on("click", function(event) {
         event.preventDefault();
+        $("#searchPosition").hide();
+        $("#searchTeam").hide();
         $("#searchPlayers").toggle(500);
     });
 
-    $("#searchPosition").toggle();
+    // $("#searchPosition").toggle();
 
     $("#positionBtn").on("click", function(event) {
         event.preventDefault();
+        $("#searchPlayers").hide();
+        $("#searchTeam").hide();
         $("#searchPosition").toggle(500);
   });  
 });

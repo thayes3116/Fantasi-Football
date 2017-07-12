@@ -1,19 +1,119 @@
-<div class="window">
-	
-	<h1 id ="name"></h1>
+
+<!-- <div class="window"> -->
+	<!-- {{#each player}} -->
+	<!-- <h1 id ="name"></h1>
 	<h1 id ="team"></h1>
 	<h1 id ="position"></h1>
-	<h1 id ="rank"></h1>	
-	<h1>{{userInfo.name}}
-	<hr>
-	<canvas id = "myChart"></canvas>
+	<h1 id ="rank"></h1>	 -->
+	<!-- {{/each}} -->
+	<!-- <hr>
+	<canvas id = "myChart"></canvas> -->
+
+<!-- <style type="text/css">
+
+
+<section class="main-content">
+	
+
+	<!-- ROW 1 -->
+	<div class="row">
+		<!-- ROW 1 COL 1 -->
+		<div class="col-md-6" id="first">
+			<div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
+				
+				<h2 id="name">{{#each player}} {{this.Player}} {{/each}}</h2>
+			
+				<h3 id="team"></h3>
+				
+			</div>
+		</div>
+		<!-- / ROW 1 COL 1 -->
+
+		<!-- ROW 1 COL 2 -->
+		<div class="col-md-6">
+			<!-- ROW 1 COL 2 ROW 1 -->
+			<div class="row">
+				<div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
+					<h3 id="position"></h3>
+				</div>
+			</div>
+			<!-- / ROW 1 COL 2 ROW 1 -->
+			
+			<!-- ROW 1 COL 2 ROW 2 -->
+			<div class="row">
+					<!-- ROW 1 COL 2 ROW 2 COL 1 -->
+					<div class="col-md-6" id="second">
+						<div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
+							<h4>Position rank:</h4> <text id="rank"></text>
+						</div>
+					</div>
+					<!-- / ROW 1 COL 2 ROW 2 COL 1 -->
+
+					<!-- ROW 1 COL 2 ROW 2 COL 2 -->
+					<div class="col-md-6" id="third">
+						
+							<button type="button" class="btn btn-labeled btn-primary pull-right" data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget butn">
+					           <span class="btn-label"><i class="fa fa-plus-circle"></i>
+					           </span>Add Player <text id="name"></text>
+							</button>
+						
+					</div>
+					<!-- / ROW 1 COL 2 ROW 2 COL 2 -->
+			</div>
+			<!-- / ROW 1 COL 2 ROW 2 -->
+		</div>
+		<!-- ROW 1 COL 2 -->
+	</div>
+	<!-- / ROW 1 -->
+	
+	<!-- ROW 2 -->
+	<div class="row">
+		<div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget" id="table">
+			<canvas id = "myChart"></canvas>
+		</div>
+	</div>
+	<!-- /ROW 2 -->
+
+
+</section>
 
 <style type="text/css">
-	.window {
-		margin: 40px;
-		margin-top: 10px;
-	}
+
+.btn {
+	
+}
+
+#first {
+	padding-left: 20px
+}
+
+#second, {
+	width: 300px;
+	padding-top: 0px;
+}
+
+#third {
+	width: 190px;
+	height: 10px;
+}
+
+#h2 {
+	margin-top: 0px;
+}
+
+#table {
+	background-color: #fff;
+	padding: 10px;
+	border: 2px solid #cbcbcb;
+	box-shadow: 5px 5px 2px #cbcbcb;
+}
+
+#rank {
+	font-size: 20px;
+}
 </style>
+
+
 
 <script>
 	var data1 = [];
