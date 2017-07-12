@@ -19,6 +19,7 @@ router.get("/", function(req, res) {
 
 });
 
+
 router.post("/login", function(req, res) {
 	console.log(req.session);
 	
@@ -44,6 +45,49 @@ router.post("/login", function(req, res) {
 		});	
 });
 
+router.get("/position/Quarterback/2014", function(req, res) {
+		// console.log(req..year);
+		// 
+	res.redirect("profile")
+
+})
+
+router.post("/position/:position/:year", function(req, res) {
+	console.log("Year:",req.params.year);
+	console.log("Position:",req.params.position);
+
+	var inputPosition = req.params.position;
+
+	var inputYear = req.params.year;
+
+	if(inputPosition === "Quarterback"){
+		rankCategory = "Passing";
+	}else if(inputPosition === "Running Back"){
+		rankCategory = "Rushing";
+	}else if(inputPosition === "Wide Receiver"){
+		rankCategory = "Receiving";
+	}
+
+	models.ranking(
+  	["Category", "Position"], 
+  	[rankCategory, inputPosition],
+  	[inputYear], 
+  	function(data) {
+      
+  		console.log("data 50", data);
+  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
+	  			
+	  			res.render("position", {Player:data})
+
+	  		}else{
+
+	  			res.render("position", {rank:data}); 			
+	  		}
+	})
+	// res.render("position")
+})
+
+
 router.get("/profile", function(req, res) {
 	
 	var savedData = sessionStore.get("userData", function(error,data) {
@@ -66,6 +110,7 @@ router.get("/profile", function(req, res) {
 
 
 router.post("/position", function(req, res) {
+
 
 	var positionSearch = req.body.positionSearch;
 
@@ -111,6 +156,50 @@ router.post("/position", function(req, res) {
 			  });
 		});	  
 	});		  
+
+	var positionSearch = req.body.positionSearch;
+	// window.localStorage.setItem("position", req.body.positionSearch);
+	// var positionInput = sessionStore.getItem("position");
+
+	// console.log("Please work", positionInput);
+	var year = "";
+	console.log("Year:", req.body.year);
+	console.log("Position:", positionSearch);
+	console.log(req.body.position);
+	if (year !== "2015" || year !== "2014") {
+		year = "2016";
+		
+	} else {
+		year = req.body.year;
+
+	}
+
+	if(positionSearch === "Quarterback"){
+		rankCategory = "Passing";
+	}else if(positionSearch === "Running Back"){
+		rankCategory = "Rushing";
+	}else if(positionSearch === "Wide Receiver"){
+		rankCategory = "Receiving";
+	}
+	console.log("controllers line 27");
+
+  models.ranking(
+  	["Category", "Position"], 
+  	[rankCategory, positionSearch],
+  	[year], 
+  	function(data) {
+      
+  		console.log("data 50", data);
+  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
+	  			
+	  			res.render("position", {Player:data})
+
+	  		}else{
+
+	  			res.render("position", {rank:data}); 			
+	  		}
+  });
+
 });
 
 router.post("/player", function(req, res) {

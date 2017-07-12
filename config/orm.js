@@ -3,15 +3,15 @@ var connection = require("../config/connection.js")['connection'];
 
 var orm = {
 
-  ranking: function(table, cols, vals, cb) {
+  ranking: function(table, cols, vals, year, cb) {
     
-    var queryString = "SELECT `Rank`, `Player`, `Team` FROM " + table;
+    var queryString = "SELECT `Position`, `Rank`, `Player`, `Team` FROM " + table;
 
     queryString += " WHERE ";   
     for( var i = 0; i < cols.length; i++){
       queryString += cols[i] + " = " + "\"" + vals[i] + "\"" + " AND "
     }
-    queryString += "`Season Type` = 'Regular Season' AND `Time` = 2016 AND `Rank` < 11 ORDER BY `Rank` ASC;";
+    queryString += "`Season Type` = 'Regular Season' AND `Time` =" + year + " AND `Rank` < 11 ORDER BY `Rank` ASC;";
     
     console.log(queryString); 
 
@@ -198,7 +198,9 @@ var orm = {
        cb(result);
     })
     
-  }
+  },
+
+  // rankingByYear: function()
 }
 
 // Export the orm object for the model (models.js).
