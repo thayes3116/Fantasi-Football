@@ -52,6 +52,7 @@
         <!-- END navbar header-->
 
         <!-- START Nav wrapper-->
+
         <div class="nav-wrapper">
             <!-- START Left navbar-->
             <ul class="nav navbar-nav">
@@ -84,6 +85,7 @@
 	                   <!-- <input id="searchPosition" class="searches" type="text" placeholder="Search by Position" name="positionSearch"> -->
 	                </li>
                <!-- </form> -->
+
                 <!-- ADD BUTTTONS HERE-->
 <!--                 <li>
                     <a href="#" data-toggle="navbar-search">
@@ -142,58 +144,48 @@
                         </div>
                         <!-- Name-->
                         <div class="user-block-info">
-                            <span class="user-block-name item-text">Welcome, {{{name}}}</span>
+                            <span class="user-block-name item-text">Welcome, {{{userInfo.name}}}</span>
                         </div>
                     </div>
                 </li>
                 <!-- END user info-->
+
                 <!-- START Menu-->
                 <!-- TEAMS-->
                 <li class="active">
-                    <a href="dashboard.html" title="Dashboard" data-toggle="collapse-next" class="has-submenu">
-                        <div class="label label-primary pull-right"></div>
-                        <span class="item-text">Teams</span>
+                    <a href="#" title="Dashboard" data-toggle="collapse-next" class="has-submenu">
+
+                        <em class="fa fa-star"></em>
+                        <span class="item-text">TEAMS</span>
+                        <span class="item-text"></span>
                     </a>
-                    <!-- TEAMS SubMenu item-->
-                    <!--<ul class="nav collapse in">-->
-                    <!--<li>-->
-                    <!--<a href="dashboard.html" title="Default" data-toggle="" class="no-submenu">-->
-                    <!--<span class="item-text"></span>-->
-                    <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="active">-->
-                    <!--<a href="dashboard-nosidebar.html" title="No Sidebar" data-toggle="" class="no-submenu">-->
-                    <!--<span class="item-text"></span>-->
-                    <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<a href="dashboard-noprofile.html" title="No Profile" data-toggle="" class="no-submenu">-->
-                    <!--<span class="item-text"></span>-->
-                    <!--</a>-->
-                    <!--</li>-->
-                    <!--</ul>-->
+                    <!-- START SubMenu item-->
+                    <ul class="nav collapse in">
+                        <li class="active">
+                            <a href="#" title="Default" data-toggle="" class="no-submenu">
+                                <span class="item-text">{{userInfo.favorite_teams}}</span>
+                            </a>
+                        </li>
+
+                    </ul>
                     <!-- END TEAMS SubMenu item-->
-                </li>
+
                 <!-- PLAYERS-->
-                <li>
-                    <a href="#" title="Players" data-toggle="collapse-next" class="has-submenu">
-                        <span class="item-text">Players</span>
+                <li class="active">
+                    <a href="#" title="Dashboard" data-toggle="collapse-next" class="has-submenu">
+                        <em class="fa fa-male"></em>
+                        <span class="item-text">PLAYERS</span>
                     </a>
-                    <!-- START PLAYERS SubMenu item-->
-                    <!--<ul class="nav collapse ">-->
-                    <!--<li>-->
-                    <!--<a href="chart-flot.html" title="player1" data-toggle="" class="no-submenu">-->
-                    <!--<span class="item-text"></span>-->
-                    <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                    <!--<a href="chart-radial.html" title="player2" data-toggle="" class="no-submenu">-->
-                    <!--<span class="item-text"></span>-->
-                    <!--</a>-->
-                    <!--</li>-->
-                    <!--</ul>-->
-                    <!-- END SubMenu item-->
-                </li>
+
+                    <!-- START SubMenu item-->
+                    <ul class="nav collapse in">
+                        <li class="active">
+                            <a href="#" title="Default" data-toggle="" class="no-submenu">
+                                <span class="item-text">{{userInfo.favorite_players}}</span>
+                            </a>
+                        </li>
+                    </ul>
+
 
                 <!-- END Menu-->
                 <!-- Sidebar footer    -->

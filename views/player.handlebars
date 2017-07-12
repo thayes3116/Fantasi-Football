@@ -1,3 +1,4 @@
+
 <!-- <div class="window"> -->
 	<!-- {{#each player}} -->
 	<!-- <h1 id ="name"></h1>
@@ -9,11 +10,7 @@
 	<canvas id = "myChart"></canvas> -->
 
 <!-- <style type="text/css">
-	.window {
-		margin: 40px;
-		margin-top: 10px;
-	}
-</style> -->
+
 
 <section class="main-content">
 	
@@ -174,10 +171,48 @@ if("{{this.Position}}" === "Wide Receiver"){
 	console.log(data3);
 	console.log(data4);
 
-	var ctx = $("#myChart");
-    var myChart = new Chart(ctx, {
+new Chart(document.getElementById("myChart"), {
+  type: 'horizontalBar',
+  data: {
+    labels: ['2014', '2015', '2016'],
+    datasets: [{ 
+        data: data1,
+        label: label1,
+        backgroundColor: "#3e95cd",
+        fill: false
+      }, { 
+        data: data2,
+        label: label2,
+        backgroundColor: "#8e5ea2",
+        fill: false
+      }, { 
+        data: data3,
+        label: label3,
+        backgroundColor: "#3cba9f",
+        fill: false
+      }, { 
+        data: data4,
+        label: label4,
+        backgroundColor: "#e8c3b9",
+        fill: false
+      }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Player Stats Per Year (Last Three Years)'
+    }
+  }
+});
 
-        type: 'bar',
+
+
+	// var ctx = $("#myChart");
+
+
+    /*var myChart = new Chart(ctx, {
+
+        type: 'line',
         data: {
             labels: ["2014", "2015", "2016"],
             datasets: [{
@@ -214,7 +249,7 @@ if("{{this.Position}}" === "Wide Receiver"){
                 }]
             }
         }
-    });
+    });*/
 
 </script>
 

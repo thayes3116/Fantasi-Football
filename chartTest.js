@@ -16,5 +16,9 @@ connection.connect(function(err) {
 	console.log('Connected!')
 });
 
-connection.query('SELECT ')
+connection.query('SELECT `Player`, `Completion`, `Touch Downs`, `Yards` FROM `nfl` LIMIT 2', 
+	function(err, result, fields) {
+		console.log(result);
+	})
+
 

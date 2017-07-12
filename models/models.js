@@ -33,7 +33,7 @@ var models = {
 		orm.displayUser("user", id, function(res) {
 			cb(res);
 		})
-}
+	}
 };	
 
 // Export the database functions for the controller (controller.js).
