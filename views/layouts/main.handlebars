@@ -144,7 +144,7 @@
                         </div>
                         <!-- Name-->
                         <div class="user-block-info">
-                            <span class="user-block-name item-text">Welcome, {{{name}}}</span>
+                            <span class="user-block-name item-text">Welcome, {{{userInfo.name}}}</span>
                         </div>
                     </div>
                 </li>
@@ -157,12 +157,13 @@
 
                         <em class="fa fa-star"></em>
                         <span class="item-text">TEAMS</span>
+                        <span class="item-text"></span>
                     </a>
                     <!-- START SubMenu item-->
                     <ul class="nav collapse in">
                         <li class="active">
                             <a href="#" title="Default" data-toggle="" class="no-submenu">
-                                <span class="item-text">{{this.favorite_teams}}</span>
+                                <span class="item-text">{{userInfo.favorite_teams}}</span>
                             </a>
                         </li>
 
@@ -180,7 +181,7 @@
                     <ul class="nav collapse in">
                         <li class="active">
                             <a href="#" title="Default" data-toggle="" class="no-submenu">
-                                <span class="item-text">{{this.favorite_players}}</span>
+                                <span class="item-text">{{userInfo.favorite_players}}</span>
                             </a>
                         </li>
                     </ul>
