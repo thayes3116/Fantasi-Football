@@ -16,9 +16,11 @@
 
                 <form role="form" action="/login" method="post" class="mb-lg">
                     <div class="form-group has-feedback">
+                        <label for="exampleInputEmail1" class="text-muted">Email</label>
                         <input id="exampleInputEmail1" type="email" placeholder="Enter email" class="form-control" name="emailAddress">
                     </div>
                     <div class="form-group has-feedback">
+                        <label for="exampleInputPassword1" class="text-muted">Password</label>
                         <input id="exampleInputPassword1" type="password" placeholder="Password" class="form-control" name="password">
                     </div>
                     <div class="clearfix">
@@ -27,10 +29,11 @@
                                 <input type="checkbox" value="">
                                 <!--<span class="fa fa-check"></span>Remember Me</label>-->
                         </div>
-                        <!--<div class="pull-right"><a href="#" class="text-muted">Forgot your password?</a>-->
-                    </div>
+                        <div class="pull-center"><a href="/signup" class="text-muted">Don't have an account?
+                            Sign up</a>
+                        </div>
             </div>
-            <button type="submit" class="btn btn-block btn-primary">Login</button>
+            <button type="submit" class="btn btn-block btn-primary">Sign In</button>
             </form>
         </div>
     </div>
