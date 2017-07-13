@@ -1,6 +1,6 @@
 // Import MySQL connection.
 var connection = require("../config/connection.js")['connection'];
-
+var testid = "2";
 var orm = {
 
   ranking: function(table, cols, vals, cb) {
@@ -94,6 +94,48 @@ var orm = {
       }
     });    
   },
+
+  addTeam: function(table, cols, vals, cb) {
+
+    console.log("at orm addTeam");
+
+    var queryString = "SELECT `favorite_teams` FROM " + table + " WHERE id = " + vals[1] + ";";
+
+    connection.query(queryString, function(err, result) {
+
+        if (err) throw err;
+      
+        console.log(result[0][cols[0]] + ", " + vals[0]);
+    
+      var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + result[0][cols[0]] + ", " + vals[0] + "' WHERE id = " + vals[1] + ";";
+
+      connection.query(updateString, function(err, result) {
+
+          if (err) throw err;
+      });    
+    });
+  },
+
+  addPlayer: function(table, cols, vals, cb) {
+
+    console.log("at orm addPlayer");
+
+    var queryString = "SELECT `favorite_players` FROM " + table + " WHERE id = " + vals[1] + ";";
+
+    connection.query(queryString, function(err, result) {
+
+        if (err) throw err;
+      
+        console.log(result[0][cols[0]])
+    
+      var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + result[0][cols[0]] + ", " + vals[0] + "' WHERE id = " + vals[1] + ";";
+
+      connection.query(updateString, function(err, result) {
+
+          if (err) throw err;
+      });    
+    });
+  },
   team: function(table, cols, vals, cb) {
 
       var queryString = "SELECT `Team`, `Time`, sum(`Touch Downs`) AS TD, sum(`Total_Points_Game_Average`) AS PPG, sum(`Sacked`) AS Sacked, sum(`Fumbles_Total`) AS Fumbles, sum(`Interception`) AS Interceptions FROM " + table;
@@ -124,29 +166,46 @@ var orm = {
 
             console.log(ex.message);
             cb(ex.message);
-          }  
-        
+          }          
       })    
-
   },
   
   createUser: function(table, valName, valEmail, valPassword, cb) {
 
-    var queryString = "INSERT INTO " + table;
+    var repeatString = "SELECT 1 FROM " + table;
 
-    queryString += " (name, email_address, password) VALUES ('" + valName + "',";
-    
-    queryString += " '"  + valEmail + "', '" + valPassword + "')";
-
-    console.log(queryString);
-
-    connection.query(queryString, function(err, result) {
+    repeatString += " WHERE email_address = '" + valEmail + "';";
+    console.log(repeatString);
+    connection.query(repeatString, function(err, res) {
+       
 
       if (err) throw err;
-      
-      console.log("created new user");
-      cb(result);
-    })
+        console.log(res[0]);
+        if(res[0] == undefined){
+
+          var queryString = "INSERT INTO " + table;
+
+          queryString += " (name, email_address, password) VALUES ('" + valName + "',";
+          
+          queryString += " '"  + valEmail + "', '" + valPassword + "')";
+
+          console.log(queryString);
+
+          connection.query(queryString, function(err, result) {
+
+            if (err) throw err;
+            
+            console.log("created new user");
+            cb(result);
+          });
+          
+        }else{
+
+            cb("Email already exists")
+          
+        }
+    });
+
   },
 
   loginAs: function(table, valEmail, valPassword, cb) {
@@ -194,7 +253,8 @@ var orm = {
 
       if (err) throw err;
 
-      //console.log(result);
+      console.log(result);
+
        cb(result);
     })
     
