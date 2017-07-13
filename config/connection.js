@@ -3,7 +3,6 @@ var mysql = require("mysql");
 var session = require('express-session');
 var mysqlStore = require('express-mysql-session')(session);
 
-
 var options = {
   port: 3306,
   host: "localhost",
@@ -17,6 +16,7 @@ var connection = mysql.createConnection(options);
 var sessionStore = new mysqlStore({
   //MySQL store options object
 }, connection)
+
 // // // Make connection.
 connection.connect(function(err) {
   if (err) {
@@ -32,4 +32,3 @@ module.exports = {
   sessionStore: sessionStore,
   session: session
 };
-

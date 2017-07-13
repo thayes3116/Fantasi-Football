@@ -19,23 +19,23 @@ var orm = {
 
        if (err) throw err;
           
-          try{
+        try{
 
-            if(!result[0]) {
-            
-              throw new Error("Please enter Running Back, Quarterback, or Wide Receiver");
-            
-            }else {
+          if(!result[0]) {
+          
+            throw new Error("Please enter Running Back, Quarterback, or Wide Receiver");
+          
+          }else {
 
-              cb(result);
+            cb(result);
 
-            }
+          }
 
-          }catch(ex){
+        }catch(ex){
 
-            console.log(ex.message);
-            cb(ex.message);
-          } 
+          console.log(ex.message);
+          cb(ex.message);
+        } 
     });
   },
 
@@ -141,6 +141,7 @@ var orm = {
 
               if (err) throw err;
 
+
               var teamString = ("SELECT `Team`, `Time`, sum(`Touch Downs`) AS TD, sum(`Total_Points_Game_Average`) AS PPG, sum(`Sacked`) AS Sacked, sum(`Fumbles_Total`) AS Fumbles, sum(`Interception`) AS Interceptions FROM `nfl` WHERE `Team` = '" + vals[0] +"' AND `Season Type` = 'Regular Season' GROUP BY `TIME` DESC;");
 
               //console.log(teamString);
@@ -150,6 +151,7 @@ var orm = {
                cb(result) 
               })
               
+
           });
 
         }else{
@@ -207,6 +209,7 @@ var orm = {
         }      
     });
   },
+
   team: function(table, cols, vals, cb) {
 
       var queryString = "SELECT `Team`, `Time`, sum(`Touch Downs`) AS TD, sum(`Total_Points_Game_Average`) AS PPG, sum(`Sacked`) AS Sacked, sum(`Fumbles_Total`) AS Fumbles, sum(`Interception`) AS Interceptions FROM " + table;
@@ -249,9 +252,8 @@ var orm = {
     console.log(repeatString);
     connection.query(repeatString, function(err, res) {
        
-
       if (err) throw err;
-        console.log(res[0]);
+        
         if(res[0] == undefined){
 
           var queryString = "INSERT INTO " + table;
@@ -265,18 +267,25 @@ var orm = {
           connection.query(queryString, function(err, result) {
 
             if (err) throw err;
+           
+            var idString = ("SELECT `id` FROM `user` WHERE `email_address` = '" + valEmail + "';");
             
-            console.log("created new user");
-            cb(result);
+            console.log(idString)
+            connection.query(idString, function(err, result){
+
+              if (err) throw err;
+             
+              cb(result[0].id);
+            });
+
+            
           });
           
         }else{
 
-            cb("Email already exists")
-          
+            cb("Email already exists");          
         }
     });
-
   },
 
   loginAs: function(table, valEmail, valPassword, cb) {
@@ -311,7 +320,7 @@ var orm = {
     })
   },
 
-    displayUser: function(table, id, cb) {
+  displayUser: function(table, id, cb) {
 
     var queryString = "SELECT * FROM " + table;
 
@@ -323,29 +332,27 @@ var orm = {
 
       if (err) throw err;
 
-      // console.log("orm displayuser", result);
-      // console.log(result[0].favorite_players);
-      // console.log(result[0].favorite_teams);
       if(result[0].favorite_teams == null && result[0].favorite_players == null){
         result[0].favorite_players = "";
         result[0].favorite_teams ="";
         cb(result)
+
       }else{
+
         if (result[0].favorite_players == null) {
           result[0].favorite_players = "";
           cb(result);
+
         }else if(result[0].favorite_teams == null){
           result[0].favorite_teams ="";
           cb(result);
         }else{
+
         cb(result);
         }
       }
-    })
-    
+    })    
   },
-
-  // rankingByYear: function()
 }
 
 // Export the orm object for the model (models.js).
