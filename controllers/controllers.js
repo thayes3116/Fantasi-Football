@@ -98,7 +98,7 @@ router.get("/profile", function(req, res) {
 
 		var splitPlayerFavs = favData.favorite_players.split(",")
 		var splitTeamFavs = favData.favorite_teams.split(",")
-			
+				
 		var dataPack = {
 			userInfo: favData,
 	  		favPlayers: splitPlayerFavs,
@@ -264,14 +264,14 @@ router.post("/signup", function(req, res) {
 		function(data) {
 
 			console.log(data);
-
+			req.session.userID = data;
 			if(data == "Email already exists"){
 
 				res.render("signup", {layout: "register", data: data})
 
 			}else{
 
-				res.redirect("/login");
+				res.redirect("/profile");
 			}
 		});	
 });
@@ -282,7 +282,7 @@ router.get("/signup", function(req, res) {
 });
 
 router.get("/logout", function(req, res){
-
+	req.session.userID = "";
 	res.redirect("/");
 });
 
