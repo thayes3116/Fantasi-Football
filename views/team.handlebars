@@ -1,11 +1,13 @@
 
 <section class="main-content">
-
-<button type="button" class="btn btn-labeled btn-primary pull-right">
-               <span class="btn-label"><i class="fa fa-plus-circle"></i>
-               </span>Add Team {{this.Team}}</button>
+    <form method="post" action="/addTeam/{{this.teamName}}/">
+        <button type="submit" class="btn btn-labeled btn-primary pull-right" onClick="window.location.reload();">
+           <span class="btn-label"><i class="fa fa-plus-circle"></i>
+           <input type="hidden" name="teamAdded" value="{{this.teamName}}">
+           </span>Add Team {{this.teamName}}</button>
+    </form>
     {{#each team}}
-        
+        <h2>{{update}}</h2>
         <h3>
             {{this.Time}}
         </h3>
@@ -117,7 +119,9 @@
 
 
 <script>
+// function refreshPage() {
 
+// };
 
 	var data1 = [];
 	var data2 = [];

@@ -112,24 +112,44 @@ var orm = {
           connection.query(updateString, function(err, result) {
 
               if (err) throw err;
+              var teamString = ("SELECT `Team`, `Time`, sum(`Touch Downs`) AS TD, sum(`Total_Points_Game_Average`) AS PPG, sum(`Sacked`) AS Sacked, sum(`Fumbles_Total`) AS Fumbles, sum(`Interception`) AS Interceptions FROM `nfl` WHERE `Team` = '" + vals[0] +"' AND `Season Type` = 'Regular Season' GROUP BY `TIME` DESC;");
 
-              cb("Team added to favorites")
+              //console.log(teamString);
+
+              connection.query(teamString, function(err, result){
+                //console.log(result);
+               cb(result) 
+              })
+              
           });
 
-      }else{   
-        var split = result[0][cols[0]].split(",")
+      }else{  
 
+        var split = result[0][cols[0]].split(",")
+        //trim
+        //toUpperCase
+        //check toLowerCase
+        console.log(split);
+        console.log(vals[0]);
         console.log(split.indexOf(vals[0]));
         // console.log(result[0][cols[0]] + ", " + vals[0]);
         if(split.indexOf(vals[0]) == -1){
 
-          var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + result[0][cols[0]] + ", " + vals[0] + "' WHERE id = " + vals[1] + ";";
+          var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + result[0][cols[0]] + "," + vals[0] + "' WHERE id = " + vals[1] + ";";
 
           connection.query(updateString, function(err, result) {
 
               if (err) throw err;
 
-              cb("Team added to favorites")
+              var teamString = ("SELECT `Team`, `Time`, sum(`Touch Downs`) AS TD, sum(`Total_Points_Game_Average`) AS PPG, sum(`Sacked`) AS Sacked, sum(`Fumbles_Total`) AS Fumbles, sum(`Interception`) AS Interceptions FROM `nfl` WHERE `Team` = '" + vals[0] +"' AND `Season Type` = 'Regular Season' GROUP BY `TIME` DESC;");
+
+              //console.log(teamString);
+
+              connection.query(teamString, function(err, result){
+                //console.log(result);
+               cb(result) 
+              })
+              
           });
 
         }else{
@@ -297,7 +317,7 @@ var orm = {
 
     queryString += " WHERE id = " + id;
 
-    console.log(queryString);
+    //console.log(queryString);
 
     connection.query(queryString, function(err, result) {
 
