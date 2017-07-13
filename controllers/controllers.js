@@ -6,11 +6,15 @@ var sessionStore = require("../config/connection.js")['sessionStore'];
 
 // Import the model (models.js) to use its database functions.
 var models = require("../models/models.js");
+
 var favData;
+
 var rankPosition = "Quarterback",
 	rankYear = "2016",
 	rankCategory,
 	playerToSearch = "Tom Brady",
+	testFav = "Tom Brady",
+	testid = "3",
 	teamToSearch = "Miami Dolphins";
 
 router.get("/", function(req, res) {
@@ -20,9 +24,11 @@ router.get("/", function(req, res) {
 });
 
 router.post("/login", function(req, res) {
-	console.log(req.session);
+	
+	console.log(req.sessionID);
 	
 	models.loginAs(
+
 		[req.body.emailAddress],
 		[req.body.password], 
 
@@ -32,11 +38,13 @@ router.post("/login", function(req, res) {
 
 			if(data === "Sorry email and password do not match"){
 
-				res.render("login", {data: data})
+
+				res.render("login", {layout: "register", data: data})
+
 
 			}else{
 
-				sessionStore.set("userData",{id: data.id});
+				// sessionStore.set( req.sessionID , {id: data.id});
 				
 				res.redirect("/profile");
 			}
@@ -55,15 +63,21 @@ router.get("/profile", function(req, res) {
 			models.displayUser(data.id, function(modelData) {
 
 				favData = modelData[0];
+
+				var splitPlayerFavs = favData.favorite_players.split(",")
+				var splitTeamFavs = favData.favorite_teams.split(",")
+					
 				var dataPack = {
-					userInfo: favData
+					userInfo: favData,
+			  		favPlayers: splitPlayerFavs,
+			  		favTeams: splitTeamFavs
 				}
+
 				console.log(dataPack);
 				res.render("profile", dataPack);					
 			});		
 	});		
 })
-
 
 router.post("/position", function(req, res) {
 
@@ -87,7 +101,10 @@ router.post("/position", function(req, res) {
 			models.displayUser(data.id, function(modelData) {
 				
 				favData = modelData[0];
-				//console.log('favData', favData);
+				
+				var splitPlayerFavs = favData.favorite_players.split(",")
+				var splitTeamFavs = favData.favorite_teams.split(",")
+					
 
 			  models.ranking(
 
@@ -99,8 +116,11 @@ router.post("/position", function(req, res) {
 			  		console.log(favData);
 			  		var dataPack= {
 			  			userInfo: favData,
-			  			position: data
+			  			position: data,
+			  			favPlayers: splitPlayerFavs,
+			  			favTeams: splitTeamFavs
 			  		}
+
 			  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
 				  			
 				  			res.render("position", dataPack)
@@ -113,10 +133,12 @@ router.post("/position", function(req, res) {
 	});		  
 });
 
+
 router.get("/position", function() {
 
 	res.render("position");
 })
+
 
 router.post("/player", function(req, res) {
 	
@@ -128,32 +150,57 @@ router.post("/player", function(req, res) {
 
 			models.displayUser(data.id, function(modelData) {
 				favData = modelData[0];
-				console.log('favData', favData);
-				// res.render("profile", modelData[0]);
-					
+				
+				var splitPlayerFavs = favData.favorite_players.split(",")
+				var splitTeamFavs = favData.favorite_teams.split(",")
+						
 			  models.player(
 			  	["Player",], 
 			  	[req.body.playerSearch], 
 			  	function(data) {
-			  		// console.log('favData', favData);
-			  		// console.log(data);
+
 			  		var dataPack= {
 			  			userInfo: favData,
-			  			player: data
+			  			player: data,
+			  			favPlayers: splitPlayerFavs,
+			  			favTeams: splitTeamFavs
 			  		}
-			  		console.log(dataPack);
+			  		
 			        if(data === "sorry player not found"){
 				  			res.render("player", dataPack)
 				  		}else{
 
 				  			res.render("player", dataPack);
 				  		}
-			  		
 
 			  });
 			});	
 		});		
 	});  	
+
+
+
+router.post("/addPlayer", function(req,res){
+
+	console.log('Controller 155');
+
+	models.addPlayer(
+		["favorite_players", "id"],
+		[testFav, testid],
+		function(data){
+			console.log(data);
+		});
+});
+
+router.post("/addTeam", function(req,res){
+
+	models.addTeam(
+		["favorite_teams", "id"],
+		[testFav, testid],
+		function(data){
+			console.log(data);
+		});
+});
 
 router.post("/team", function(req, res) {
 
@@ -166,20 +213,20 @@ router.post("/team", function(req, res) {
 			models.displayUser(data.id, function(modelData) {
 
 				favData = modelData[0];
-				console.log('favData', favData);
 
-
+				var splitPlayerFavs = favData.favorite_players.split(",")
+				var splitTeamFavs = favData.favorite_teams.split(",")
+				
 			  models.team(
 			  	["Team",], 
 			  	[req.body.teamSearch], 
 			  	function(data) {
 
-			  		console.log(favData);
-			  		console.log(data);
-
 			  		var dataPack= {
 			  			userInfo: favData,
-			  			team: data
+			  			team: data,
+			  			favPlayers: splitPlayerFavs,
+			  			favTeams: splitTeamFavs
 			  		}
 
 			  		if(data === "sorry team not found"){
@@ -200,15 +247,23 @@ router.get("/login", function(req, res) {
 });
 
 router.post("/signup", function(req, res) {
-
+	
 	models.createUser(
 		[req.body.name],
 		[req.body.emailAddress],
 		[req.body.password],
-		function() {
+		function(data) {
 
-			// console.log("data");
-			res.redirect("/login");
+			console.log(data);
+
+			if(data == "Email already exists"){
+
+				res.render("signup", {layout: "register", data: data})
+
+			}else{
+
+				res.redirect("/login");
+			}
 		});	
 });
 

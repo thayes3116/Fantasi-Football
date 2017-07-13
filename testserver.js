@@ -1,8 +1,11 @@
-// // Set up MySQL connection.
-var mysql = require("mysql");
+var express = require('express');
+var app = module.exports = express();
 var session = require('express-session');
-var mysqlStore = require('express-mysql-session')(session);
+var MySQLStore = require('express-mysql-session')(session);
+var mysql = require("mysql");
 
+var app = express();
+var port = process.env.PORT||5000;
 
 var options = {
   port: 3306,
@@ -26,10 +29,6 @@ connection.connect(function(err) {
   console.log("connected as id " + connection.threadId);
 });
 
-// // // Export connection for our ORM to use.
-module.exports = {
-  connection: connection,
-  sessionStore: sessionStore,
-  session: session
-};
-
+app.listen(port, function() {
+  console.log("App listening on PORT " + port);
+});	
