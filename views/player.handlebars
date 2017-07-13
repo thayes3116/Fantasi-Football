@@ -160,6 +160,7 @@ if("{{this.Position}}" === "Wide Receiver"){
 	var label4 = "Average Yards Per Carry" ;
 }
 {{/each}}
+
 	console.log(data1);
 	console.log(data2);
 	console.log(data3);
@@ -200,7 +201,7 @@ new Chart(document.getElementById("secondChart"), {
     datasets: [{ 
         data: data2,
         label: label2,
-        backgroundColor: "#3e95cd",
+        backgroundColor: "#bee0cc",
         fill: false
       }]
   },
@@ -229,7 +230,7 @@ new Chart(document.getElementById("thirdChart"), {
     datasets: [{ 
         data: data3,
         label: label3,
-        backgroundColor: "#3e95cd",
+        backgroundColor: "#83cacf",
         fill: false
       }]
   },
@@ -258,7 +259,7 @@ new Chart(document.getElementById("fourthChart"), {
     datasets: [{ 
         data: data4,
         label: label4,
-        backgroundColor: "#3e95cd",
+        backgroundColor: "#2e62a1",
         fill: false
       }]
   },
@@ -279,50 +280,6 @@ new Chart(document.getElementById("fourthChart"), {
 	        }
 	  }
 	});
-
-    // var ctx = $("#myChart");
-
-
-    /*var myChart = new Chart(ctx, {
-
-        type: 'line',
-        data: {
-            labels: ["2014", "2015", "2016"],
-            datasets: [{
-                label: label1,
-                backgroundColor: "blue",
-                data: data1
-            },
-            {
-                label: label2,
-                backgroundColor: "red",
-                data: data2
-            },
-            {
-                label: label3,
-                backgroundColor: "green",
-                data: data3                        },
-            {
-                label: label4,
-                backgroundColor: "yellow",
-                data: data4
-            },
-            ]
-
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    categorySpacing: 0
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    }
-                }]
-            }
-        }
-    });*/
 
 </script>
 <!-- END Script for Chart.JS-->
