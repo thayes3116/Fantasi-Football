@@ -1,288 +1,308 @@
-<section class="main-content">
-	
-	<!-- ROW 1 -->
-	<div class="row">
-		<!-- ROW 1 COL 1 -->
-		<div class="col-md-6" id="first">
-			<div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
-				
-				<h2 id="name"></h2>
-			
-				<h3 id="team"></h3>
-				
-			</div>
-		</div>
-		<!-- / ROW 1 COL 1 -->
+<section>
+    <!-- START Page content-->
+    <section class="main-content">
+        <div class="row">
+            <button type="button" class="addbtn btn-labeled btn-primary pull-right">
+               <span class="btn-label"><i class="fa fa-plus-circle"></i>
+               </span>Add Player
+            </button>
+        </div>
+        <!-- START row-->
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- START panel-->
+                <div class="panel panel-default">
+                    <div class="panel-heading">Player</div>
+                    <div class="panel-body">
+                        <h1></h1>
+                        <h1 id ="name"></h1>
+                        <h4 class="rank">Rank</h4> <h4 id ="rank"></h4>
+                    </div>
+                </div>
+                <!-- END panel-->
+            </div>
+            <div class="col-lg-6">
+                <!-- START panel-->
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h4 id ="position"></h4>
+                    </div>
+                </div>
+                <!-- END panel-->
+            </div>
 
-		<!-- ROW 1 COL 2 -->
-		<div class="col-md-6">
-			<!-- ROW 1 COL 2 ROW 1 -->
-			<div class="row">
-				<div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
-					<h3 id="position"></h3>
-				</div>
-			</div>
-			<!-- / ROW 1 COL 2 ROW 1 -->
-			
-			<!-- ROW 1 COL 2 ROW 2 -->
-			<div class="row">
-					<!-- ROW 1 COL 2 ROW 2 COL 1 -->
-					<div class="col-md-6" id="second">
-						<div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
-							<h4>Position rank:</h4> <text id="rank"></text>
-						</div>
-					</div>
-					<!-- / ROW 1 COL 2 ROW 2 COL 1 -->
+            <div class="col-lg-6">
+                <!-- START panel-->
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h4 id ="team"></h4>
+                    </div>
+                </div>
+                <!-- END panel-->
+            </div>
+        </div>
 
-					<!-- ROW 1 COL 2 ROW 2 COL 2 -->
-					<div class="col-md-6" id="third">
-						
-							<button type="button" class="btn btn-labeled btn-primary pull-right" data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
-					           <span class="btn-label"><i class="fa fa-plus-circle"></i>
-					           </span>Add Player <text id="name"></text>
-							</button>
-						
-					</div>
-					<!-- / ROW 1 COL 2 ROW 2 COL 2 -->
-			</div>
-			<!-- / ROW 1 COL 2 ROW 2 -->
-		</div>
-		<!-- ROW 1 COL 2 -->
-	</div>
-	<!-- / ROW 1 -->
-	
-	<!-- ROW 2 -->
-	<div class="row">
-		<div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget" id="table">
-		<canvas id = "firstChart" height = "400" width = "400" ></canvas>
-		<canvas id = "secondChart" height = "400" width = "400"></canvas>
-		<canvas id = "thirdChart" height = "400" width = "400"></canvas>
-		<canvas id = "fourthChart" height = "400" width = '400'></canvas>
-			
-		</div>
+        <!-- Chart 1-->
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- START panel-->
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4>Touchdowns</h4></div>
+                    <div class="panel-body">
+                        <canvas id = "firstChart" height = "400" width = "400" ></canvas>
+                    </div>
+                </div>
+                <!-- END panel-->
+            </div>
+            <!-- END Chart 1-->
 
-	</div>
-	<!-- /ROW 2 -->
+            <!-- Chart 2-->
+                <div class="col-lg-6">
+                    <!-- START panel-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h4>Passing Rating</h4></div>
+                        <div class="panel-body">
+                            <canvas id = "secondChart" height = "400" width = "400"></canvas>
+                        </div>
+                    </div>
+                    <!-- END panel-->
+                </div>
+        </div>
+                <!-- END Chart 2-->
+
+
+        <!-- Chart 3-->
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- START panel-->
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4>Yards Per Game</h4></div>
+                    <div class="panel-body">
+                        <canvas id = "thirdChart" height = "400" width = "400"></canvas>
+                    </div>
+                </div>
+                <!-- END panel-->
+            </div>
+            <!-- END Chart 3-->
+
+            <!-- Chart 4-->
+            <div class="col-lg-6">
+                <!-- START panel-->
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4>Interceptions</h4></div>
+                    <div class="panel-body">
+                        <canvas id = "fourthChart" height = "400" width = '400'></canvas>
+                    </div>
+                </div>
+                <!-- END panel-->
+            </div>
+        </div>
+        <!-- END Chart 4-->
+
+
+        <!-- END Main section-->
+    </section>
+
+</section>
 
 </section>
 
 
 <style type="text/css">
+    .btn {
 
-.btn {
-	
-}
-
-#first {
-	padding-left: 20px
-}
-
-#second, {
-	width: 300px;
-	padding-top: 0px;
-}
-
-#third {
-	width: 190px;
-	height: 10px;
-}
-
-#h2 {
-	margin-top: 0px;
-}
-
-#table {
-	background-color: #fff;
-	padding: 10px;
-	border: 2px solid #cbcbcb;
-	box-shadow: 5px 5px 2px #cbcbcb;
-}
-
-#rank {
-	font-size: 20px;
-}
-
-canvas {
-	float: left;
-	margin: 10px;
-	padding: 5px;
-}
+    }
+    #first {
+        padding-left: 20px
+    }
+    #second, {
+        width: 300px;
+        padding-top: 0px;
+    }
+    #third {
+        width: 190px;
+        height: 10px;
+    }
+    #h2 {
+        margin-top: 0px;
+    }
+    #table {
+        background-color: #fff;
+        padding: 10px;
+        border: 2px solid #cbcbcb;
+        box-shadow: 5px 5px 2px #cbcbcb;
+    }
+    #rank {
+        font-size: 20px;
+    }
+    canvas {
+        float: left;
+        margin: 10px;
+        padding: 5px;
+    }
 </style>
 
 <!-- START Script for Chart.JS-->
 <script>
+    var data1 = [];
+    var data2 = [];
+    var data3 = [];
+    var data4 = [];
+    var label1;
+    var label2;
+    var label3;
+    var label4;
+        {{#each player}}
+        $("#name").html("{{this.Player}}")
+        $("#team").html("{{this.Team}}")
+        $("#position").html("{{this.Position}}")
+        $("#rank").html("{{this.Rank}}")
+        if("{{this.Position}}" === "Wide Receiver"){
+            data1.push({{this.TD}})
+            data2.push({{this.Yards}})
+            data3.push({{this.YPG}})
+            data4.push({{this.Receptions}})
+            var label1 = "Touch Downs";
+            var label2 = "Total Receiving Yards";
+            var label3 = "Yard Per Game";
+            var label4 = "Receptions" ;
+        }else if("{{this.Position}}" === "Quarterback"){
+            data1.push({{this.TD}})
+            data2.push({{this.PasserRating}})
+            data3.push({{this.YPG}})
+            data4.push({{this.Interception}})
+            var label1 = "Touch Downs";
+            var label2 = "Passer Rating";
+            var label3 = "Yard Per Game";
+            var label4 = "Interception" ;
+        }else if("{{this.Position}}" === "Running Back"){
+            data1.push({{this.TD}})
+            data2.push({{this.YPG}})
+            data3.push({{this.RushAttempts}})
+            data4.push({{this.AvgYards}})
+            var label1 = "Touch Downs";
+            var label2 = "Yard Per Game";
+            var label3 = "Rushing Attempts";
+            var label4 = "Average Yards Per Carry" ;
+        }
+        {{/each}}
+    console.log(data1);
+    console.log(data2);
+    console.log(data3);
+    console.log(data4);
+    new Chart(document.getElementById("firstChart"), {
+        type: 'bar',
+        data: {
+            labels: ['2016','2015','2014'],
+            datasets: [{
+                data: data1,
+                label: label1,
+                backgroundColor: "#3e95cd",
+                fill: false
+            }]
+        },
+        options: {
+            responsive: false,
+            title: {
+                display: true,
+                text: 'Player Stats'
+            },
+            scales: {
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        suggestedMin: 0,
+                    }
+                }]
+            }
+        }
+    });
+    new Chart(document.getElementById("secondChart"), {
+        type: 'bar',
+        data: {
+            labels: ['2016', '2015', '2014'],
+            datasets: [{
+                data: data2,
+                label: label2,
+                backgroundColor: "#bee0cc",
+                fill: false
+            }]
+        },
+        options: {
+            responsive: false,
+            title: {
+                display: true,
+                text: 'Player Stats'
+            },
+            scales: {
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        suggestedMin: 0
 
-	var data1 = [];
-	var data2 = [];
-	var data3 = [];
-	var data4 = [];
-	var label1;
-	var label2;
-	var label3;
-	var label4;
+                    }
+                }]
+            }
+        }
+    });
 
-{{#each player}}
+    new Chart(document.getElementById("thirdChart"), {
+        type: 'bar',
+        data: {
+            labels: ['2016', '2015', '2014'],
+            datasets: [{
+                data: data3,
+                label: label3,
+                backgroundColor: "#83cacf",
+                fill: false
+            }]
+        },
+        options: {
+            responsive: false,
+            title: {
+                display: true,
+                text: 'Player Stats'
+            },
+            scales: {
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        suggestedMin: 0
 
-	$("#name").html("{{this.Player}}")
-	$("#team").html("{{this.Team}}")
-	$("#position").html("{{this.Position}}")
-	$("#rank").html("{{this.Rank}}")
+                    }
+                }]
+            }
+        }
+    });
 
-if("{{this.Position}}" === "Wide Receiver"){
-	data1.push({{this.TD}})
-	data2.push({{this.Yards}})
-	data3.push({{this.YPG}})
-	data4.push({{this.Receptions}})
-	var label1 = "Touch Downs";
-	var label2 = "Total Receiving Yards";
-	var label3 = "Yard Per Game";
-	var label4 = "Receptions" ;
+    new Chart(document.getElementById("fourthChart"), {
+        type: 'bar',
+        data: {
+            labels: ['2016', '2015', '2014'],
+            datasets: [{
+                data: data4,
+                label: label4,
+                backgroundColor: "#2e62a1",
+                fill: false
+            }]
+        },
+        options: {
+            responsive: false,
+            title: {
+                display: true,
+                text: 'Player Stats'
+            },
+            scales: {
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        suggestedMin: 0
 
-}else if("{{this.Position}}" === "Quarterback"){
-
-	data1.push({{this.TD}})
-	data2.push({{this.PasserRating}})
-	data3.push({{this.YPG}})
-	data4.push({{this.Interception}})
-	var label1 = "Touch Downs";
-	var label2 = "Passer Rating";
-	var label3 = "Yard Per Game";
-	var label4 = "Interception" ;
-
-}else if("{{this.Position}}" === "Running Back"){
-	data1.push({{this.TD}})
-	data2.push({{this.YPG}})
-	data3.push({{this.RushAttempts}})
-	data4.push({{this.AvgYards}})
-	var label1 = "Touch Downs";
-	var label2 = "Yard Per Game";
-	var label3 = "Rushing Attempts";
-	var label4 = "Average Yards Per Carry" ;
-}
-{{/each}}
-
-	console.log(data1);
-	console.log(data2);
-	console.log(data3);
-	console.log(data4);
-
-new Chart(document.getElementById("firstChart"), {
-  type: 'bar',
-  data: {
-    labels: ['2016','2015','2014'],
-    datasets: [{ 
-        data: data1,
-        label: label1,
-        backgroundColor: "#3e95cd",
-        fill: false
-      }]
-  },
-	 options: {
-  		responsive: false,
-	    title: {
-	      display: true,
-	      text: 'Player Stats'
-	    },
-	      scales: {
-	            yAxes: [{
-	                display: true,
-	                ticks: {
-	                    suggestedMin: 0,
-	                }
-	            }]
-	        }
-	  }
-	});
-
-new Chart(document.getElementById("secondChart"), {
-  type: 'bar',
-  data: {
-    labels: ['2016', '2015', '2014'],
-    datasets: [{ 
-        data: data2,
-        label: label2,
-        backgroundColor: "#bee0cc",
-        fill: false
-      }]
-  },
-	 options: {
-  		responsive: false,
-	    title: {
-	      display: true,
-	      text: 'Player Stats'
-	    },
-	      scales: {
-	            yAxes: [{
-	                display: true,
-	                ticks: {
-	                    suggestedMin: 0
-	                
-	                }
-	            }]
-	        }
-	  }
-	});
-	
-new Chart(document.getElementById("thirdChart"), {
-  type: 'bar',
-  data: {
-    labels: ['2016', '2015', '2014'],
-    datasets: [{ 
-        data: data3,
-        label: label3,
-        backgroundColor: "#83cacf",
-        fill: false
-      }]
-  },
-	 options: {
-  	responsive: false,
-	    title: {
-	      display: true,
-	      text: 'Player Stats'
-	    },
-	      scales: {
-	            yAxes: [{
-	                display: true,
-	                ticks: {
-	                    suggestedMin: 0
-	                
-	                }
-	            }]
-	        }
-	  }
-	});
-	
-new Chart(document.getElementById("fourthChart"), {
-  type: 'bar',
-  data: {
-    labels: ['2016', '2015', '2014'],
-    datasets: [{ 
-        data: data4,
-        label: label4,
-        backgroundColor: "#2e62a1",
-        fill: false
-      }]
-  },
-	 options: {
-	 responsive: false,
-	    title: {
-	      display: true,
-	      text: 'Player Stats'
-	    },
-	      scales: {
-	            yAxes: [{
-	                display: true,
-	                ticks: {
-	                    suggestedMin: 0
-	                
-	                }
-	            }]
-	        }
-	  }
-	});
-
+                    }
+                }]
+            }
+        }
+    });
 </script>
 <!-- END Script for Chart.JS-->
 
-
-	
