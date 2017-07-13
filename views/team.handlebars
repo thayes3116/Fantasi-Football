@@ -98,14 +98,14 @@
                 <div class="panel panel-default">
                     <div class="panel-collapse">
                         <div class="panel-body">
-                            <div style="height: 350px;" data-source="server/chart-data.php?type=area" class="chart-area flot-chart"><canvas id = "teamChart"></canvas></div>
+                            <!-- <div style="height: 350px;" data-source="server/chart-data.php?type=area" class="chart-area flot-chart">< --> <canvas id = "teamChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 </section>
-	{{!-- {{/each}} --}}
+	
 	
 </div>
 <style type="text/css">
@@ -115,7 +115,10 @@
 	}
 </style>
 
+
 <script>
+
+
 	var data1 = [];
 	var data2 = [];
 	var data3 = [];
@@ -124,192 +127,6 @@
 	var label2;
 	var label3;
 	var label4;
-
-{{#each team}}
-
-/*
-	$("#name").html("{{this.Player}}")
-	$("#team").html("{{this.Team}}")
-	$("#position").html("{{this.Position}}")
-	$("#rank").html("{{this.Rank}}")*/
-
-
-	data1.push({{this.TD}})
-	data2.push({{this.PPG}})
-	data3.push({{this.Fumbles}})
-	data4.push({{this.Interceptions}})
-	var label1 = "Touch Downs";
-	var label2 = "Average Points Per Game";
-	var label3 = "Fumbles";
-	var label4 = "Interceptions" ;
-{{/each}}	
-</script>
-
-
-	<!--{{#each team}}-->
-	<!--<h1>{{this.Team}}</h1>-->
-	<!--<h1>{{this.Time}}</h1>-->
-
-	<!--<h3>Touch Downs: {{this.TD}}</h3>-->
-	<!--<h3>Average Points Per Game: {{this.PPG}}</h3>-->
-	<!--<h3>Sacked: {{this.Sacked}}</h3>-->
-	<!--<h3>Total Fumbles: {{this.Fumbles}}</h3>-->
-	<!--<h3>Interceptions: {{this.Interceptions}}</h3>-->
-
-	<!--<hr>-->
-	<!--{{/each}}-->
-
-<!--</div>-->
-<!--<style type="text/css">-->
-	<!--.window {-->
-		<!--margin: 40px;-->
-		<!--margin-top: 180px;-->
-	<!--}-->
-<!--</style>-->
-
-<section class="main-content">
-    {{#each team}}
-    <button type="button" class="btn btn-labeled btn-primary pull-right">
-               <span class="btn-label"><i class="fa fa-plus-circle"></i>
-               </span>Add Team {{this.Team}}</button>
-<<<<<<< HEAD
-    <h3>
-        TEAMS
-    </h3>
-    <!-- START Third Widgets-->
-    <div class="row">
-        <div class="col-md-3">
-            <!-- START Touchdowns-->
-            <div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
-                <div class="panel-body">
-                    <div class="text-right text-muted">
-                        <em class="fa fa-users fa-2x"></em>
-                    </div>
-                    <p class="text-muted">Touchdowns</p>
-                    <h3 class="mt0">{{this.TD}}</h3>
-                    <div class="progress progress-striped progress-xs">
-                        <div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;" class="progress-bar progress-bar-success">
-                            <span class="sr-only">80% Complete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END Touchdowns-->
-        </div>
-        <div class="col-md-3">
-            <!-- START PPG-->
-            <div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
-                <div class="panel-body">
-                    <div class="text-right text-muted">
-                        <em class="fa fa-bar-chart-o fa-2x"></em>
-                    </div>
-                    <p class="text-muted">Average PPG</p>
-                    <h3 class="mt0">{{this.PPG}}</h3>
-                    <div class="progress progress-striped progress-xs">
-                        <div role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;" class="progress-bar progress-bar-info">
-                            <span class="sr-only">40% Complete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END PPG-->
-        </div>
-        <div class="col-md-3">
-            <!-- START Fumbles-->
-            <div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
-                <div class="panel-body">
-                    <div class="text-right text-muted">
-                        <em class="fa fa-trophy fa-2x"></em>
-                    </div>
-                    <p class="text-muted">Fumbles</p>
-                    <h3 class="mt0">{{this.Fumbles}}</h3>
-                    <div class="progress progress-striped progress-xs">
-                        <div role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;" class="progress-bar progress-bar-warning">
-                            <span class="sr-only">60% Complete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END Fumbles-->
-        </div>
-
-        <div class="col-md-3">
-            <!-- START Interceptions-->
-            <div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
-                <div class="panel-body">
-                    <div class="text-right text-muted">
-                        <em class="fa fa-trophy fa-2x"></em>
-                    </div>
-                    <p class="text-muted">Interceptions</p>
-                    <h3 class="mt0">{{this.Interceptions}}</h3>
-                    <div class="progress progress-striped progress-xs">
-                        <div role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;" class="progress-bar progress-bar-danger">
-                            <span class="sr-only">20% Complete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END Interceptions-->
-        </div>
-    </div>
-    <!-- END Third Widgets-->
-       <!-- START chart-->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-collapse">
-                            <div class="panel-body">
-                                <canvas id = "teamChart1"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-         <!-- END chart-->
-           
-        </div>
-        <!-- END dashboard main content-->
-
-    </div>
-{{/each}}
-
-
-=======
-
-        <h3>
-            {{this.Team}}
-        </h3>
-        <!-- START chart-->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-collapse">
-                        <div class="panel-body">
-                            <div style="height: 350px;" data-source="server/chart-data.php?type=area" class="chart-area flot-chart"></div>
-
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <!-- END chart-->
-
-
-          </div>
-        <!-- END dashboard main content-->
-
-      </div>
-    {{/each}}
->>>>>>> f22b047668d75136cba757dfd6afd791c53ae065
-</section>
-<script>
-    var data1 = [];
-    var data2 = [];
-    var data3 = [];
-    var data4 = [];
-    var label1;
-    var label2;
-    var label3;
-    var label4;
 
 {{#each team}}
 
@@ -325,10 +142,10 @@
 {{/each}}
 
 // chart that shows team's stats 
-new Chart(document.getElementById("teamChart1"), {
+new Chart(document.getElementById("teamChart"), {
   type: 'bar',
   data: {
-    labels: ['2016'],
+    labels: ['2016', '2015', '2014'],
     datasets: [{ 
         backgroundColor: "#3984b6",
         fillColor: "rgba(151,249,190,0.5)",
@@ -355,7 +172,7 @@ new Chart(document.getElementById("teamChart1"), {
   options: {
     title: {
       display: true,
-      text: 'Team Stats (2016)'
+      text: 'Team Stats (Last 3 Years)'
     },
      responsive: true,
             scales: {
@@ -368,54 +185,7 @@ new Chart(document.getElementById("teamChart1"), {
             }]
         }
   }
-});
-
+});	
 </script>
 
 
-    <!-- {
-        data: data2,
-        label: label2,
-        backgroundColor: "red",
-        fill: false
-    },{
-        data: data3,                        
-        label: label3,
-        backgroundColor: "green",
-        fill: false
-    },{
-        data: data4,
-        label: label4,
-        backgroundColor: "yellow",
-        fill: false
-      } -->
-
-
-
-
-
-<!-- <div class="window">
-    {{#each player}}
-    <h1 id ="name"></h1>
-    <h1 id ="team"></h1>
-    <h1 id ="position"></h1>
-    <h1 id ="rank"></h1>    
-    {{/each}}
-    <hr>
-    <canvas id = "firstChart" width="400" height="400" style="float: left"></canvas>
-    <canvas id = "secondChart" width="400" height="400" style="float: left" ></canvas>
-    <canvas id = "thirdChart" width="400" height="400" style="float: left"></canvas>
-    <canvas id = "fourthChart" width="400" height="400" style="float: left"></canvas>
-
-<style type="text/css">
-    .window {
-        margin: 40px;
-        margin-top: 10px;
-    }
-
-    canvas {
-        margin: 10px;
-        background-color: white;
-        padding: 5px;
-    }
-</style> -->
