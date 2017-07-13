@@ -94,9 +94,13 @@ router.post("/position/:position/:year", function(req, res) {
 
 
 router.get("/profile", function(req, res) {
+<<<<<<< HEAD
 	
 		var dataid = 10;
 
+=======
+		var dataid = 10;
+>>>>>>> d7a822de8da7b040df2e5bc0dc0f3ab8e0bc0199
 			models.displayUser(dataid, function(modelData) {
 				
 				favData = modelData[0];
