@@ -1,27 +1,32 @@
 <!--<div class="window">-->
-        <!--{{#each team}}-->
-<!--<h1>{{this.Team}}</h1>-->
-<!--<h1>{{this.Time}}</h1>-->
-<!--<h3>Touch Downs: {{this.TD}}</h3>-->
-<!--<h3>Average Points Per Game: {{this.PPG}}</h3>-->
-<!--<h3>Sacked: {{this.Sacked}}</h3>-->
-<!--<h3>Total Fumbles: {{this.Fumbles}}</h3>-->
-<!--<h3>Interceptions: {{this.Interceptions}}</h3>-->
-<!--<hr>-->
-        <!--{{/each}}-->
+
+	<!--{{#each team}}-->
+	<!--<h1>{{this.Team}}</h1>-->
+	<!--<h1>{{this.Time}}</h1>-->
+
+	<!--<h3>Touch Downs: {{this.TD}}</h3>-->
+	<!--<h3>Average Points Per Game: {{this.PPG}}</h3>-->
+	<!--<h3>Sacked: {{this.Sacked}}</h3>-->
+	<!--<h3>Total Fumbles: {{this.Fumbles}}</h3>-->
+	<!--<h3>Interceptions: {{this.Interceptions}}</h3>-->
+
+	<!--<hr>-->
+	<!--{{/each}}-->
+
 <!--</div>-->
 <!--<style type="text/css">-->
-<!--.window {-->
-<!--margin: 40px;-->
-<!--margin-top: 180px;-->
-<!--}-->
+	<!--.window {-->
+		<!--margin: 40px;-->
+		<!--margin-top: 180px;-->
+	<!--}-->
 <!--</style>-->
 
 <section class="main-content">
     {{#each team}}
-        <button type="button" class="btn btn-labeled btn-primary pull-right">
+    <button type="button" class="btn btn-labeled btn-primary pull-right">
                <span class="btn-label"><i class="fa fa-plus-circle"></i>
                </span>Add Team {{this.Team}}</button>
+
         <h3>
             {{this.Team}}
         </h3>
@@ -32,14 +37,17 @@
                     <div class="panel-collapse">
                         <div class="panel-body">
                             <div style="height: 350px;" data-source="server/chart-data.php?type=area" class="chart-area flot-chart"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END chart-->
-        </div>
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- END chart-->
+
+
+          </div>
         <!-- END dashboard main content-->
-        </div>
+
+      </div>
     {{/each}}
 </section>

@@ -1,35 +1,11 @@
 // Import MySQL connection.
 var connection = require("../config/connection.js")['connection'];
 
-// Helper function for SQL syntax.
-// function printQuestionMarks(num) {
-//   var arr = [];
-
-//   for (var i = 0; i < num; i++) {
-//     arr.push("?");
-//   }
-
-//   return arr.toString();
-// }
-
-// // Helper function for SQL syntax.
-// function objToSql(ob) {
-//   var arr = [];
-
-//   for (var key in ob) {
-//     if (Object.hasOwnProperty.call(ob, key)) {
-//       arr.push(key + "=" + ob[key]);
-//     }
-//   }
-
-//   return arr.toString();
-// }
-
 var orm = {
 
   ranking: function(table, cols, vals, cb) {
     
-    var queryString = "SELECT `Rank`, `Player`, `Team` FROM " + table;
+    var queryString = "SELECT `Position` `Rank`, `Player`, `Team` FROM " + table;
 
     queryString += " WHERE ";   
     for( var i = 0; i < cols.length; i++){
@@ -113,26 +89,22 @@ var orm = {
         } 
 
       }catch(ex){
-        console.log(ex.message);
+        
         cb(ex.message);
       }
     });    
   },
   team: function(table, cols, vals, cb) {
 
-
       var queryString = "SELECT `Team`, `Time`, sum(`Touch Downs`) AS TD, sum(`Total_Points_Game_Average`) AS PPG, sum(`Sacked`) AS Sacked, sum(`Fumbles_Total`) AS Fumbles, sum(`Interception`) AS Interceptions FROM " + table;
 
       queryString += " WHERE " + cols[0] + " = " + "\"" + vals[0] + "\"";   
       
-
       queryString += " AND `Season Type` = 'Regular Season' GROUP BY `TIME` DESC;";
 
-      
       console.log(queryString);    
 
       connection.query(queryString, function(err, result) {
-
 
         if (err) throw err;
           
@@ -190,17 +162,23 @@ var orm = {
     connection.query(queryString, function(err, result) {
 
       if (err) throw err;
-      
-      if(!result[0]) {
-        
-        console.log("sorry email and password does not match");
+
+        try{
+
+          if(!result[0]) {
+            
+            throw new Error("Sorry email and password do not match");
+          
+          } else {
      
-      } else {
- 
-        console.log(result[0]);
-        cb(result[0]);
-      }
-      
+            //console.log(result[0]);
+            cb(result[0]);
+          }
+
+        }catch (err) {
+          console.error("179", err.message);
+          cb(err.message);
+      } 
     })
   },
 
@@ -216,7 +194,7 @@ var orm = {
 
       if (err) throw err;
 
-      console.log(result);
+      //console.log(result);
        cb(result);
     })
     
