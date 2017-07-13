@@ -26,7 +26,7 @@ router.get("/", function(req, res) {
 
 router.post("/login", function(req, res) {
 	
-	console.log(req.sessionID);
+	console.log(req.session);
 	
 	models.loginAs(
 
@@ -36,7 +36,8 @@ router.post("/login", function(req, res) {
 		function(data) {
 
 			console.log("line 29", data);
-
+			req.session.userID = data.id;
+			console.log(req.session);
 			if(data === "Sorry email and password do not match"){
 
 
@@ -101,15 +102,9 @@ router.post("/position/:position/:year", function(req, res) {
 
 
 router.get("/profile", function(req, res) {
-	
-	var savedData = sessionStore.get("userData", function(error,data) {
-
-		if (error) throw error;
-
-		console.log("line 51", data);
-
-			models.displayUser(data.id, function(modelData) {
-
+		var dataid = 10;
+			models.displayUser(dataid, function(modelData) {
+				// console.log(modelData);
 				favData = modelData[0];
 
 				var splitPlayerFavs = favData.favorite_players.split(",")
@@ -121,11 +116,12 @@ router.get("/profile", function(req, res) {
 			  		favTeams: splitTeamFavs
 				}
 
-				console.log(dataPack);
+				// console.log(dataPack);
 				res.render("profile", dataPack);					
 			});		
-	});		
-});
+	
+})
+
 
 router.post("/position", function(req, res) {
 
