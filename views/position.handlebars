@@ -1,3 +1,4 @@
+
 <!--  {{rank.Position}}
  {{this.Position}} -->
 
@@ -27,19 +28,28 @@
     	<!-- START Year Buttons -->
     	<div class="row">
     		<div class="col-sm-4">
+        <form method="post" action="/position/{{this.pos}}/2014">
+	        <input id="fourInput" type="hidden" name="year" value="2014">
     			<button data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget button">
     				2014
     			</button>
+        </form>  
     		</div>
     		<div class="col-sm-4">
+        <form method="post" action="/position/{{this.pos}}/2015">
+	        <input id="fiveInput" type="hidden" name="year" value="2015">
     			<button data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget button">
     				2015
     			</button>
+        </form>  
     		</div>
     		<div class="col-sm-4">
+        <form method="post" action="/position/{{this.pos}}/2016">
+	        <input id="sixInput" type="hidden" name="year" value="2016">
     			<button data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget button">
     				2016
     			</button>
+        </form>  
     		</div>
     	</div>
     	<!-- END Year Buttons -->
@@ -139,5 +149,27 @@ $("#2015").html("");
 $("#2016").html("");
 
 {{/each}}
+
+var position = $("#position").val();
+console.log(position);
+window.localStorage.setItem("position", position);
+
+
+// console.log("Luis", $("#position").val());
+	$("#fourBtn").on("click", function() {
+		console.log($("#fourInput").val());
+		position = $("#position").val();
+	})
+
+	$("#fiveBtn").on("click", function() {
+		console.log($("#fiveInput").val());
+		position = $("#position").val();
+	})
+
+	$("#sixBtn").on("click", function() {
+		console.log($("#sixInput").val());
+		position = $("#position").val();
+	})
+
 </script>
 
