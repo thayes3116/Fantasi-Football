@@ -130,6 +130,8 @@ var orm = {
               if (err) throw err;
 
               cb("Team added to favorites")
+
+
           });
 
         }else{
@@ -245,9 +247,18 @@ var orm = {
           connection.query(queryString, function(err, result) {
 
             if (err) throw err;
+           
+            var idString = ("SELECT `id` FROM `user` WHERE `email_address` = '" + valEmail + "';");
             
-            console.log("created new user");
-            cb(result);
+            console.log(idString)
+            connection.query(idString, function(err, result){
+
+              if (err) throw err;
+             
+              cb(result[0].id);
+            });
+
+            
           });
           
         }else{
@@ -305,14 +316,18 @@ var orm = {
         result[0].favorite_players = "";
         result[0].favorite_teams ="";
         cb(result)
+
       }else{
+
         if (result[0].favorite_players == null) {
           result[0].favorite_players = "";
           cb(result);
+
         }else if(result[0].favorite_teams == null){
           result[0].favorite_teams ="";
           cb(result);
         }else{
+
         cb(result);
         }
       }
