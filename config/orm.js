@@ -164,10 +164,9 @@ var orm = {
         }else{ 
           
             var split = result[0][cols[0]].split(",")
-            // console.log(split);
-            // console.log(typeof(vals[0]));
+            
             console.log(split.indexOf(vals[0]));
-            // console.log(result[0][cols[0]] + ", " + vals[0]);
+            
           if(split.indexOf(vals[0]) == -1){
 
             console.log(result[0][cols[0]])
