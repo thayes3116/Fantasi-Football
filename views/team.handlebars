@@ -98,14 +98,14 @@
                 <div class="panel panel-default">
                     <div class="panel-collapse">
                         <div class="panel-body">
-                            <div style="height: 350px;" data-source="server/chart-data.php?type=area" class="chart-area flot-chart"><canvas id = "teamChart"></canvas></div>
+                            <!-- <div style="height: 350px;" data-source="server/chart-data.php?type=area" class="chart-area flot-chart">< --> <canvas id = "teamChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 </section>
-	{{!-- {{/each}} --}}
+	
 	
 </div>
 <style type="text/css">
@@ -115,7 +115,10 @@
 	}
 </style>
 
+
 <script>
+
+
 	var data1 = [];
 	var data2 = [];
 	var data3 = [];
@@ -127,73 +130,62 @@
 
 {{#each team}}
 
-/*
-	$("#name").html("{{this.Player}}")
-	$("#team").html("{{this.Team}}")
-	$("#position").html("{{this.Position}}")
-	$("#rank").html("{{this.Rank}}")*/
+    data1.push({{this.TD}})
+    data2.push({{this.PPG}})
+    data3.push({{this.Fumbles}})
+    data4.push({{this.Interceptions}})
+    var label1 = "Touch Downs";
+    var label2 = "Total Points Game Average";
+    var label3 = "Sacks";
+    var label4 = "Interceptions" ;
 
+{{/each}}
 
-	data1.push({{this.TD}})
-	data2.push({{this.PPG}})
-	data3.push({{this.Fumbles}})
-	data4.push({{this.Interceptions}})
-	var label1 = "Touch Downs";
-	var label2 = "Average Points Per Game";
-	var label3 = "Fumbles";
-	var label4 = "Interceptions" ;
-{{/each}}	
+// chart that shows team's stats 
+new Chart(document.getElementById("teamChart"), {
+  type: 'bar',
+  data: {
+    labels: ['2016', '2015', '2014'],
+    datasets: [{ 
+        backgroundColor: "#3984b6",
+        fillColor: "rgba(151,249,190,0.5)",
+        strokeColor: "rgba(255,255,255,1)",
+        data: data1,
+        label: label1
+      }, { 
+        data: data2,
+        label: label2,
+        backgroundColor: "#f3b355",
+        fill: false
+      }, { 
+        data: data3,
+        label: label3,
+        backgroundColor: "#e8638b",
+        fill: false
+      }, { 
+        data: data4,
+        label: label4,
+        backgroundColor: "#ffe0e6",
+        fill: false
+      }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Team Stats (Last 3 Years)'
+    },
+     responsive: true,
+            scales: {
+            yAxes: [{
+                display: true,
+                ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 100
+                }
+            }]
+        }
+  }
+});	
 </script>
 
 
-	<!--{{#each team}}-->
-	<!--<h1>{{this.Team}}</h1>-->
-	<!--<h1>{{this.Time}}</h1>-->
-
-	<!--<h3>Touch Downs: {{this.TD}}</h3>-->
-	<!--<h3>Average Points Per Game: {{this.PPG}}</h3>-->
-	<!--<h3>Sacked: {{this.Sacked}}</h3>-->
-	<!--<h3>Total Fumbles: {{this.Fumbles}}</h3>-->
-	<!--<h3>Interceptions: {{this.Interceptions}}</h3>-->
-
-	<!--<hr>-->
-	<!--{{/each}}-->
-
-<!--</div>-->
-<!--<style type="text/css">-->
-	<!--.window {-->
-		<!--margin: 40px;-->
-		<!--margin-top: 180px;-->
-	<!--}-->
-<!--</style>-->
-
-<section class="main-content">
-    {{#each team}}
-    <button type="button" class="btn btn-labeled btn-primary pull-right">
-               <span class="btn-label"><i class="fa fa-plus-circle"></i>
-               </span>Add Team {{this.Team}}</button>
-
-        <h3>
-            {{this.Team}}
-        </h3>
-        <!-- START chart-->
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-collapse">
-                        <div class="panel-body">
-                            <div style="height: 350px;" data-source="server/chart-data.php?type=area" class="chart-area flot-chart"></div>
-
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <!-- END chart-->
-
-
-          </div>
-        <!-- END dashboard main content-->
-
-      </div>
-    {{/each}}
-</section>

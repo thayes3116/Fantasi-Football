@@ -70,16 +70,242 @@
 	<!-- ROW 2 -->
 	<div class="row">
 		<div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget" id="table">
-			<canvas id = "myChart"></canvas>
+		<canvas id = "firstChart" height = "400" width = "400" ></canvas>
+		<canvas id = "secondChart" height = "400" width = "400"></canvas>
+		<canvas id = "thirdChart" height = "400" width = "400"></canvas>
+		<canvas id = "fourthChart" height = "400" width = '400'></canvas>
+			
 		</div>
+
 	</div>
 	<!-- /ROW 2 -->
 
 </section>
 
+<<<<<<< HEAD
+<style type="text/css">
+
+.btn {
+	
+}
+
+#first {
+	padding-left: 20px
+}
+
+#second, {
+	width: 300px;
+	padding-top: 0px;
+}
+
+#third {
+	width: 190px;
+	height: 10px;
+}
+
+#h2 {
+	margin-top: 0px;
+}
+
+#table {
+	background-color: #fff;
+	padding: 10px;
+	border: 2px solid #cbcbcb;
+	box-shadow: 5px 5px 2px #cbcbcb;
+}
+
+#rank {
+	font-size: 20px;
+}
+
+canvas {
+	float: left;
+	margin: 10px;
+	padding: 5px;
+}
+</style>
+
+
+=======
+>>>>>>> f22b047668d75136cba757dfd6afd791c53ae065
 
 <!-- START Script for Chart.JS-->
 <script>
+<<<<<<< HEAD
+	var data1 = [];
+	var data2 = [];
+	var data3 = [];
+	var data4 = [];
+	var label1;
+	var label2;
+	var label3;
+	var label4;
+
+{{#each player}}
+
+	$("#name").html("{{this.Player}}")
+	$("#team").html("{{this.Team}}")
+	$("#position").html("{{this.Position}}")
+	$("#rank").html("{{this.Rank}}")
+
+if("{{this.Position}}" === "Wide Receiver"){
+	data1.push({{this.TD}})
+	data2.push({{this.Yards}})
+	data3.push({{this.YPG}})
+	data4.push({{this.Receptions}})
+	var label1 = "Touch Downs";
+	var label2 = "Total Receiving Yards";
+	var label3 = "Yard Per Game";
+	var label4 = "Receptions" ;
+
+}else if("{{this.Position}}" === "Quarterback"){
+
+	data1.push({{this.TD}})
+	data2.push({{this.PasserRating}})
+	data3.push({{this.YPG}})
+	data4.push({{this.Interception}})
+	var label1 = "Touch Downs";
+	var label2 = "Passer Rating";
+	var label3 = "Yard Per Game";
+	var label4 = "Interception" ;
+
+}else if("{{this.Position}}" === "Running Back"){
+	data1.push({{this.TD}})
+	data2.push({{this.YPG}})
+	data3.push({{this.RushAttempts}})
+	data4.push({{this.AvgYards}})
+	var label1 = "Touch Downs";
+	var label2 = "Yard Per Game";
+	var label3 = "Rushing Attempts";
+	var label4 = "Average Yards Per Carry" ;
+}
+{{/each}}
+	console.log(data1);
+	console.log(data2);
+	console.log(data3);
+	console.log(data4);
+
+new Chart(document.getElementById("firstChart"), {
+  type: 'bar',
+  data: {
+    labels: ['2016','2015','2014'],
+    datasets: [{ 
+        data: data1,
+        label: label1,
+        backgroundColor: "#3e95cd",
+        fill: false
+      }]
+  },
+	 options: {
+  		responsive: false,
+	    title: {
+	      display: true,
+	      text: 'Player Stats'
+	    },
+	      scales: {
+	            yAxes: [{
+	                display: true,
+	                ticks: {
+	                    suggestedMin: 0,
+	                }
+	            }]
+	        }
+	  }
+	});
+
+new Chart(document.getElementById("secondChart"), {
+  type: 'bar',
+  data: {
+    labels: ['2016', '2015', '2014'],
+    datasets: [{ 
+        data: data2,
+        label: label2,
+        backgroundColor: "#3e95cd",
+        fill: false
+      }]
+  },
+	 options: {
+  		responsive: false,
+	    title: {
+	      display: true,
+	      text: 'Player Stats'
+	    },
+	      scales: {
+	            yAxes: [{
+	                display: true,
+	                ticks: {
+	                    suggestedMin: 0
+	                
+	                }
+	            }]
+	        }
+	  }
+	});
+
+	
+new Chart(document.getElementById("thirdChart"), {
+  type: 'bar',
+  data: {
+    labels: ['2016', '2015', '2014'],
+    datasets: [{ 
+        data: data3,
+        label: label3,
+        backgroundColor: "#3e95cd",
+        fill: false
+      }]
+  },
+	 options: {
+  	responsive: false,
+	    title: {
+	      display: true,
+	      text: 'Player Stats'
+	    },
+	      scales: {
+	            yAxes: [{
+	                display: true,
+	                ticks: {
+	                    suggestedMin: 0
+	                
+	                }
+	            }]
+	        }
+	  }
+	});
+
+	
+new Chart(document.getElementById("fourthChart"), {
+  type: 'bar',
+  data: {
+    labels: ['2016', '2015', '2014'],
+    datasets: [{ 
+        data: data4,
+        label: label4,
+        backgroundColor: "#3e95cd",
+        fill: false
+      }]
+  },
+	 options: {
+	 responsive: false,
+	    title: {
+	      display: true,
+	      text: 'Player Stats'
+	    },
+	      scales: {
+	            yAxes: [{
+	                display: true,
+	                ticks: {
+	                    suggestedMin: 0
+	                
+	                }
+	            }]
+	        }
+	  }
+	});
+
+
+	
+
+=======
     var data1 = [];
     var data2 = [];
     var data3 = [];
@@ -168,6 +394,7 @@
             }
         }
     });
+>>>>>>> f22b047668d75136cba757dfd6afd791c53ae065
 
 
     // var ctx = $("#myChart");
