@@ -72,6 +72,7 @@
 		<canvas id = "firstChart" height = "400" width = "400" ></canvas>
 		<canvas id = "secondChart" height = "400" width = "400"></canvas>
 		<canvas id = "thirdChart" height = "400" width = "400"></canvas>
+		<canvas id = "fourthChart" height = "400" width = '400'></canvas>
 			
 		</div>
 
@@ -180,33 +181,18 @@ if("{{this.Position}}" === "Wide Receiver"){
 new Chart(document.getElementById("firstChart"), {
   type: 'bar',
   data: {
-    labels: ['2016'],
+    labels: ['2016','2015','2014'],
     datasets: [{ 
         data: data1,
         label: label1,
         backgroundColor: "#3e95cd",
-        fill: false
-      }, { 
-        data: data2,
-        label: label2,
-        backgroundColor: "#8e5ea2",
-        fill: false
-      }, { 
-        data: data3,
-        label: label3,
-        backgroundColor: "#3cba9f",
-        fill: false
-      }, { 
-        data: data4,
-        label: label4,
-        backgroundColor: "#e8c3b9",
         fill: false
       }]
   },
 	 options: {
 	    title: {
 	      display: true,
-	      text: 'Player Stats (2016)'
+	      text: 'Player Stats'
 	    },
 	      scales: {
 	            yAxes: [{
@@ -222,33 +208,76 @@ new Chart(document.getElementById("firstChart"), {
 new Chart(document.getElementById("secondChart"), {
   type: 'bar',
   data: {
-    labels: ['2015'],
+    labels: ['2016', '2015', '2014'],
     datasets: [{ 
-        data: data1,
-        label: label1,
-        backgroundColor: "#3e95cd",
-        fill: false
-      }, { 
         data: data2,
         label: label2,
-        backgroundColor: "#8e5ea2",
-        fill: false
-      }, { 
-        data: data3,
-        label: label3,
-        backgroundColor: "#3cba9f",
-        fill: false
-      }, { 
-        data: data4,
-        label: label4,
-        backgroundColor: "#e8c3b9",
+        backgroundColor: "#3e95cd",
         fill: false
       }]
   },
 	 options: {
 	    title: {
 	      display: true,
-	      text: 'Player Stats (2015)'
+	      text: 'Player Stats'
+	    },
+	      scales: {
+	            yAxes: [{
+	                display: true,
+	                ticks: {
+	                    suggestedMin: 0
+	                
+	                }
+	            }]
+	        }
+	  }
+	});
+
+	
+new Chart(document.getElementById("thirdChart"), {
+  type: 'bar',
+  data: {
+    labels: ['2016', '2015', '2014'],
+    datasets: [{ 
+        data: data3,
+        label: label3,
+        backgroundColor: "#3e95cd",
+        fill: false
+      }]
+  },
+	 options: {
+	    title: {
+	      display: true,
+	      text: 'Player Stats'
+	    },
+	      scales: {
+	            yAxes: [{
+	                display: true,
+	                ticks: {
+	                    suggestedMin: 0
+	                
+	                }
+	            }]
+	        }
+	  }
+	});
+
+	
+new Chart(document.getElementById("fourthChart"), {
+  type: 'bar',
+  data: {
+    labels: ['2016', '2015', '2014'],
+    datasets: [{ 
+        data: data4,
+        label: label4,
+        backgroundColor: "#3e95cd",
+        fill: false
+      }]
+  },
+	 options: {
+	    title: {
+	      display: true,
+	      text: 'Player Stats'
 	    },
 	      scales: {
 	            yAxes: [{
