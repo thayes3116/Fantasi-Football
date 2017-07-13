@@ -106,22 +106,20 @@
         </div>
     </div>
     <!-- END Third Widgets-->
-
-            <!-- START chart-->
+       <!-- START chart-->
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-collapse">
                             <div class="panel-body">
-                                <canvas id = "teamChart"></canvas>
+                                <canvas id = "teamChart1"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- END chart-->
-
-
+         <!-- END chart-->
+           
         </div>
         <!-- END dashboard main content-->
 
@@ -154,36 +152,37 @@
 {{/each}}
 
 // chart that shows team's stats 
-new Chart(document.getElementById("teamChart"), {
+new Chart(document.getElementById("teamChart1"), {
   type: 'bar',
   data: {
-    labels: ['2014', '2015', '2016'],
+    labels: ['2016'],
     datasets: [{ 
+        backgroundColor: "#3984b6",
+        fillColor: "rgba(151,249,190,0.5)",
+        strokeColor: "rgba(255,255,255,1)",
         data: data1,
-        label: label1,
-        backgroundColor: 'red',
-        fill: false
-    },{
+        label: label1
+      }, { 
         data: data2,
         label: label2,
-        backgroundColor: "red",
+        backgroundColor: "#f3b355",
         fill: false
-    },{
-        data: data3,                        
+      }, { 
+        data: data3,
         label: label3,
-        backgroundColor: "green",
+        backgroundColor: "#e8638b",
         fill: false
-    },{
+      }, { 
         data: data4,
         label: label4,
-        backgroundColor: "yellow",
+        backgroundColor: "#ffe0e6",
         fill: false
       }]
   },
   options: {
     title: {
       display: true,
-      text: 'Team Stats (Last Three Years)'
+      text: 'Team Stats (2016)'
     },
      responsive: true,
             scales: {
@@ -199,6 +198,29 @@ new Chart(document.getElementById("teamChart"), {
 });
 
 </script>
+
+
+    <!-- {
+        data: data2,
+        label: label2,
+        backgroundColor: "red",
+        fill: false
+    },{
+        data: data3,                        
+        label: label3,
+        backgroundColor: "green",
+        fill: false
+    },{
+        data: data4,
+        label: label4,
+        backgroundColor: "yellow",
+        fill: false
+      } -->
+
+
+
+
+
 <!-- <div class="window">
     {{#each player}}
     <h1 id ="name"></h1>

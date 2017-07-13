@@ -69,8 +69,12 @@
 	<!-- ROW 2 -->
 	<div class="row">
 		<div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget" id="table">
-			<canvas id = "myChart"></canvas>
+		<canvas id = "firstChart" height = "400" width = "400" ></canvas>
+		<canvas id = "secondChart" height = "400" width = "400"></canvas>
+		<canvas id = "thirdChart" height = "400" width = "400"></canvas>
+			
 		</div>
+
 	</div>
 	<!-- /ROW 2 -->
 
@@ -111,6 +115,10 @@
 #rank {
 	font-size: 20px;
 }
+
+canvas {
+	float: left;
+}
 </style>
 
 
@@ -126,8 +134,6 @@
 	var label4;
 
 {{#each player}}
-
-console.log("{{this.Position}}");
 
 	$("#name").html("{{this.Player}}")
 	$("#team").html("{{this.Team}}")
@@ -171,10 +177,10 @@ if("{{this.Position}}" === "Wide Receiver"){
 	console.log(data3);
 	console.log(data4);
 
-new Chart(document.getElementById("myChart"), {
-  type: 'horizontalBar',
+new Chart(document.getElementById("firstChart"), {
+  type: 'bar',
   data: {
-    labels: ['2014', '2015', '2016'],
+    labels: ['2016'],
     datasets: [{ 
         data: data1,
         label: label1,
@@ -197,13 +203,67 @@ new Chart(document.getElementById("myChart"), {
         fill: false
       }]
   },
-  options: {
-    title: {
-      display: true,
-      text: 'Player Stats Per Year (Last Three Years)'
-    }
-  }
-});
+	 options: {
+	    title: {
+	      display: true,
+	      text: 'Player Stats (2016)'
+	    },
+	      scales: {
+	            yAxes: [{
+	                display: true,
+	                ticks: {
+	                    suggestedMin: 0,
+	                }
+	            }]
+	        }
+	  }
+	});
+
+new Chart(document.getElementById("secondChart"), {
+  type: 'bar',
+  data: {
+    labels: ['2015'],
+    datasets: [{ 
+        data: data1,
+        label: label1,
+        backgroundColor: "#3e95cd",
+        fill: false
+      }, { 
+        data: data2,
+        label: label2,
+        backgroundColor: "#8e5ea2",
+        fill: false
+      }, { 
+        data: data3,
+        label: label3,
+        backgroundColor: "#3cba9f",
+        fill: false
+      }, { 
+        data: data4,
+        label: label4,
+        backgroundColor: "#e8c3b9",
+        fill: false
+      }]
+  },
+	 options: {
+	    title: {
+	      display: true,
+	      text: 'Player Stats (2015)'
+	    },
+	      scales: {
+	            yAxes: [{
+	                display: true,
+	                ticks: {
+	                    suggestedMin: 0
+	                
+	                }
+	            }]
+	        }
+	  }
+	});
+
+
+	
 
 
 
