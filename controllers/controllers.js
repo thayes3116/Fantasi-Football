@@ -14,7 +14,7 @@ var rankPosition = "Quarterback",
 	rankCategory,
 	playerToSearch = "Tom Brady",
 	testFav = "Tom Brady",
-	testid = "2",
+	testid = "3",
 	teamToSearch = "Miami Dolphins";
 
 router.get("/", function(req, res) {
@@ -78,7 +78,6 @@ router.get("/profile", function(req, res) {
 			});		
 	});		
 })
-
 
 router.post("/position", function(req, res) {
 
@@ -188,7 +187,8 @@ router.post("/addPlayer", function(req,res){
 	models.addPlayer(
 		["favorite_players", "id"],
 		[testFav, testid],
-		function(){
+		function(data){
+			console.log(data);
 		});
 });
 
@@ -197,7 +197,8 @@ router.post("/addTeam", function(req,res){
 	models.addTeam(
 		["favorite_teams", "id"],
 		[testFav, testid],
-		function(){
+		function(data){
+			console.log(data);
 		});
 });
 
