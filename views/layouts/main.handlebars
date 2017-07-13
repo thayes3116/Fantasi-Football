@@ -14,27 +14,29 @@
 
     <title>Dashboard Main</title>
 
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="app/css/bootstrap.css">
+    <link rel="stylesheet" href="/app/css/bootstrap.css">
     <!-- Vendor CSS-->
-    <link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="vendor/animo/animate+animo.css">
-    <link rel="stylesheet" href="vendor/csspinner/csspinner.min.css">
+    <link rel="stylesheet" href="/vendor/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/animo/animate+animo.css">
+    <link rel="stylesheet" href="/vendor/csspinner/csspinner.min.css">
 
     <!-- Custom CSS-->
 
     <!-- App CSS-->
-    <link rel="stylesheet" href="app/css/app.css">
+    <link rel="stylesheet" href="/app/css/app.css">
     <!-- Modernizr JS Script-->
-    <script src="vendor/modernizr/modernizr.js" type="application/javascript"></script>
+    <script src="/vendor/modernizr/modernizr.js" type="application/javascript"></script>
     <!-- FastClick for mobiles-->
-    <script src="vendor/fastclick/fastclick.js" type="application/javascript"></script>
+    <script src="/vendor/fastclick/fastclick.js" type="application/javascript"></script>
 
     <!-- Luis Added for Charts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-      crossorigin="anonymous"></script>
+ 
 </head>
 
 <body>
@@ -44,9 +46,9 @@
     <nav role="navigation" class="navbar navbar-default navbar-top navbar-fixed-top">
         <!-- Navbar header-->
         <div class="navbar-header">
-            <a href="/profile" class="navbar-brand">
-                <div class="brand-logo">SPORTS</div>
-                <div class="brand-logo-collapsed"></div>
+            <a href="#" class="navbar-brand">
+                <div class="brand-logo">FANTASI</div>
+                <div class="brand-logo-collapsed">FT</div>
             </a>
         </div>
         <!-- END navbar header-->
@@ -125,7 +127,9 @@
         <!-- END Search form-->
     </nav>
     <!-- END Top Navbar-->
-    <!-- START aside-->
+
+
+    <!-- FIXED1 START aside-->
     <aside class="aside">
         <!-- START Sidebar (left)-->
         <nav class="sidebar">
@@ -137,62 +141,64 @@
                         <div class="user-block-picture">
                             <img src="http://via.placeholder.com/150x150" alt="Avatar" width="60" height="60"
                                  class="img-thumbnail img-circle">
-                            <!-- Status when collapsed-->
-                            <div class="user-block-status">
-                                <div class="point point-success point-lg"></div>
-                            </div>
                         </div>
                         <!-- Name-->
                         <div class="user-block-info">
-                            <span class="user-block-name item-text">Welcome, {{{userInfo.name}}}</span>
+                            <span class="user-block-name item-text">{{{userInfo.name}}}</span>
                         </div>
                     </div>
                 </li>
                 <!-- END user info-->
 
                 <!-- START Menu-->
-                <!-- TEAMS-->
                 <li class="active">
-                    <a href="#" title="Dashboard" data-toggle="collapse-next" class="has-submenu">
-
+                    <a href="dashboard.html" title="Dashboard" data-toggle="collapse-next" class="has-submenu">
                         <em class="fa fa-star"></em>
                         <span class="item-text">TEAMS</span>
                         <span class="item-text"></span>
                     </a>
                     <!-- START SubMenu item-->
                     <ul class="nav collapse in">
-                        <li class="active">
-                            <a href="#" title="Default" data-toggle="" class="no-submenu">
-                                <span class="item-text">{{userInfo.favorite_teams}}</span>
-                            </a>
-                        </li>
-
+                        {{#each favTeams}}
+                            <li class="active">
+                                <a href="dashboard.html" title="Default" data-toggle="" class="no-submenu">
+                                    <span class="item-text">{{this}}</span>
+                                </a>
+                            </li>
+                        {{/each}}
                     </ul>
-                    <!-- END TEAMS SubMenu item-->
-
-                <!-- PLAYERS-->
-                <li class="active">
+                    <!-- END SubMenu item-->
+                </li>
+                <li>
                     <a href="#" title="Dashboard" data-toggle="collapse-next" class="has-submenu">
                         <em class="fa fa-male"></em>
                         <span class="item-text">PLAYERS</span>
                     </a>
-
                     <!-- START SubMenu item-->
-                    <ul class="nav collapse in">
-                        <li class="active">
-                            <a href="#" title="Default" data-toggle="" class="no-submenu">
-                                <span class="item-text">{{userInfo.favorite_players}}</span>
-                            </a>
-                        </li>
+                    <ul class="nav collapse ">
+                        {{#each favPlayers}}
+                            <li>
+                                <a href="chart-flot.html" title="Default" data-toggle="" class="no-submenu">
+                                    <span class="item-text">{{this}}</span>
+                                </a>
+                            </li>
+                        {{/each}}
                     </ul>
-
-
+                    <!-- END SubMenu item-->
+                </li>
                 <!-- END Menu-->
+
+
+
+
                 <!-- Sidebar footer    -->
                 <li class="nav-footer">
                     <div class="nav-footer-divider"></div>
                     <!-- START button group-->
                     <div class="btn-group text-center">
+                        <button type="button" data-toggle="tooltip" data-title="Profile" class="btn btn-link">
+                            <em class="fa fa-user text-muted"></em>
+                        </button>
                         <button type="button" data-toggle="tooltip" data-title="Settings" class="btn btn-link">
                             <em class="fa fa-cog text-muted"></em>
                         </button>
@@ -207,36 +213,31 @@
         <!-- END Sidebar (left)-->
     </aside>
     <!-- End aside-->
-    <!-- START Main section-->
-    <section>
-    {{{body}}}
-        <!-- START Page content-->
-        <!--<section class="main-content">-->
-        <!--<h3>-->
-        <!--Dashboard-->
-        <!--<br>-->
-        <!--<small>Welcome Kind Heart Warming Soul</small>-->
-        <!--</h3>-->
-        <!--</section>-->
-        <!-- END Page content-->
-    </section>
-    <!-- END Main section-->
-</section>
 
 
 
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!-- Plugins-->
-<script src="vendor/chosen/chosen.jquery.min.js"></script>
-<script src="vendor/slider/js/bootstrap-slider.js"></script>
-<script src="vendor/filestyle/bootstrap-filestyle.min.js"></script>
+<script src="/vendor/chosen/chosen.jquery.min.js"></script>
+<script src="/vendor/slider/js/bootstrap-slider.js"></script>
+<script src="/vendor/filestyle/bootstrap-filestyle.min.js"></script>
 <!-- Animo-->
-<script src="vendor/animo/animo.min.js"></script>
+<script src="/vendor/animo/animo.min.js"></script>
 <!-- Sparklines-->
-<script src="vendor/sparklines/jquery.sparkline.min.js"></script>
+<script src="/vendor/sparklines/jquery.sparkline.min.js"></script>
 <!-- Slimscroll-->
-<script src="vendor/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/vendor/slimscroll/jquery.slimscroll.min.js"></script>
 
 <script>
 
@@ -272,7 +273,7 @@ $(document).ready(function(){
 </script>
 
 <!-- App Main-->
-<script src="app/js/app.js"></script>
+<script src="/app/js/app.js"></script>
 <!-- END Scripts-->
 </body>
 </html>
