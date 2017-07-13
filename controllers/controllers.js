@@ -38,7 +38,9 @@ router.post("/login", function(req, res) {
 
 			if(data === "Sorry email and password do not match"){
 
+
 				res.render("login", {layout: "register", data: data})
+
 
 			}else{
 
@@ -122,15 +124,21 @@ router.post("/position", function(req, res) {
 
 			  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
 				  			
-				  			res.render("profile", dataPack)
+				  			res.render("position", dataPack)
 
 				  		}else{
-				  			res.render("profile", dataPack); 			
+				  			res.render("position", {rank: data}); 			
 				  		}
 			  });
 		});	  
 	});		  
 });
+
+
+router.get("/position", function() {
+
+	res.render("position");
+})
 
 
 router.post("/player", function(req, res) {
