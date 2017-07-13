@@ -23,7 +23,6 @@ router.get("/", function(req, res) {
 
 });
 
-
 router.post("/login", function(req, res) {
 	
 	console.log(req.session);
@@ -49,8 +48,7 @@ router.post("/login", function(req, res) {
 				
 				res.redirect("/profile");
 			}
-
-		});	
+	});	
 });
 
 router.post("/position/:position/:year", function(req, res) {
@@ -92,7 +90,6 @@ router.post("/position/:position/:year", function(req, res) {
 	// res.render("position")
 });
 
-
 router.get("/profile", function(req, res) {
 
 	models.displayUser(req.session.userID, function(modelData) {
@@ -109,15 +106,12 @@ router.get("/profile", function(req, res) {
 		}
 
 		console.log(dataPack);
-		
+
 		res.render("profile", dataPack);					
 	});		
-
 });
 
-
 router.post("/position", function(req, res) {
-
 
 	models.displayUser(req.session.userID, function(modelData) {
 		
@@ -167,12 +161,10 @@ router.post("/position", function(req, res) {
 	});	
 });
 
-
 router.get("/position", function(req, res) {
 
 	res.render("position");
 })
-
 
 router.post("/player", function(req, res) {
 
@@ -205,16 +197,13 @@ router.post("/player", function(req, res) {
 	});	
 });		
 	  	
-
-
-
 router.post("/addPlayer", function(req,res){
 
 	console.log('Controller 155');
 
 	models.addPlayer(
 		["favorite_players", "id"],
-		[testFav, testid],
+		[testFav, req.session.userID],
 		function(data){
 			console.log(data);
 		});
@@ -224,7 +213,7 @@ router.post("/addTeam", function(req,res){
 
 	models.addTeam(
 		["favorite_teams", "id"],
-		[testFav, testid],
+		[testFav, req.session.userID],
 		function(data){
 			console.log(data);
 		});
@@ -258,10 +247,8 @@ router.post("/team", function(req, res) {
 	  			res.render("team", dataPack);
 	  		}
 	  });
-	});		 
-				 		
+	});		 				 		
 });
-
 
 router.get("/login", function(req, res) {
 
@@ -292,7 +279,11 @@ router.post("/signup", function(req, res) {
 router.get("/signup", function(req, res) {
 
 	res.render("signup", {layout: "register"});
+});
 
+router.get("/logout", function(req, res){
+
+	res.redirect("/");
 });
 
 // Export routes for server.js to use.
