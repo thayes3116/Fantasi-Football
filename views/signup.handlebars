@@ -50,13 +50,14 @@
             </p>
             <p class="text-center mb-lg">
                 <strong>SIGNUP</strong>
+                <p class="text-center">{{this.data}}</p>
             </p>
             <div class="panel-body">
-                <form role="form">
+                <form role="form" method="post" action="/signup">
                     <!--FIRST NAME-->
                     <div class="form-group has-feedback">
                         <label for="signupInputEmail1" class="text-muted">Full Name</label>
-                        <input id="signupInputEmail1" type="email" placeholder="Enter full name" class="form-control" name="name">
+                        <input id="signupInputEmail1" type="text" placeholder="Enter full name" class="form-control" name="name">
                     </div>
                     <!--EMAIL-->
                     <div class="form-group has-feedback">

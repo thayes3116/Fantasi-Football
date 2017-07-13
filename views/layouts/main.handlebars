@@ -161,12 +161,14 @@
                     </a>
                     <!-- START SubMenu item-->
                     <ul class="nav collapse in">
+                        {{#each favTeams}}
                         <li class="active">
                             <a href="#" title="Default" data-toggle="" class="no-submenu">
-                                <span class="item-text">{{userInfo.favorite_teams}}</span>
+
+                                <span class="item-text">{{this}}</span>
                             </a>
                         </li>
-
+                        {{/each}}
                     </ul>
                     <!-- END TEAMS SubMenu item-->
 
@@ -179,11 +181,13 @@
 
                     <!-- START SubMenu item-->
                     <ul class="nav collapse in">
+                    {{#each favPlayers}}
                         <li class="active">
-                            <a href="#" title="Default" data-toggle="" class="no-submenu">
-                                <span class="item-text">{{userInfo.favorite_players}}</span>
+                            <a href="#" title="Default" data-toggle="" class="no-submenu">                                                       
+                                <span class="item-text">{{this}}</span>
                             </a>
                         </li>
+                        {{/each}}
                     </ul>
 
 
