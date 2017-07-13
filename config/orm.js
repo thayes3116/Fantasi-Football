@@ -304,9 +304,24 @@ var orm = {
 
       if (err) throw err;
 
-      console.log(result);
-
-       cb(result);
+      // console.log("orm displayuser", result);
+      // console.log(result[0].favorite_players);
+      // console.log(result[0].favorite_teams);
+      if(result[0].favorite_teams == null && result[0].favorite_players == null){
+        result[0].favorite_players = "";
+        result[0].favorite_teams ="";
+        cb(result)
+      }else{
+        if (result[0].favorite_players == null) {
+          result[0].favorite_players = "";
+          cb(result);
+        }else if(result[0].favorite_teams == null){
+          result[0].favorite_teams ="";
+          cb(result);
+        }else{
+        cb(result);
+        }
+      }
     })
     
   }
