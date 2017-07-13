@@ -645,9 +645,22 @@ h3,
 h4 {
   font-weight: bold;
 }
+
+.rank {
+  margin-left: 10px;
+}
 /* ========================================================================
    Component: button-extra.less
  ========================================================================== */
+.welcome {
+  text-align: center;
+}
+
+.welcomep {
+  text-align: center;
+  font-size: 18px;
+}
+
 .btn-inverse {
   color: #ffffff;
   background-color: #2d2d2d;

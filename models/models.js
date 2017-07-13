@@ -2,8 +2,22 @@
 var orm = require("../config/orm.js");
 
 var models = {
+
 	ranking: function(cols, vals, year, cb) {
 		orm.ranking("nfl", cols, vals, year, function(res) {
+
+			cb(res);
+		});
+	},
+
+	addPlayer: function(cols, vals, cb) {
+		orm.addPlayer("user", cols, vals, function(res) {
+			cb(res);
+		});
+	},
+
+	addTeam: function(cols, vals, cb) {
+		orm.addTeam("user", cols, vals, function(res) {
 			cb(res);
 		});
 	},
@@ -13,16 +27,19 @@ var models = {
 			cb(res);
 		});
 	},
+
 	team: function(cols, vals, cb) {
 		orm.team("nfl", cols, vals, function(res) {
 			cb(res);
 		});
 	},
+
 	createUser: function(valName, valEmail, valPassword, cb) {
 		orm.createUser("user", valName, valEmail, valPassword, function(res) {
 			cb(res);
 		})
 	},
+
 	loginAs: function(valEmail, valPassword, cb) {
 		orm.loginAs("user", valEmail, valPassword, function(res) {
 			cb(res);

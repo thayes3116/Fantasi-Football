@@ -5,7 +5,6 @@ var orm = {
 
   ranking: function(table, cols, vals, year, cb) {
     
-
     var queryString = "SELECT `Time`, `Position`, `Rank`, `Player`, `Team` FROM " + table;
 
     queryString += " WHERE ";   
@@ -95,6 +94,100 @@ var orm = {
       }
     });    
   },
+
+  addTeam: function(table, cols, vals, cb) {
+
+    console.log("at orm addTeam");
+
+    var queryString = "SELECT `favorite_teams` FROM " + table + " WHERE id = " + vals[1] + ";";
+
+    connection.query(queryString, function(err, result) {
+
+      if (err) throw err;
+
+      if(result[0][cols[0]] == null){
+
+        var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + vals[0] + "' WHERE id = '" + vals[1] + "';";
+          
+          connection.query(updateString, function(err, result) {
+
+              if (err) throw err;
+
+              cb("Team added to favorites")
+          });
+
+      }else{   
+        var split = result[0][cols[0]].split(",")
+
+        console.log(split.indexOf(vals[0]));
+        // console.log(result[0][cols[0]] + ", " + vals[0]);
+        if(split.indexOf(vals[0]) == -1){
+
+          var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + result[0][cols[0]] + ", " + vals[0] + "' WHERE id = " + vals[1] + ";";
+
+          connection.query(updateString, function(err, result) {
+
+              if (err) throw err;
+
+              cb("Team added to favorites")
+          });
+
+        }else{
+
+          cb("Team is already one of your favorites")
+        }  
+      }
+    });
+  },
+
+  addPlayer: function(table, cols, vals, cb) {
+
+    console.log("at orm addPlayer");
+
+    var queryString = "SELECT `favorite_players` FROM " + table + " WHERE id = " + vals[1] + ";";
+
+    connection.query(queryString, function(err, result) {
+
+        if (err) throw err;
+
+        if(result[0][cols[0]] == null){
+
+          var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + vals[0] + "' WHERE id = '" + vals[1] + "';";
+            
+            connection.query(updateString, function(err, result) {
+
+                if (err) throw err;
+
+                cb("Team added to favorites")
+            });
+
+        }else{ 
+          
+            var split = result[0][cols[0]].split(",")
+            // console.log(split);
+            // console.log(typeof(vals[0]));
+            console.log(split.indexOf(vals[0]));
+            // console.log(result[0][cols[0]] + ", " + vals[0]);
+          if(split.indexOf(vals[0]) == -1){
+
+            console.log(result[0][cols[0]])
+        
+            var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + result[0][cols[0]] + ", " + vals[0] + "' WHERE id = " + vals[1] + ";";
+
+            connection.query(updateString, function(err, result) {
+
+                if (err) throw err;
+
+                cb("Player added to favorites")
+            });
+
+           }else{
+
+              cb("Player is already one of your favorites")
+           }
+        }      
+    });
+  },
   team: function(table, cols, vals, cb) {
 
       var queryString = "SELECT `Team`, `Time`, sum(`Touch Downs`) AS TD, sum(`Total_Points_Game_Average`) AS PPG, sum(`Sacked`) AS Sacked, sum(`Fumbles_Total`) AS Fumbles, sum(`Interception`) AS Interceptions FROM " + table;
@@ -125,29 +218,46 @@ var orm = {
 
             console.log(ex.message);
             cb(ex.message);
-          }  
-        
+          }          
       })    
-
   },
   
   createUser: function(table, valName, valEmail, valPassword, cb) {
 
-    var queryString = "INSERT INTO " + table;
+    var repeatString = "SELECT 1 FROM " + table;
 
-    queryString += " (name, email_address, password) VALUES ('" + valName + "',";
-    
-    queryString += " '"  + valEmail + "', '" + valPassword + "')";
-
-    console.log(queryString);
-
-    connection.query(queryString, function(err, result) {
+    repeatString += " WHERE email_address = '" + valEmail + "';";
+    console.log(repeatString);
+    connection.query(repeatString, function(err, res) {
+       
 
       if (err) throw err;
-      
-      console.log("created new user");
-      cb(result);
-    })
+        console.log(res[0]);
+        if(res[0] == undefined){
+
+          var queryString = "INSERT INTO " + table;
+
+          queryString += " (name, email_address, password) VALUES ('" + valName + "',";
+          
+          queryString += " '"  + valEmail + "', '" + valPassword + "')";
+
+          console.log(queryString);
+
+          connection.query(queryString, function(err, result) {
+
+            if (err) throw err;
+            
+            console.log("created new user");
+            cb(result);
+          });
+          
+        }else{
+
+            cb("Email already exists")
+          
+        }
+    });
+
   },
 
   loginAs: function(table, valEmail, valPassword, cb) {
@@ -172,7 +282,6 @@ var orm = {
           
           } else {
      
-            //console.log(result[0]);
             cb(result[0]);
           }
 
@@ -183,7 +292,7 @@ var orm = {
     })
   },
 
-  displayUser: function(table, id, cb) {
+    displayUser: function(table, id, cb) {
 
     var queryString = "SELECT * FROM " + table;
 
@@ -195,7 +304,8 @@ var orm = {
 
       if (err) throw err;
 
-      //console.log(result);
+      console.log(result);
+
        cb(result);
     })
     

@@ -172,105 +172,28 @@
     <button type="button" class="btn btn-labeled btn-primary pull-right">
                <span class="btn-label"><i class="fa fa-plus-circle"></i>
                </span>Add Team {{this.Team}}</button>
-    <h3>
-        TEAMS
-    </h3>
-    <!-- START Third Widgets-->
-    <div class="row">
-        <div class="col-md-3">
-            <!-- START Touchdowns-->
-            <div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
-                <div class="panel-body">
-                    <div class="text-right text-muted">
-                        <em class="fa fa-users fa-2x"></em>
-                    </div>
-                    <p class="text-muted">Touchdowns</p>
-                    <h3 class="mt0">33 {{this.TD}}</h3>
-                    <div class="progress progress-striped progress-xs">
-                        <div role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;" class="progress-bar progress-bar-success">
-                            <span class="sr-only">80% Complete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END Touchdowns-->
-        </div>
-        <div class="col-md-3">
-            <!-- START PPG-->
-            <div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
-                <div class="panel-body">
-                    <div class="text-right text-muted">
-                        <em class="fa fa-bar-chart-o fa-2x"></em>
-                    </div>
-                    <p class="text-muted">Average PPG</p>
-                    <h3 class="mt0">20 {{this.PPG}}</h3>
-                    <div class="progress progress-striped progress-xs">
-                        <div role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;" class="progress-bar progress-bar-info">
-                            <span class="sr-only">40% Complete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END PPG-->
-        </div>
-        <div class="col-md-3">
-            <!-- START Fumbles-->
-            <div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
-                <div class="panel-body">
-                    <div class="text-right text-muted">
-                        <em class="fa fa-trophy fa-2x"></em>
-                    </div>
-                    <p class="text-muted">Fumbles</p>
-                    <h3 class="mt0">40 {{this.Fumbles}}</h3>
-                    <div class="progress progress-striped progress-xs">
-                        <div role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;" class="progress-bar progress-bar-warning">
-                            <span class="sr-only">60% Complete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END Fumbles-->
-        </div>
 
-        <div class="col-md-3">
-            <!-- START Interceptions-->
-            <div data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget">
-                <div class="panel-body">
-                    <div class="text-right text-muted">
-                        <em class="fa fa-trophy fa-2x"></em>
-                    </div>
-                    <p class="text-muted">Interceptions</p>
-                    <h3 class="mt0">18 {{this.Interceptions}}</h3>
-                    <div class="progress progress-striped progress-xs">
-                        <div role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;" class="progress-bar progress-bar-danger">
-                            <span class="sr-only">20% Complete</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END Interceptions-->
-        </div>
-    </div>
-    <!-- END Third Widgets-->
+        <h3>
+            {{this.Team}}
+        </h3>
+        <!-- START chart-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-collapse">
+                        <div class="panel-body">
+                            <div style="height: 350px;" data-source="server/chart-data.php?type=area" class="chart-area flot-chart"></div>
 
-            <!-- START chart-->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-collapse">
-                            <div class="panel-body">
-                                <div style="height: 350px;" data-source="server/chart-data.php?type=area" class="chart-area flot-chart"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END chart-->
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- END chart-->
 
 
-        </div>
+          </div>
         <!-- END dashboard main content-->
 
-    </div>
+      </div>
     {{/each}}
 </section>
