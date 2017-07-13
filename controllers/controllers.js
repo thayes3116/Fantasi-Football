@@ -209,14 +209,46 @@ router.post("/addPlayer", function(req,res){
 		});
 });
 
-router.post("/addTeam", function(req,res){
+router.post("/addTeam/:team/", function(req,res){
 
+	models.displayUser(req.session.userID, function(modelData) {
+
+		favData = modelData[0];
+
+		var splitPlayerFavs = favData.favorite_players.split(",")
+		var splitTeamFavs = favData.favorite_teams.split(",")
+		
+	//console.log("team params:", req.params.team);
 	models.addTeam(
 		["favorite_teams", "id"],
-		[testFav, req.session.userID],
+
+		[req.params.team, req.session.userID],
+
+
 		function(data){
-			console.log(data);
+			
+			//console.log("data from team add", data);
+
+		  		var dataPack= {
+		  			userInfo: favData,
+		  			team: data,
+		  			teamName: data[0].Team,
+		  			favPlayers: splitPlayerFavs,
+		  			favTeams: splitTeamFavs
+		  		}
+		  			console.log(dataPack)
+		  		if(data === "sorry team not found"){
+
+		  			res.render("team", dataPack);
+
+		  		}else{
+
+		  			res.render("team", dataPack);
+		  		}
+		  	
 		});
+	});
+	
 });
 
 router.post("/team", function(req, res) {
@@ -233,22 +265,26 @@ router.post("/team", function(req, res) {
 	  	[req.body.teamSearch], 
 	  	function(data) {
 
+	  		console.log("data from team", data);
 	  		var dataPack= {
 	  			userInfo: favData,
 	  			team: data,
+	  			teamName: data[0].Team,
 	  			favPlayers: splitPlayerFavs,
 	  			favTeams: splitTeamFavs
 	  		}
-
+	  			console.log(dataPack)
 	  		if(data === "sorry team not found"){
 
 	  			res.render("team", dataPack)
 	  		}else{
 	  			res.render("team", dataPack);
 	  		}
+
 	  });
 	});		 				 		
 });
+
 
 router.get("/login", function(req, res) {
 

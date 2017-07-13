@@ -1,14 +1,13 @@
 
 <section class="main-content">
 
-<button type="button" class="addbtn btn-labeled btn-primary pull-right">
-               <span class="btn-label"><i class="fa fa-plus-circle"></i>
-               </span>Add Team {{this.Team}}</button>
-    {{#each team}}
-        
-
-    {{/each}}
-
+    <form method="post" action="/addTeam/{{this.teamName}}/">
+        <button type="submit" class="btn btn-labeled btn-primary pull-right" onClick="window.location.reload();">
+           <span class="btn-label"><i class="fa fa-plus-circle"></i>
+           <input type="hidden" name="teamAdded" value="{{this.teamName}}">
+           </span>Add Team {{this.teamName}}</button>
+    </form>
+    
     <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
@@ -22,7 +21,7 @@
         </div>
 </section>
 
-</div>
+
 
 <!--</section>-->
 
@@ -36,7 +35,9 @@
 
 
 <script>
+// function refreshPage() {
 
+// };
 
 	var data1 = [];
 	var data2 = [];
