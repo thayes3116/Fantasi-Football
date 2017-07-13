@@ -1,21 +1,70 @@
-{{rank.Position}}
-{{#each rank}}
-<!-- <h1>Please Work</h1> -->{{this.Position}}
-<h1>{{this.Rank}}. {{this.Player}} ---------- {{this.Team}}</h1>
-{{/each}}
+
+<!--  {{rank.Position}}
+ {{this.Position}} -->
+
+<!-- {{#each rank}} -->
+<!-- <h1>{{this.Player}}</h1> -->
+<!-- <h1>{{this.Rank}}. {{this.Player}} {{this.Team}}</h1> -->
+<!-- {{/each}}  -->
+
+<!-- <div id="position">
+
+</div> -->
+ 
+
+<!-- {{#each position}}
+{{this.Position}}
+{{/each}} -->
+
 
 <section>
     <!-- START Page content-->
     <section class="main-content">
+    	<h2 id="position"></h2>
+    	<h3>| Rankings</h3>
+    	
+    	<!-- <h4>Ranking</h4> -->
 
+    	<!-- START Year Buttons -->
+    	<div class="row">
+    		<div class="col-sm-4">
+        <form method="post" action="/position/{{this.pos}}/2014">
+	        <input id="fourInput" type="hidden" name="year" value="2014">
+    			<button data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget button">
+    				2014
+    			</button>
+        </form>  
+    		</div>
+    		<div class="col-sm-4">
+        <form method="post" action="/position/{{this.pos}}/2015">
+	        <input id="fiveInput" type="hidden" name="year" value="2015">
+    			<button data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget button">
+    				2015
+    			</button>
+        </form>  
+    		</div>
+    		<div class="col-sm-4">
+        <form method="post" action="/position/{{this.pos}}/2016">
+	        <input id="sixInput" type="hidden" name="year" value="2016">
+    			<button data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="1400" class="panel widget button">
+    				2016
+    			</button>
+        </form>  
+    		</div>
+    	</div>
+    	<!-- END Year Buttons -->
+		
         <!-- START DATATABLE -->
         <div class="row">
             <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Quaterbacks |
-                        <small>Ranking</small>
-                    </div>
+                <div class="panel panel-default" data-toggle="play-animation" data-play="fadeInLeft" data-offset="0" data-delay="500" class="panel widget" id="table">
+                    <!-- <div class="panel-heading">
+                    	<! Position heading -->
+               			<!-- <div id="position"></div> |
+                        <text>Ranking</text>
+                    </div> --> 
+                  
+           
                     <div class="panel-body">
                         <table id="datatable2" class="table table-striped table-hover">
                             <thead>
@@ -26,7 +75,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            {{#each rank}}
+                            	<tr>
+                            	<td>{{this.Rank}}</td>
+                            	<td>{{this.Player}}</td>
+                            	<td>{{this.Team}}</td>
+                            	</tr>
+	
+                            {{/each}}
+                            <!-- <tr>
                                 <td>1</td>
                                 <td>Tom Brady</td>
                                 <td>New England Patriots</td>
@@ -35,7 +92,7 @@
                                 <td>2</td>
                                 <td>Aaron Rodgers</td>
                                 <td>GreenBay Packers</td>
-                            </tr>
+                            </tr> -->
                             </tbody>
                         </table>
                     </div>
@@ -47,5 +104,72 @@
     </section>
     <!-- END Page content-->
 </section>
+
 <!-- END Main section-->
 </section>
+
+<style>
+
+h2 {
+	margin-left: 0px;
+}
+
+h3 {
+	padding-left: 10px;
+	font-weight: normal;
+}
+
+.button {
+	max-width: 50%;
+	font-size: 14px;
+	text-align: center;
+	margin-left: 33.3%;
+}
+
+.panel-body{
+	padding-top: 0px;
+}
+
+#table {
+
+}
+/*h4 {
+	font-weight: normal;
+	margin-left: 10px;
+}*/
+
+</style>
+
+<script>
+{{#each rank}}
+
+$("#position").html("{{this.Position}}");
+$("#2014").html("");
+$("#2015").html("");
+$("#2016").html("");
+
+{{/each}}
+
+var position = $("#position").val();
+console.log(position);
+window.localStorage.setItem("position", position);
+
+
+// console.log("Luis", $("#position").val());
+	$("#fourBtn").on("click", function() {
+		console.log($("#fourInput").val());
+		position = $("#position").val();
+	})
+
+	$("#fiveBtn").on("click", function() {
+		console.log($("#fiveInput").val());
+		position = $("#position").val();
+	})
+
+	$("#sixBtn").on("click", function() {
+		console.log($("#sixInput").val());
+		position = $("#position").val();
+	})
+
+</script>
+
