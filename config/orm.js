@@ -19,23 +19,23 @@ var orm = {
 
        if (err) throw err;
           
-          try{
+        try{
 
-            if(!result[0]) {
-            
-              throw new Error("Please enter Running Back, Quarterback, or Wide Receiver");
-            
-            }else {
+          if(!result[0]) {
+          
+            throw new Error("Please enter Running Back, Quarterback, or Wide Receiver");
+          
+          }else {
 
-              cb(result);
+            cb(result);
 
-            }
+          }
 
-          }catch(ex){
+        }catch(ex){
 
-            console.log(ex.message);
-            cb(ex.message);
-          } 
+          console.log(ex.message);
+          cb(ex.message);
+        } 
     });
   },
 
@@ -187,6 +187,7 @@ var orm = {
         }      
     });
   },
+
   team: function(table, cols, vals, cb) {
 
       var queryString = "SELECT `Team`, `Time`, sum(`Touch Downs`) AS TD, sum(`Total_Points_Game_Average`) AS PPG, sum(`Sacked`) AS Sacked, sum(`Fumbles_Total`) AS Fumbles, sum(`Interception`) AS Interceptions FROM " + table;
@@ -229,9 +230,8 @@ var orm = {
     console.log(repeatString);
     connection.query(repeatString, function(err, res) {
        
-
       if (err) throw err;
-        console.log(res[0]);
+        
         if(res[0] == undefined){
 
           var queryString = "INSERT INTO " + table;
@@ -252,11 +252,9 @@ var orm = {
           
         }else{
 
-            cb("Email already exists")
-          
+            cb("Email already exists");          
         }
     });
-
   },
 
   loginAs: function(table, valEmail, valPassword, cb) {
@@ -291,7 +289,7 @@ var orm = {
     })
   },
 
-    displayUser: function(table, id, cb) {
+  displayUser: function(table, id, cb) {
 
     var queryString = "SELECT * FROM " + table;
 
@@ -303,9 +301,6 @@ var orm = {
 
       if (err) throw err;
 
-      // console.log("orm displayuser", result);
-      // console.log(result[0].favorite_players);
-      // console.log(result[0].favorite_teams);
       if(result[0].favorite_teams == null && result[0].favorite_players == null){
         result[0].favorite_players = "";
         result[0].favorite_teams ="";
@@ -321,11 +316,8 @@ var orm = {
         cb(result);
         }
       }
-    })
-    
+    })    
   },
-
-  // rankingByYear: function()
 }
 
 // Export the orm object for the model (models.js).
