@@ -39,7 +39,7 @@ router.post("/login", function(req, res) {
 
 			req.session.userID = data.id;
 
-			console.log(req.session);
+			console.log(req.session.userID);
 
 			if(data === "Sorry email and password do not match"){
 
@@ -94,136 +94,77 @@ router.post("/position/:position/:year", function(req, res) {
 
 
 router.get("/profile", function(req, res) {
-<<<<<<< HEAD
-	
-		var dataid = 10;
 
-=======
-		var dataid = 10;
->>>>>>> d7a822de8da7b040df2e5bc0dc0f3ab8e0bc0199
-			models.displayUser(dataid, function(modelData) {
-				
-				favData = modelData[0];
+	models.displayUser(req.session.userID, function(modelData) {
+		
+		favData = modelData[0];
 
-				var splitPlayerFavs = favData.favorite_players.split(",")
-				var splitTeamFavs = favData.favorite_teams.split(",")
-					
-				var dataPack = {
-					userInfo: favData,
-			  		favPlayers: splitPlayerFavs,
-			  		favTeams: splitTeamFavs
-				}
+		var splitPlayerFavs = favData.favorite_players.split(",")
+		var splitTeamFavs = favData.favorite_teams.split(",")
+			
+		var dataPack = {
+			userInfo: favData,
+	  		favPlayers: splitPlayerFavs,
+	  		favTeams: splitTeamFavs
+		}
 
-				// console.log(dataPack);
-				res.render("profile", dataPack);					
-			});		
-	
-})
+		console.log(dataPack);
+		
+		res.render("profile", dataPack);					
+	});		
+
+});
 
 
 router.post("/position", function(req, res) {
 
 
-	// var positionSearch = req.body.positionSearch;
-
-	// console.log(positionSearch);
-	// 	if(positionSearch === "Quarterback"){
-	// 	rankCategory = "Passing";
-	// 	}else if(positionSearch === "Running Back"){
-	// 		rankCategory = "Rushing";
-	// 	}else if(positionSearch === "Wide Receiver"){
-	// 		rankCategory = "Receiving";
-	// 	}
-
-	// var savedData = sessionStore.get("userData", function(error,data) {
-
-	// 	if (error) throw error;
-
-	// 	console.log("player post login data", data);
-
-	// 		models.displayUser(data.id, function(modelData) {
-				
-
-				favData = modelData[0];
-				
-				var splitPlayerFavs = favData.favorite_players.split(",")
-				var splitTeamFavs = favData.favorite_teams.split(",")
-					
-
-	// 		  models.ranking(
-
-	// 		  	["Category", "Position"], 
-	// 		  	[rankCategory, positionSearch], 
-	// 		  	function(data) {
-			      
-
-			  		console.log("data 50", data);
-			  		console.log(favData);
-			  		var dataPack= {
-			  			userInfo: favData,
-			  			position: data,
-			  			favPlayers: splitPlayerFavs,
-			  			favTeams: splitTeamFavs
-			  		}
-
-			  		// if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
-
-				  			
-	// 			  			res.render("position", dataPack)
-
-	// 			  		}else{
-	// 			  			res.render("position", {rank: data}); 			
-	// 			  		}
-	// 		  });
-	// 	});	  
-	// });		  
-
-	var positionSearch = req.body.positionSearch;
-	// window.localStorage.setItem("position", req.body.positionSearch);
-	// var positionInput = sessionStore.getItem("position");
-
-	// console.log("Please work", positionInput);
-	var year = "2016";
-	console.log("Year:", req.body.year);
-	console.log("Position:", positionSearch);
-	console.log(req.body.position);
-	// if (year !== "2015" || year !== "2014") {
-	// 	year = "2016";
+	models.displayUser(req.session.userID, function(modelData) {
 		
-	// } else {
-	// 	year = req.body.year;
+		favData = modelData[0];
+		
+		var splitPlayerFavs = favData.favorite_players.split(",")
+		var splitTeamFavs = favData.favorite_teams.split(",")	  
+		var positionSearch = req.body.positionSearch;	
+		var year = "2016";
 
-	// }
+		console.log("Year:", req.body.year);
+		console.log("Position:", positionSearch);
+		console.log(req.body.position);
 
-	if(positionSearch === "Quarterback"){
-		rankCategory = "Passing";
-	}else if(positionSearch === "Running Back"){
-		rankCategory = "Rushing";
-	}else if(positionSearch === "Wide Receiver"){
-		rankCategory = "Receiving";
-	}
-	console.log("controllers line 27");
+			if(positionSearch === "Quarterback"){
+				rankCategory = "Passing";
+			}else if(positionSearch === "Running Back"){
+				rankCategory = "Rushing";
+			}else if(positionSearch === "Wide Receiver"){
+				rankCategory = "Receiving";
+			}
+	
+		models.ranking(
+		  	["Category", "Position"], 
+		  	[rankCategory, positionSearch],
+		  	[year], 
+		  	function(data) {
+		      	var fullData = {
+		      		userInfo: favData,
+		  			rank: data,
+		  			pos: data[0].Position,
+		  			favPlayers: splitPlayerFavs,
+		  			favTeams: splitTeamFavs
+		  		}
 
-  models.ranking(
-  	["Category", "Position"], 
-  	[rankCategory, positionSearch],
-  	[year], 
-  	function(data) {
-      	var fullData = {
-  			rank: data,
-  			pos: data[0].Position
-  		}
-  		console.log("data 50", data);
-  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
-	  			
-	  			res.render("position", {Player:data})
+		  		console.log("data 50", data);
 
-	  		}else{
+		  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
+			  			
+		  			res.render("position", {Player:data})
 
-	  			res.render("position", fullData); 			
-	  		}
-  });
+		  		}else{
 
+		  			res.render("position", fullData); 			
+		  		}
+		});
+	});	
 });
 
 
@@ -234,42 +175,36 @@ router.get("/position", function(req, res) {
 
 
 router.post("/player", function(req, res) {
-	
-	var savedData = sessionStore.get("userData", function(error,data) {
 
-		if (error) throw error;
-
-		console.log("player post login data", data);
-
-			models.displayUser(data.id, function(modelData) {
-				favData = modelData[0];
+	models.displayUser(req.session.userID, function(modelData) {
+		favData = modelData[0];
+		
+		var splitPlayerFavs = favData.favorite_players.split(",")
+		var splitTeamFavs = favData.favorite_teams.split(",")
 				
-				var splitPlayerFavs = favData.favorite_players.split(",")
-				var splitTeamFavs = favData.favorite_teams.split(",")
-						
-			  models.player(
-			  	["Player",], 
-			  	[req.body.playerSearch], 
-			  	function(data) {
+	  models.player(
+	  	["Player",], 
+	  	[req.body.playerSearch], 
+	  	function(data) {
+	  		console.log(data);
+	  		var dataPack= {
+	  			userInfo: favData,
+	  			player: data,
+	  			favPlayers: splitPlayerFavs,
+	  			favTeams: splitTeamFavs
+	  		}
+	  		
+	        if(data === "sorry player not found"){
+	  			res.render("player", dataPack)
+	  		}else{
 
-			  		var dataPack= {
-			  			userInfo: favData,
-			  			player: data,
-			  			favPlayers: splitPlayerFavs,
-			  			favTeams: splitTeamFavs
-			  		}
-			  		
-			        if(data === "sorry player not found"){
-				  			res.render("player", dataPack)
-				  		}else{
+	  			res.render("player", dataPack);
+	  		}
 
-				  			res.render("player", dataPack);
-				  		}
-
-			  });
-			});	
-		});		
-	});  	
+	  });
+	});	
+});		
+	  	
 
 
 
@@ -297,40 +232,34 @@ router.post("/addTeam", function(req,res){
 
 router.post("/team", function(req, res) {
 
-	var savedData = sessionStore.get("userData", function(error,data) {
+	models.displayUser(req.session.userID, function(modelData) {
 
-		if (error) throw error;
+		favData = modelData[0];
 
-		console.log("player post login data", data);
+		var splitPlayerFavs = favData.favorite_players.split(",")
+		var splitTeamFavs = favData.favorite_teams.split(",")
+		
+	  models.team(
+	  	["Team",], 
+	  	[req.body.teamSearch], 
+	  	function(data) {
 
-			models.displayUser(data.id, function(modelData) {
+	  		var dataPack= {
+	  			userInfo: favData,
+	  			team: data,
+	  			favPlayers: splitPlayerFavs,
+	  			favTeams: splitTeamFavs
+	  		}
 
-				favData = modelData[0];
+	  		if(data === "sorry team not found"){
 
-				var splitPlayerFavs = favData.favorite_players.split(",")
-				var splitTeamFavs = favData.favorite_teams.split(",")
-				
-			  models.team(
-			  	["Team",], 
-			  	[req.body.teamSearch], 
-			  	function(data) {
-
-			  		var dataPack= {
-			  			userInfo: favData,
-			  			team: data,
-			  			favPlayers: splitPlayerFavs,
-			  			favTeams: splitTeamFavs
-			  		}
-
-			  		if(data === "sorry team not found"){
-
-				  			res.render("team", dataPack)
-				  		}else{
-				  			res.render("team", dataPack);
-				  		}
-				});
-		});		 
-	});			 		
+	  			res.render("team", dataPack)
+	  		}else{
+	  			res.render("team", dataPack);
+	  		}
+	  });
+	});		 
+				 		
 });
 
 
