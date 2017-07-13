@@ -23,7 +23,6 @@ app.use(methodOverride("_method"));
 // Set Handlebars.
 var exphbs = require("express-handlebars");
 
-
 app.use(session({
     key: 'session_cookie_name',
     secret: 'session_cookie_secret',
@@ -31,25 +30,6 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-
-// app.use(function (req, res, next) {
-  // var views = req.session.views
-
-//   if (!views) {
-//     views = req.session.views = {}
-//   }
-
-//   // get the url pathname
-//   var pathname = parseurl(req).pathname
-
-//   // count the views
-//   views[pathname] = (views[pathname] || 0) + 1
-
-//   next()
-// })
-// app.use(passport.initialize()); 
-// app.use(passport.session()); // login sessions
-// app.use(flash()); // use connect-flash for flash messages stroed in session
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars"); // set up handlebars for templating

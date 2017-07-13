@@ -1,11 +1,11 @@
 // Import MySQL connection.
 var connection = require("../config/connection.js")['connection'];
-var testid = "2";
+
 var orm = {
 
   ranking: function(table, cols, vals, cb) {
     
-    var queryString = "SELECT `Position` `Rank`, `Player`, `Team` FROM " + table;
+    var queryString = "SELECT `Position`, `Rank`, `Player`, `Team` FROM " + table;
 
     queryString += " WHERE ";   
     for( var i = 0; i < cols.length; i++){
@@ -103,16 +103,40 @@ var orm = {
 
     connection.query(queryString, function(err, result) {
 
-        if (err) throw err;
-      
-        console.log(result[0][cols[0]] + ", " + vals[0]);
-    
-      var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + result[0][cols[0]] + ", " + vals[0] + "' WHERE id = " + vals[1] + ";";
+      if (err) throw err;
 
-      connection.query(updateString, function(err, result) {
+      if(result[0][cols[0]] == null){
 
-          if (err) throw err;
-      });    
+        var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + vals[0] + "' WHERE id = '" + vals[1] + "';";
+          
+          connection.query(updateString, function(err, result) {
+
+              if (err) throw err;
+
+              cb("Team added to favorites")
+          });
+
+      }else{   
+        var split = result[0][cols[0]].split(",")
+
+        console.log(split.indexOf(vals[0]));
+        // console.log(result[0][cols[0]] + ", " + vals[0]);
+        if(split.indexOf(vals[0]) == -1){
+
+          var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + result[0][cols[0]] + ", " + vals[0] + "' WHERE id = " + vals[1] + ";";
+
+          connection.query(updateString, function(err, result) {
+
+              if (err) throw err;
+
+              cb("Team added to favorites")
+          });
+
+        }else{
+
+          cb("Team is already one of your favorites")
+        }  
+      }
     });
   },
 
@@ -125,15 +149,43 @@ var orm = {
     connection.query(queryString, function(err, result) {
 
         if (err) throw err;
-      
-        console.log(result[0][cols[0]])
-    
-      var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + result[0][cols[0]] + ", " + vals[0] + "' WHERE id = " + vals[1] + ";";
 
-      connection.query(updateString, function(err, result) {
+        if(result[0][cols[0]] == null){
 
-          if (err) throw err;
-      });    
+          var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + vals[0] + "' WHERE id = '" + vals[1] + "';";
+            
+            connection.query(updateString, function(err, result) {
+
+                if (err) throw err;
+
+                cb("Team added to favorites")
+            });
+
+        }else{ 
+          
+            var split = result[0][cols[0]].split(",")
+            // console.log(split);
+            // console.log(typeof(vals[0]));
+            console.log(split.indexOf(vals[0]));
+            // console.log(result[0][cols[0]] + ", " + vals[0]);
+          if(split.indexOf(vals[0]) == -1){
+
+            console.log(result[0][cols[0]])
+        
+            var updateString = "UPDATE " + table + " SET " + cols[0] + " = '" + result[0][cols[0]] + ", " + vals[0] + "' WHERE id = " + vals[1] + ";";
+
+            connection.query(updateString, function(err, result) {
+
+                if (err) throw err;
+
+                cb("Player added to favorites")
+            });
+
+           }else{
+
+              cb("Player is already one of your favorites")
+           }
+        }      
     });
   },
   team: function(table, cols, vals, cb) {
@@ -230,7 +282,6 @@ var orm = {
           
           } else {
      
-            //console.log(result[0]);
             cb(result[0]);
           }
 
@@ -241,7 +292,7 @@ var orm = {
     })
   },
 
-  displayUser: function(table, id, cb) {
+    displayUser: function(table, id, cb) {
 
     var queryString = "SELECT * FROM " + table;
 
