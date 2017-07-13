@@ -1,22 +1,26 @@
-<h1>{{this.Position}}</h1>
-<form method="post" action="/position/{{this.Position}}/2016">
+work{{pos}}
+pleaase{{this.pos}}
+
+
+
+<form method="post" action="/position/{{this.pos}}/2016">
 	<input id="sixInput" type="hidden" name="year" value="2016">
 	<button id="sixBtn">2016</button>
 </form>
 
-<form method="post" action="/position/{{this.Position}}/2015">
+<form method="post" action="/position/{{this.pos}}/2015">
 	<input id="fiveInput" type="hidden" name="year" value="2015">
 	<button id="fiveBtn">2015</button>
 </form>
 
-<form method="post" action="/position/Quarterback/2014">
+<form method="post" action="/position/{{this.pos}}/2014">
 	<input id="fourInput" type="hidden" name="year" value="2014">
 	<button id="fourBtn">2014</button>
 </form>
 
-
+{{!-- {{rank.Time}} --}}
 {{#each rank}}
-
+{{this.Time}}
 <input id="position" type="hidden" name="position" value="{{this.Position}}">
 <h1>{{this.Position}}</h1>
     <h1>{{this.Rank}}. {{this.Player}}</h1>
@@ -26,9 +30,12 @@
 <script type="text/javascript">
 
 
+
 var position = $("#position").val();
 console.log(position);
 window.localStorage.setItem("position", position);
+
+
 // console.log("Luis", $("#position").val());
 	$("#fourBtn").on("click", function() {
 		console.log($("#fourInput").val());
@@ -45,3 +52,4 @@ window.localStorage.setItem("position", position);
 		position = $("#position").val();
 	})
 </script>
+

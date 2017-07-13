@@ -5,7 +5,8 @@ var orm = {
 
   ranking: function(table, cols, vals, year, cb) {
     
-    var queryString = "SELECT `Position`, `Rank`, `Player`, `Team` FROM " + table;
+
+    var queryString = "SELECT `Time`, `Position`, `Rank`, `Player`, `Team` FROM " + table;
 
     queryString += " WHERE ";   
     for( var i = 0; i < cols.length; i++){

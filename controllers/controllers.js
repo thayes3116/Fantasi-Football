@@ -33,7 +33,7 @@ router.post("/login", function(req, res) {
 
 			if(data === "Sorry email and password do not match"){
 
-				res.redirect("login"{data: data})
+				res.render("login", {data: data})
 
 			}else{
 
@@ -45,12 +45,12 @@ router.post("/login", function(req, res) {
 		});	
 });
 
-router.get("/position/Quarterback/2014", function(req, res) {
-		// console.log(req..year);
-		// 
-	res.redirect("profile")
+// router.get("/position/Running%20Back/2015", function(req, res) {
+// 		// console.log(req..year);
+// 		// 
+// 	res.render("position");
 
-})
+// })
 
 router.post("/position/:position/:year", function(req, res) {
 	console.log("Year:",req.params.year);
@@ -73,19 +73,23 @@ router.post("/position/:position/:year", function(req, res) {
   	[rankCategory, inputPosition],
   	[inputYear], 
   	function(data) {
-      
+      console.log("line 76", data[0].Position);
   		console.log("data 50", data);
+  		var fullData = {
+  			rank: data,
+  			pos: data[0].Position
+  		}
   		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
 	  			
 	  			res.render("position", {Player:data})
 
 	  		}else{
 
-	  			res.render("position", {rank:data}); 			
+	  			res.render("position", fullData); 			
 	  		}
 	})
 	// res.render("position")
-})
+});
 
 
 router.get("/profile", function(req, res) {
@@ -106,73 +110,73 @@ router.get("/profile", function(req, res) {
 				res.render("profile", dataPack);					
 			});		
 	});		
-})
+});
 
 
 router.post("/position", function(req, res) {
 
 
-	var positionSearch = req.body.positionSearch;
+	// var positionSearch = req.body.positionSearch;
 
-	console.log(positionSearch);
-		if(positionSearch === "Quarterback"){
-		rankCategory = "Passing";
-		}else if(positionSearch === "Running Back"){
-			rankCategory = "Rushing";
-		}else if(positionSearch === "Wide Receiver"){
-			rankCategory = "Receiving";
-		}
+	// console.log(positionSearch);
+	// 	if(positionSearch === "Quarterback"){
+	// 	rankCategory = "Passing";
+	// 	}else if(positionSearch === "Running Back"){
+	// 		rankCategory = "Rushing";
+	// 	}else if(positionSearch === "Wide Receiver"){
+	// 		rankCategory = "Receiving";
+	// 	}
 
-	var savedData = sessionStore.get("userData", function(error,data) {
+	// var savedData = sessionStore.get("userData", function(error,data) {
 
-		if (error) throw error;
+	// 	if (error) throw error;
 
-		console.log("player post login data", data);
+	// 	console.log("player post login data", data);
 
-			models.displayUser(data.id, function(modelData) {
+	// 		models.displayUser(data.id, function(modelData) {
 				
-				favData = modelData[0];
-				//console.log('favData', favData);
+	// 			favData = modelData[0];
+	// 			//console.log('favData', favData);
 
-			  models.ranking(
+	// 		  models.ranking(
 
-			  	["Category", "Position"], 
-			  	[rankCategory, positionSearch], 
-			  	function(data) {
+	// 		  	["Category", "Position"], 
+	// 		  	[rankCategory, positionSearch], 
+	// 		  	function(data) {
 			      
-			  		console.log("data 50", data);
-			  		console.log(favData);
-			  		var dataPack= {
-			  			userInfo: favData,
-			  			position: data
-			  		}
-			  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
+	// 		  		console.log("data 50", data);
+	// 		  		console.log(favData);
+	// 		  		var dataPack= {
+	// 		  			userInfo: favData,
+	// 		  			position: data
+	// 		  		}
+	// 		  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
 				  			
-				  			res.render("profile", dataPack)
+	// 			  			res.render("position", dataPack)
 
-				  		}else{
-				  			res.render("profile", dataPack); 			
-				  		}
-			  });
-		});	  
-	});		  
+	// 			  		}else{
+	// 			  			res.render("position", {rank: data}); 			
+	// 			  		}
+	// 		  });
+	// 	});	  
+	// });		  
 
 	var positionSearch = req.body.positionSearch;
 	// window.localStorage.setItem("position", req.body.positionSearch);
 	// var positionInput = sessionStore.getItem("position");
 
 	// console.log("Please work", positionInput);
-	var year = "";
+	var year = "2016";
 	console.log("Year:", req.body.year);
 	console.log("Position:", positionSearch);
 	console.log(req.body.position);
-	if (year !== "2015" || year !== "2014") {
-		year = "2016";
+	// if (year !== "2015" || year !== "2014") {
+	// 	year = "2016";
 		
-	} else {
-		year = req.body.year;
+	// } else {
+	// 	year = req.body.year;
 
-	}
+	// }
 
 	if(positionSearch === "Quarterback"){
 		rankCategory = "Passing";
@@ -188,7 +192,10 @@ router.post("/position", function(req, res) {
   	[rankCategory, positionSearch],
   	[year], 
   	function(data) {
-      
+      	var fullData = {
+  			rank: data,
+  			pos: data[0].Position
+  		}
   		console.log("data 50", data);
   		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
 	  			
@@ -196,11 +203,16 @@ router.post("/position", function(req, res) {
 
 	  		}else{
 
-	  			res.render("position", {rank:data}); 			
+	  			res.render("position", fullData); 			
 	  		}
   });
 
 });
+
+router.get("/position", function(req, res) {
+
+	res.render("position");
+})
 
 router.post("/player", function(req, res) {
 	
