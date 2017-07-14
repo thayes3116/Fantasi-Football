@@ -286,5 +286,29 @@ router.get("/logout", function(req, res){
 	res.redirect("/");
 });
 
+////// upload & save photo
+var multer = require("multer");
+
+var storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './uploads');
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname + '-' + Date.now());
+  }
+});
+
+var upload = multer({ storage : storage}).single('userPhoto');
+
+router.post('/api/photo',function(req,res){
+    upload(req,res,function(err) {
+        if(err) {
+            return res.end("Error uploading file.");
+        }
+        res.redirect("/profile");
+    });
+});
+
+
 // Export routes for server.js to use.
 module.exports = router;
