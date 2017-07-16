@@ -354,9 +354,10 @@ router.post("/team", function(req, res) {
 	  					userInfo: favData,
 	  					teamName: "Sorry, team not found. Please enter valid team.",
 	  					favPlayers: splitPlayerFavs,
-	  					favTeams: splitTeamFavs
-	  				}	  				
+	  					favTeams: splitTeamFavs,
 
+	  				}	  				
+	  			
 	  			res.render("team", errorPack)
 	  		}else{
 	  			res.render("team", dataPack);

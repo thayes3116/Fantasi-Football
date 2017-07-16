@@ -19,7 +19,7 @@
 
 <section>
     <!-- START Page content-->
-    <section class="main-content">
+    <section class="main-content" id = 'mainSection'>
 
     	<h2>{{this.pos}}</h2>
 
@@ -94,6 +94,12 @@
 
 
 <script>
+
+if("{{this.pos}}" === "Please enter Running Back, Quarterback, or Wide Receiver") {
+        //$('#mainSection').hide();
+        $('#mainSection').replaceWith('<h1 id = "error">{{this.pos}}<h1>')
+        $('#error').append('<hr>')
+    }
 {{#each rank}}
 
 $("#position").html("{{this.Position}}");
