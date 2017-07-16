@@ -1323,6 +1323,14 @@ mark,
 .text-center {
   text-align: center;
 }
+
+.signwarning {
+    text-align: center;
+    font-size: 15px;
+    color: red;
+    /*background-color: #4DD9ABAB;*/
+    border-left-style: solid;
+}
 .text-justify {
   text-align: justify;
 }
@@ -3149,6 +3157,33 @@ fieldset[disabled] .btn-default.active {
   color: #ffffff;
   background-color: #333333;
 }
+.btn-espnred{
+    color: #ffffff;
+    background-color: #CB2F2F;
+    border-color: #CB2F2F;
+}
+
+.btn-espnred:focus,
+.btn-espnred.focus {
+    color: #ffffff;
+    background-color: #CB2F2F;
+    border-color: #BB2A2C;
+}
+
+.btn-espnred:hover {
+    color: #ffffff;
+    background-color: #BB2A2C;
+    border-color: #BB2A2C;
+}
+
+.btn-espnred:active,
+.btn-espnred.active,
+.open > .dropdown-toggle.btn-primary {
+    color: #ffffff;
+    background-color: #CB2F2F;
+    border-color: #9C1E1E;
+}
+
 .btn-primary {
   color: #ffffff;
   background-color: #3498db;
