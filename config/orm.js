@@ -180,6 +180,44 @@ var orm = {
 
                 if (err) throw err;
 
+                var positionString = "SELECT `Position` FROM `nfl` WHERE `Player` = " + "\"" + vals[0] + "\" LIMIT 1;"
+
+                connection.query(positionString, function(err, result) {
+
+                  if (err) throw err;
+                     
+                      console.log("player position 207", result[0].Position);
+                    
+                      if(result[0].Position === "Quarterback"){
+                        var category = "Passing";      
+                        var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs` AS TD, `Passer_Rating` AS PasserRating, `Yards_Per_Game_Average` AS YPG, `Interception`, `Time` FROM `nfl`";
+
+                      }else if(result[0].Position === "Running Back"){
+                        var category = "Rushing";
+                        var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`,`Touch Downs` AS TD, `Yards_Per_Game_Average` AS YPG, `Attempts_Per_Game` AS RushAttempts, `Average_Yards` AS AvgYards, `Time` FROM `nfl`";
+                       
+                      }else if(result[0].Position === "Wide Receiver"){
+                        var category = "Receiving";
+                        var queryString = "SELECT `Player`, `Team`, `Position`, `Rank`, `Touch Downs` AS TD, `Yards`, `Yards_Per_Game_Average` AS YPG, `Receptions`, `Time` FROM `nfl`";
+                      }
+
+                      queryString += " WHERE ";   
+                     
+                      queryString += "`Player` = " + "\"" + vals[0] + "\"" + " AND "
+                      
+                      queryString += "`Category` = " + "\"" + category + "\"" + " AND `Season Type` = 'Regular Season' ORDER BY Time ASC";
+                      
+                      console.log(queryString); 
+
+                      connection.query(queryString, function(err, result) {
+
+                        if (err) throw err;
+
+                        cb(result);
+
+                      });
+                  });    
+
             });
 
         }else{ 
@@ -234,10 +272,7 @@ var orm = {
                         cb(result);
                     
                       }); 
-                   
-                });    
-
-                
+                });                    
             });
 
            }else{

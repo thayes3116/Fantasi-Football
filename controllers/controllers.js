@@ -20,7 +20,6 @@ var rankPosition = "Quarterback",
 router.get("/", function(req, res) {
   
   res.render("index", {layout: "register"});
-
 });
 
 router.post("/login", function(req, res) {
@@ -226,9 +225,7 @@ router.post("/addPlayer", function(req,res){
 		});
 });
 
-router.post("/addTeam/:team/", function(req,res){
-
-	
+router.post("/addTeam/:team/", function(req,res){	
 		
 	//console.log("team params:", req.params.team);
 	models.addTeam(
@@ -246,7 +243,7 @@ router.post("/addTeam/:team/", function(req,res){
 			var splitTeamFavs = favData.favorite_teams.split(",")
 			//console.log("data from team add", data);
 
-		  		var dataPack= {
+		  		var dataPack = {
 		  			userInfo: favData,
 		  			team: data,
 		  			teamName: data[0].Team,
@@ -254,9 +251,14 @@ router.post("/addTeam/:team/", function(req,res){
 		  			favTeams: splitTeamFavs
 		  		}
 		  			console.log(dataPack)
-		  		if(data === "sorry team not found"){
-
-		  			res.render("team", dataPack);
+		  		if(data === "Team is already one of your favorites"){
+		  				var errorPack = {
+		  					userInfo: favData,
+		  					teamName: data,
+		  					favPlayers: splitPlayerFavs,
+		  					favTeams: splitTeamFavs
+		  				}
+		  			res.render("team", errorPack);
 
 		  		}else{
 
@@ -264,8 +266,7 @@ router.post("/addTeam/:team/", function(req,res){
 		  		}
 		  	
 			});
-	});
-	
+	});	
 });
 
 router.post("/addPlayer/:player/", function(req,res){
@@ -273,6 +274,7 @@ router.post("/addPlayer/:player/", function(req,res){
 	
 		
 	console.log("team params:", req.params.player);
+
 	models.addPlayer(
 		["favorite_players", "id"],
 
@@ -296,9 +298,14 @@ router.post("/addPlayer/:player/", function(req,res){
 		  			favTeams: splitTeamFavs
 		  		}
 		  			console.log(dataPack)
-		  		if(data === "sorry team not found"){
-
-		  			res.render("player", dataPack);
+		  		if(data === "Player is already one of your favorites"){
+		  			var errorPack = {
+		  					userInfo: favData,
+		  					playerName: data,
+		  					favPlayers: splitPlayerFavs,
+		  					favTeams: splitTeamFavs
+		  				}
+		  			res.render("player", errorPack);
 
 		  		}else{
 
@@ -306,8 +313,7 @@ router.post("/addPlayer/:player/", function(req,res){
 		  		}
 		  	
 			});
-	});
-	
+	});	
 });
 
 router.post("/team", function(req, res) {
@@ -349,7 +355,6 @@ router.post("/team", function(req, res) {
 	  });
 	});		 				 		
 });
-
 
 router.get("/login", function(req, res) {
 
