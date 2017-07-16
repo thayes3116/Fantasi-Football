@@ -2,10 +2,12 @@
     <!-- START Page content-->
     <section class="main-content">
         <div class="row">
-            <button type="button" class="addbtn btn-labeled btn-primary pull-right">
+        <form method="post" action="/addPlayer/{{this.playerName}}">
+            <button type="submit" class="addbtn btn-labeled btn-primary pull-right">
                <span class="btn-label"><i class="fa fa-plus-circle"></i>
-               </span>Add Player
+               </span>Add Player {{this.playerName}}
             </button>
+        </form>    
         </div>
         <!-- START row-->
         <div class="row">
@@ -15,10 +17,12 @@
                     <div class="panel-heading">Player</div>
                     <div class="panel-body">
                         <h1></h1>
-                        <h1 id ="name"></h1>
-                        <br>
-                        <h4 class="rank"> Rank: </h4>
-                         <h4 class="rank2" id ="rank"> </h4>
+
+                        <h1>{{this.playerName}}</h1>
+                         <br>
+                        <h4 class="rank">Rank: </h4> 
+                        <h4 class="rank2" id ="rank"></h4>
+
                     </div>
                 </div>
                 <!-- END panel-->
