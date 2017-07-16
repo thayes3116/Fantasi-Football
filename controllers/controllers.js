@@ -150,8 +150,13 @@ router.post("/position", function(req, res) {
 		  		console.log("data 50", data);
 
 		  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
-			  			
-		  			res.render("position", {Player:data})
+			  			var errorPack = {
+	  					userInfo: favData,
+	  					pos: data,
+	  					favPlayers: splitPlayerFavs,
+	  					favTeams: splitTeamFavs
+	  				}	
+		  			res.render("position", errorPack)
 
 		  		}else{
 
@@ -182,12 +187,24 @@ router.post("/player", function(req, res) {
 	  		var dataPack= {
 	  			userInfo: favData,
 	  			player: data,
+	  			playerName: data[0].Player,
 	  			favPlayers: splitPlayerFavs,
 	  			favTeams: splitTeamFavs
 	  		}
 	  		
 	        if(data === "sorry player not found"){
-	  			res.render("player", dataPack)
+	  			 // 
+	  			 // res.render("player", dataPack)
+	  			 var errorPack = {
+	  					userInfo: favData,
+	  					playerName: "Sorry, player not found. Please enter valid player.",
+	  					favPlayers: splitPlayerFavs,
+	  					favTeams: splitTeamFavs
+	  				}
+	  				// console.log(ex.message);
+	  				console.log("ERROR", errorPack)
+	  				console.log("data err0r", data);
+	  				res.render("player", errorPack);
 	  		}else{
 
 	  			res.render("player", dataPack);
@@ -211,12 +228,7 @@ router.post("/addPlayer", function(req,res){
 
 router.post("/addTeam/:team/", function(req,res){
 
-	models.displayUser(req.session.userID, function(modelData) {
-
-		favData = modelData[0];
-
-		var splitPlayerFavs = favData.favorite_players.split(",")
-		var splitTeamFavs = favData.favorite_teams.split(",")
+	
 		
 	//console.log("team params:", req.params.team);
 	models.addTeam(
@@ -226,7 +238,12 @@ router.post("/addTeam/:team/", function(req,res){
 
 
 		function(data){
-			
+			models.displayUser(req.session.userID, function(modelData) {
+
+			favData = modelData[0];
+
+			var splitPlayerFavs = favData.favorite_players.split(",")
+			var splitTeamFavs = favData.favorite_teams.split(",")
 			//console.log("data from team add", data);
 
 		  		var dataPack= {
@@ -246,7 +263,49 @@ router.post("/addTeam/:team/", function(req,res){
 		  			res.render("team", dataPack);
 		  		}
 		  	
-		});
+			});
+	});
+	
+});
+
+router.post("/addPlayer/:player/", function(req,res){
+
+	
+		
+	console.log("team params:", req.params.player);
+	models.addPlayer(
+		["favorite_players", "id"],
+
+		[req.params.player, req.session.userID],
+
+
+		function(data){
+			
+			models.displayUser(req.session.userID, function(modelData) {
+
+				favData = modelData[0];
+
+				var splitPlayerFavs = favData.favorite_players.split(",")
+				var splitTeamFavs = favData.favorite_teams.split(",")
+
+		  		var dataPack= {
+		  			userInfo: favData,
+		  			player: data,
+		  			playerName: data[0].Player,
+		  			favPlayers: splitPlayerFavs,
+		  			favTeams: splitTeamFavs
+		  		}
+		  			console.log(dataPack)
+		  		if(data === "sorry team not found"){
+
+		  			res.render("player", dataPack);
+
+		  		}else{
+
+		  			res.render("player", dataPack);
+		  		}
+		  	
+			});
 	});
 	
 });
@@ -275,8 +334,14 @@ router.post("/team", function(req, res) {
 	  		}
 	  			console.log(dataPack)
 	  		if(data === "sorry team not found"){
+	  			var errorPack = {
+	  					userInfo: favData,
+	  					teamName: "Sorry, team not found. Please enter valid team.",
+	  					favPlayers: splitPlayerFavs,
+	  					favTeams: splitTeamFavs
+	  				}	  				
 
-	  			res.render("team", dataPack)
+	  			res.render("team", errorPack)
 	  		}else{
 	  			res.render("team", dataPack);
 	  		}
@@ -343,6 +408,86 @@ router.post('/api/photo',function(req,res){
         }
         res.redirect("/profile");
     });
+});
+
+router.get("/team/:team", function(req, res) {
+	console.log(req.params.team);
+
+	models.displayUser(req.session.userID, function(modelData) {
+
+		favData = modelData[0];
+
+		var splitPlayerFavs = favData.favorite_players.split(",")
+		var splitTeamFavs = favData.favorite_teams.split(",")
+		
+	  models.team(
+	  	["Team",], 
+	  	[req.params.team], 
+	  	function(data) {
+
+	  		console.log("data from team", data);
+	  		var dataPack= {
+	  			userInfo: favData,
+	  			team: data,
+	  			teamName: data[0].Team,
+	  			favPlayers: splitPlayerFavs,
+	  			favTeams: splitTeamFavs
+	  		}
+	  			console.log(dataPack)
+	  		if(data === "sorry team not found"){
+
+	  			res.render("team", dataPack)
+	  		}else{
+	  			res.render("team", dataPack);
+	  		}
+
+	  });
+	});		
+	
+});
+
+router.get("/player/:player", function(req, res) {
+	console.log(req.params.player);
+
+	models.displayUser(req.session.userID, function(modelData) {
+
+		favData = modelData[0];
+
+		var splitPlayerFavs = favData.favorite_players.split(",")
+		var splitTeamFavs = favData.favorite_teams.split(",")
+		
+	  models.player(
+	  	["Player"], 
+	  	[req.params.player], 
+	  	function(data) {
+
+	  		console.log("data from team", data);
+	  		var dataPack= {
+	  			userInfo: favData,
+	  			player: data,
+	  			playerName: data[0].Player,
+	  			favPlayers: splitPlayerFavs,
+	  			favTeams: splitTeamFavs
+	  		}
+	  			
+	  		if(data === "sorry player not found"){
+	  				var errorPack = {
+	  					userInfo: favData,
+	  					playerName: data,
+	  					favPlayers: splitPlayerFavs,
+	  					favTeams: splitTeamFavs
+	  				}
+	  				// console.log(ex.message);
+	  				console.log("ERROR", errorPack)
+	  				console.log("data err0r", data);
+	  			res.render("player", errorPack)
+	  		}else{
+	  			res.render("player", dataPack);
+	  		}
+
+	  });
+	});		
+	
 });
 
 
