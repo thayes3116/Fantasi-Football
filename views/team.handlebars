@@ -1,5 +1,6 @@
 
 <section class="main-content">
+    <h2 id="team"></h2>
 
     <form method="post" action="/addTeam/{{this.teamName}}/">
         <button type="submit" class="btn btn-labeled btn-primary pull-right" onClick="window.location.reload();">
@@ -67,32 +68,68 @@ new Chart(document.getElementById("teamChart"), {
   data: {
     labels: ['2016', '2015', '2014'],
     datasets: [{ 
-        backgroundColor: "#3984b6",
-        fillColor: "rgba(151,249,190,0.5)",
-        strokeColor: "rgba(255,255,255,1)",
-        data: data1,
-        label: label1
+        // touchdowns
+            data: data1,
+            label: label1,
+            backgroundColor: [
+            'rgba(75, 192, 192, 0.4)',
+            'rgba(75, 192, 192, 0.4)',
+            'rgba(75, 192, 192, 0.4)'],
+            borderColor: [
+            'rgba(75, 192, 192)',
+            'rgba(75, 192, 192)',
+            'rgba(75, 192, 192)'],
+            borderWidth: 1
       }, { 
-        data: data2,
-        label: label2,
-        backgroundColor: "#f3b355",
-        fill: false
+        // total points per game avg
+            data: data2,
+            label: label2,
+            backgroundColor: [
+            'rgba(54, 162, 235, 0.4)',
+            'rgba(54, 162, 235, 0.4)',
+            'rgba(54, 162, 235, 0.4)'
+            ],
+            borderColor: [
+            'rgba(54, 162, 235)',
+            'rgba(54, 162, 235)',
+            'rgba(54, 162, 235)'
+            ],
+            borderWidth: 1
       }, { 
-        data: data3,
-        label: label3,
-        backgroundColor: "#e8638b",
-        fill: false
+        // fumbles data
+            data: data3,
+            label: label3,
+            backgroundColor: [
+            'rgba(255, 206, 86, 0.4)',
+            'rgba(255, 206, 86, 0.4)',
+            'rgba(255, 206, 86, 0.4)'
+            ],
+            borderColor: [
+            'rgba(255, 206, 86)',
+            'rgba(255, 206, 86)',
+            'rgba(255, 206, 86)'],
+            borderWidth: 1
       }, { 
-        data: data4,
-        label: label4,
-        backgroundColor: "#ffe0e6",
-        fill: false
+         
+            data: data4,
+            label: label4,
+            backgroundColor: [
+            'rgba(255, 99, 132, 0.4)',
+            'rgba(255, 99, 132, 0.4)',
+            'rgba(255, 99, 132, 0.4)'
+            ],
+            borderColor: [
+            'rgba(255, 99, 132)',
+            'rgba(255, 99, 132)',
+            'rgba(255, 99, 132)'],
+            borderWidth: 1
       }]
   },
   options: {
     title: {
       display: true,
-      text: 'Team Stats (Last 3 Years)'
+      text: 'Team Stats (Last 3 Years)',
+      fontSize: 35
     },
      responsive: true,
             scales: {
@@ -100,12 +137,18 @@ new Chart(document.getElementById("teamChart"), {
                 display: true,
                 ticks: {
                     suggestedMin: 0,
-                    suggestedMax: 100
+                    suggestedMax: 100,
+                    fontSize: 15
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    fontSize: 20
                 }
             }]
         }
   }
-});	
+}); 	
 </script>
 
 

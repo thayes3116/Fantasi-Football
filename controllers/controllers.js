@@ -51,42 +51,50 @@ router.post("/login", function(req, res) {
 });
 
 router.post("/position/:position/:year", function(req, res) {
-	console.log("Year:",req.params.year);
-	console.log("Position:",req.params.position);
+	
+	models.displayUser(req.session.userID, function(modelData) {
+		
+		favData = modelData[0];
 
-	var inputPosition = req.params.position;
+		var splitPlayerFavs = favData.favorite_players.split(",")
+		var splitTeamFavs = favData.favorite_teams.split(",")
+		var inputPosition = req.params.position;
 
-	var inputYear = req.params.year;
+		var inputYear = req.params.year;
 
-	if(inputPosition === "Quarterback"){
-		rankCategory = "Passing";
-	}else if(inputPosition === "Running Back"){
-		rankCategory = "Rushing";
-	}else if(inputPosition === "Wide Receiver"){
-		rankCategory = "Receiving";
-	}
+		if(inputPosition === "Quarterback"){
+			rankCategory = "Passing";
+		}else if(inputPosition === "Running Back"){
+			rankCategory = "Rushing";
+		}else if(inputPosition === "Wide Receiver"){
+			rankCategory = "Receiving";
+		}
 
-	models.ranking(
-  	["Category", "Position"], 
-  	[rankCategory, inputPosition],
-  	[inputYear], 
-  	function(data) {
-      console.log("line 76", data[0].Position);
-  		console.log("data 50", data);
-  		var fullData = {
-  			rank: data,
-  			pos: data[0].Position
-  		}
-  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
-	  			
-	  			res.render("position", {Player:data})
+		models.ranking(
+		  	["Category", "Position"], 
+		  	[rankCategory, inputPosition],
+		  	[inputYear], 
+		  	function(data) {
+		      console.log("line 76", data[0].Position);
+		  		console.log("data 50", data);
+		  		var dataPack = {
+		  			rank: data,
+		  			pos: data[0].Position,
+		  			userInfo: favData,
+			  		favPlayers: splitPlayerFavs,
+			  		favTeams: splitTeamFavs
+		  		}
 
-	  		}else{
+		  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
+			  			
+		  			res.render("position", {Player:data})
 
-	  			res.render("position", fullData); 			
-	  		}
-	})
-	// res.render("position")
+		  		}else{
+
+		  			res.render("position", dataPack); 			
+		  		}
+		})
+	});
 });
 
 router.get("/profile", function(req, res) {
@@ -97,7 +105,7 @@ router.get("/profile", function(req, res) {
 
 		var splitPlayerFavs = favData.favorite_players.split(",")
 		var splitTeamFavs = favData.favorite_teams.split(",")
-				
+			
 		var dataPack = {
 			userInfo: favData,
 	  		favPlayers: splitPlayerFavs,
@@ -225,16 +233,16 @@ router.post("/addPlayer", function(req,res){
 		});
 });
 
+
 router.post("/addTeam/:team/", function(req,res){	
 		
 	//console.log("team params:", req.params.team);
+
 	models.addTeam(
 		["favorite_teams", "id"],
-
-		[req.params.team, req.session.userID],
-
-
+		[testFav, req.session.userID],
 		function(data){
+
 			models.displayUser(req.session.userID, function(modelData) {
 
 			favData = modelData[0];
@@ -314,6 +322,7 @@ router.post("/addPlayer/:player/", function(req,res){
 		  	
 			});
 	});	
+
 });
 
 router.post("/team", function(req, res) {
@@ -330,15 +339,13 @@ router.post("/team", function(req, res) {
 	  	[req.body.teamSearch], 
 	  	function(data) {
 
-	  		console.log("data from team", data);
 	  		var dataPack= {
 	  			userInfo: favData,
 	  			team: data,
-	  			teamName: data[0].Team,
 	  			favPlayers: splitPlayerFavs,
 	  			favTeams: splitTeamFavs
 	  		}
-	  			console.log(dataPack)
+
 	  		if(data === "sorry team not found"){
 	  			var errorPack = {
 	  					userInfo: favData,
@@ -351,7 +358,6 @@ router.post("/team", function(req, res) {
 	  		}else{
 	  			res.render("team", dataPack);
 	  		}
-
 	  });
 	});		 				 		
 });
@@ -370,14 +376,14 @@ router.post("/signup", function(req, res) {
 		function(data) {
 
 			console.log(data);
-			req.session.userID = data;
+
 			if(data == "Email already exists"){
 
 				res.render("signup", {layout: "register", data: data})
 
 			}else{
 
-				res.redirect("/profile");
+				res.redirect("/login");
 			}
 		});	
 });
@@ -388,7 +394,7 @@ router.get("/signup", function(req, res) {
 });
 
 router.get("/logout", function(req, res){
-	req.session.userID = "";
+
 	res.redirect("/");
 });
 
@@ -413,6 +419,8 @@ router.post('/api/photo',function(req,res){
         }
         res.redirect("/profile");
     });
+
+
 });
 
 router.get("/team/:team", function(req, res) {

@@ -17,8 +17,12 @@
                     <div class="panel-heading">Player</div>
                     <div class="panel-body">
                         <h1></h1>
+
                         <h1>{{this.playerName}}</h1>
-                        <h4 class="rank">Rank</h4> <h4 id ="rank"></h4>
+                         <br>
+                        <h4 class="rank">Rank: </h4> 
+                        <h4 class="rank2" id ="rank"></h4>
+
                     </div>
                 </div>
                 <!-- END panel-->
@@ -26,7 +30,8 @@
             <div class="col-lg-6">
                 <!-- START panel-->
                 <div class="panel panel-default">
-                    <div class="panel-body">
+                    <div class="panel-heading">Position</div>
+                    <div class="panel-playerbody panel-body">
                         <h4 id ="position"></h4>
                     </div>
                 </div>
@@ -35,8 +40,9 @@
 
             <div class="col-lg-6">
                 <!-- START panel-->
-                <div class="panel panel-default">
-                    <div class="panel-body">
+                <div class="panel-margin panel panel-default">
+                    <div class="panel-heading">Team</div>
+                    <div class="panel-playerbody panel-body">
                         <h4 id ="team"></h4>
                     </div>
                 </div>
@@ -48,7 +54,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <!-- START panel-->
-                <div class="panel panel-default">
+                <div class="panel-charttop panel panel-default">
                     <div class="panel-heading"><h4>Touchdowns</h4></div>
                     <div class="panel-body">
                         <canvas id = "firstChart" height = "400" width = "400" ></canvas>
@@ -61,7 +67,7 @@
             <!-- Chart 2-->
                 <div class="col-lg-6">
                     <!-- START panel-->
-                    <div class="panel panel-default">
+                    <div class="panel-charttop panel panel-default">
                         <div class="panel-heading"><h4>Passing Rating</h4></div>
                         <div class="panel-body">
                             <canvas id = "secondChart" height = "400" width = "400"></canvas>
@@ -155,6 +161,7 @@
     var label3;
     var label4;
         {{#each player}}
+
         $("#name").html("{{this.Player}}")
         $("#team").html("{{this.Team}}")
         $("#position").html("{{this.Position}}")
@@ -199,26 +206,45 @@
             datasets: [{
                 data: data1,
                 label: label1,
-                backgroundColor: "#3e95cd",
-                fill: false
+                backgroundColor: [
+
+                'rgba(86, 185, 211, 0.6)', 
+                'rgba(63, 151, 194, 0.5)',
+                'rgba(51, 113, 170, 0.6)'
+               ],
+               borderColor: [
+                'rgba(86, 185, 211, 1)',
+                'rgba(63, 151, 194, 1)',
+                'rgba(51, 113, 170, 1)'
+                ],
+                borderWidth: 1
             }]
         },
         options: {
             responsive: false,
             title: {
                 display: true,
-                text: 'Player Stats'
+                text: 'Player Stats',
+                fontSize: 12
             },
             scales: {
                 yAxes: [{
                     display: true,
                     ticks: {
                         suggestedMin: 0,
+                        fontSize: 15
+                    }
+                }],
+
+                xAxes: [{
+                    ticks: {
+                        fontSize: 20
                     }
                 }]
             }
         }
     });
+
     new Chart(document.getElementById("secondChart"), {
         type: 'bar',
         data: {
@@ -226,22 +252,39 @@
             datasets: [{
                 data: data2,
                 label: label2,
-                backgroundColor: "#bee0cc",
-                fill: false
+                backgroundColor:[
+
+                'rgba(176, 193, 160, 0.6)',
+                'rgba(119, 154, 96, 0.5)',
+                'rgba(51, 107, 20, 0.6)' 
+               ],
+               borderColor: [
+                'rgba(176, 193, 160, 1)',
+                'rgba(119, 154, 96, 1)',
+                'rgba(51, 107, 20, 1)'
+                ],
+                borderWidth: 1
             }]
         },
         options: {
             responsive: false,
             title: {
                 display: true,
-                text: 'Player Stats'
+                text: 'Player Stats',
+                fontSize: 12
             },
             scales: {
                 yAxes: [{
                     display: true,
                     ticks: {
-                        suggestedMin: 0
+                        suggestedMin: 0,
+                        fontSize: 15
 
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 20
                     }
                 }]
             }
@@ -255,22 +298,40 @@
             datasets: [{
                 data: data3,
                 label: label3,
-                backgroundColor: "#83cacf",
-                fill: false
+                backgroundColor:[
+
+                'rgba(45, 94, 158, 0.5)',
+                'rgba(35, 85, 166, 0.5)',
+                'rgba(17, 23, 70, 0.6)' 
+               ],
+               borderColor: [
+                'rgba(45, 94, 158, 1)',
+                'rgba(35, 85, 166, 1)',
+                'rgba(17, 23, 70, 1)'
+                ],
+                borderWidth: 1  
+                
             }]
         },
         options: {
             responsive: false,
             title: {
                 display: true,
-                text: 'Player Stats'
+                text: 'Player Stats',
+                fontSize: 12
             },
             scales: {
                 yAxes: [{
                     display: true,
                     ticks: {
-                        suggestedMin: 0
+                        suggestedMin: 0,
+                        fontSize: 15
 
+                    }
+                }],
+                  xAxes: [{
+                    ticks: {
+                        fontSize: 20
                     }
                 }]
             }
@@ -284,22 +345,42 @@
             datasets: [{
                 data: data4,
                 label: label4,
-                backgroundColor: "#2e62a1",
-                fill: false
+                backgroundColor:[
+
+                'rgba(196, 187, 240, 0.5)',
+                'rgba(146, 127, 191, 0.5)',
+                'rgba(79, 58, 119, 0.5)' 
+               ],
+
+         borderColor: [
+                'rgba(196, 187, 240, 1)',
+                'rgba(146, 127, 191, 1)',
+                'rgba(79, 58, 119, 1)'
+                ],
+                borderWidth: 1
+                // regular color code 
+                /*'#c4bbf0', '#927fbf', '#4f3a77'*/
             }]
         },
         options: {
             responsive: false,
             title: {
                 display: true,
-                text: 'Player Stats'
+                text: 'Player Stats',
+                fontSize: 12
             },
             scales: {
                 yAxes: [{
                     display: true,
                     ticks: {
-                        suggestedMin: 0
+                        suggestedMin: 0,
+                        fontSize: 15
 
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontSize: 20
                     }
                 }]
             }
