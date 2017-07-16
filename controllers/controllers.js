@@ -80,6 +80,7 @@ router.post("/position/:position/:year", function(req, res) {
 		  		var dataPack = {
 		  			rank: data,
 		  			pos: data[0].Position,
+		  			year: data[0].Time,
 		  			userInfo: favData,
 			  		favPlayers: splitPlayerFavs,
 			  		favTeams: splitTeamFavs
@@ -150,6 +151,7 @@ router.post("/position", function(req, res) {
 		      		userInfo: favData,
 		  			rank: data,
 		  			pos: data[0].Position,
+		  			year: data[0].Time,
 		  			favPlayers: splitPlayerFavs,
 		  			favTeams: splitTeamFavs
 		  		}
@@ -236,11 +238,11 @@ router.post("/addPlayer", function(req,res){
 
 router.post("/addTeam/:team/", function(req,res){	
 		
-	//console.log("team params:", req.params.team);
+	console.log("team params:", req.params.team);
 
 	models.addTeam(
 		["favorite_teams", "id"],
-		[testFav, req.session.userID],
+		[req.params.team, req.session.userID],
 		function(data){
 
 			models.displayUser(req.session.userID, function(modelData) {
@@ -342,6 +344,7 @@ router.post("/team", function(req, res) {
 	  		var dataPack= {
 	  			userInfo: favData,
 	  			team: data,
+	  			teamName: data[0].Team,
 	  			favPlayers: splitPlayerFavs,
 	  			favTeams: splitTeamFavs
 	  		}
