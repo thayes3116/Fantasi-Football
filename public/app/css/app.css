@@ -642,12 +642,15 @@ body {
 h1,
 h2,
 h3,
-h4 {
-  font-weight: bold;
-}
+
 
 .rank {
-  margin-left: 10px;
+  margin-left: 30px;
+}
+
+h4 {
+  display:inline;
+  font-weight: bold;
 }
 /* ========================================================================
    Component: button-extra.less
