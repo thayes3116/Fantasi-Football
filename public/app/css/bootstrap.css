@@ -1208,6 +1208,8 @@ h6 .small,
   line-height: 1;
   color: #616262;
 }
+
+
 h1,
 .h1,
 h2,
@@ -1216,9 +1218,18 @@ h3,
 .h3 {
   margin-top: 10px;
   margin-bottom: 10px;
-  margin-left: 10px;
+  margin-left: 0px;
   margin-right: 10px;
 }
+
+/*h2,*/
+/*.h2,{*/
+    /*margin-top: 10px;*/
+    /*margin-bottom: 10px;*/
+    /*margin-left: 0px;*/
+    /*margin-right: 10px;*/
+/*}*/
+
 h1 small,
 .h1 small,
 h2 small,
