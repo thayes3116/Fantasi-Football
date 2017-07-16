@@ -138,7 +138,8 @@
                 <li>
                     <div data-toggle="collapse-next" class="item user-block has-submenu">
                         <!-- User picture-->
-                        <div class="user-block-picture">
+                        <div class="user-block-picture" id="avatar">
+                           
                             <img src="http://via.placeholder.com/150x150" alt="Avatar" width="60" height="60"
                                  class="img-thumbnail img-circle">
                         </div>
@@ -219,7 +220,30 @@
     <section>      
         {{{body}}}         
     
-     </section>
+    </section>
+
+    <!-- Pop up modal for avatar -->
+    <div id="matchModal" class="modal">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                    <h2 class="modal-title"><strong>Choose your avatar</strong></h2>
+                </div>
+                <div class="modal-body">
+                    <form id= "uploadForm" enctype="multipart/form-data" action    ="/api/photo" method="post">
+                    <input type="file" name="userPhoto" />
+                    <input type="submit" value="Upload Image" name="submit">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -272,7 +296,14 @@ $(document).ready(function(){
         $("#searchTeam").hide();
         $("#searchPosition").toggle(500);
   });  
+
+    $("#avatar").on("click", function(){
+        $("#matchModal").modal("toggle");
+    })
 });
+
+
+</script> 
 
 
 

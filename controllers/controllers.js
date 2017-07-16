@@ -52,42 +52,50 @@ router.post("/login", function(req, res) {
 });
 
 router.post("/position/:position/:year", function(req, res) {
-	console.log("Year:",req.params.year);
-	console.log("Position:",req.params.position);
+	
+	models.displayUser(req.session.userID, function(modelData) {
+		
+		favData = modelData[0];
 
-	var inputPosition = req.params.position;
+		var splitPlayerFavs = favData.favorite_players.split(",")
+		var splitTeamFavs = favData.favorite_teams.split(",")
+		var inputPosition = req.params.position;
 
-	var inputYear = req.params.year;
+		var inputYear = req.params.year;
 
-	if(inputPosition === "Quarterback"){
-		rankCategory = "Passing";
-	}else if(inputPosition === "Running Back"){
-		rankCategory = "Rushing";
-	}else if(inputPosition === "Wide Receiver"){
-		rankCategory = "Receiving";
-	}
+		if(inputPosition === "Quarterback"){
+			rankCategory = "Passing";
+		}else if(inputPosition === "Running Back"){
+			rankCategory = "Rushing";
+		}else if(inputPosition === "Wide Receiver"){
+			rankCategory = "Receiving";
+		}
 
-	models.ranking(
-  	["Category", "Position"], 
-  	[rankCategory, inputPosition],
-  	[inputYear], 
-  	function(data) {
-      console.log("line 76", data[0].Position);
-  		console.log("data 50", data);
-  		var fullData = {
-  			rank: data,
-  			pos: data[0].Position
-  		}
-  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
-	  			
-	  			res.render("position", {Player:data})
+		models.ranking(
+		  	["Category", "Position"], 
+		  	[rankCategory, inputPosition],
+		  	[inputYear], 
+		  	function(data) {
+		      console.log("line 76", data[0].Position);
+		  		console.log("data 50", data);
+		  		var dataPack = {
+		  			rank: data,
+		  			pos: data[0].Position,
+		  			userInfo: favData,
+			  		favPlayers: splitPlayerFavs,
+			  		favTeams: splitTeamFavs
+		  		}
 
-	  		}else{
+		  		if(data === "Please enter Running Back, Quarterback, or Wide Receiver"){
+			  			
+		  			res.render("position", {Player:data})
 
-	  			res.render("position", fullData); 			
-	  		}
-	})
-	// res.render("position")
+		  		}else{
+
+		  			res.render("position", dataPack); 			
+		  		}
+		})
+	});
 });
 
 router.get("/profile", function(req, res) {
@@ -98,7 +106,7 @@ router.get("/profile", function(req, res) {
 
 		var splitPlayerFavs = favData.favorite_players.split(",")
 		var splitTeamFavs = favData.favorite_teams.split(",")
-				
+			
 		var dataPack = {
 			userInfo: favData,
 	  		favPlayers: splitPlayerFavs,
@@ -264,14 +272,14 @@ router.post("/signup", function(req, res) {
 		function(data) {
 
 			console.log(data);
-			req.session.userID = data;
+
 			if(data == "Email already exists"){
 
 				res.render("signup", {layout: "register", data: data})
 
 			}else{
 
-				res.redirect("/profile");
+				res.redirect("/login");
 			}
 		});	
 });
@@ -282,9 +290,35 @@ router.get("/signup", function(req, res) {
 });
 
 router.get("/logout", function(req, res){
-	req.session.userID = "";
+
 	res.redirect("/");
 });
+
+////// upload & save photo
+var multer = require("multer");
+
+var storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './uploads');
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.fieldname + '-' + Date.now());
+  }
+});
+
+var upload = multer({ storage : storage}).single('userPhoto');
+
+router.post('/api/photo',function(req,res){
+    upload(req,res,function(err) {
+        if(err) {
+            return res.end("Error uploading file.");
+        }
+        res.redirect("/profile");
+    });
+
+
+});
+
 
 // Export routes for server.js to use.
 module.exports = router;
