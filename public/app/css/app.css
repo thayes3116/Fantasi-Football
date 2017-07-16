@@ -643,11 +643,12 @@ h1,
 h2,
 h3,
 h4 {
+  display:inline;
   font-weight: bold;
 }
 
 .rank {
-  margin-left: 10px;
+  margin-left: 30px;
 }
 /* ========================================================================
    Component: button-extra.less
