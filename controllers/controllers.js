@@ -406,7 +406,7 @@ var multer = require("multer");
 
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
-    callback(null, './uploads');
+    callback(null, './public/images/uploads');
   },
   filename: function (req, file, callback) {
     callback(null, file.fieldname + '-' + Date.now());
@@ -420,7 +420,20 @@ router.post('/api/photo',function(req,res){
         if(err) {
             return res.end("Error uploading file.");
         }
-        res.redirect("/profile");
+
+        console.log(req.file.path);
+
+        models.uploadPhoto(
+        	['userPhoto', 'id'],
+        	[req.file.path, req.session.userID],
+        	function(data) {
+        		console.log("added", data);
+
+        		res.redirect("/profile");
+        	})
+
+
+        
     });
 
 

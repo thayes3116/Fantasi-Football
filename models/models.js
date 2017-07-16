@@ -50,7 +50,13 @@ var models = {
 		orm.displayUser("user", id, function(res) {
 			cb(res);
 		})
-	}
+	},
+
+	uploadPhoto: function(cols,vals, cb) {
+        orm.uploadPhoto("user", cols, vals, function(res) {
+            cb(res);
+        })
+    }
 };	
 
 // Export the database functions for the controller (controller.js).

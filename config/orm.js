@@ -404,6 +404,11 @@ var orm = {
     connection.query(queryString, function(err, result) {
 
       if (err) throw err;
+      console.log("orm 407", result[0].userPhoto);
+
+      if (result[0].userPhoto == null){
+          result[0].userPhoto = "../images/placeholder.png";
+        }
 
       if(result[0].favorite_teams == null && result[0].favorite_players == null){
         result[0].favorite_players = "";
@@ -426,6 +431,45 @@ var orm = {
       }
     })    
   },
+
+  uploadPhoto : function(table, cols, vals, cb){
+    var queryString = "UPDATE " + table + " SET " + cols[0] + " = '" + vals[0] + "' WHERE " + cols[1] + " = " + vals[1] + ";";
+
+   console.log(queryString);
+
+   connection.query(queryString, function(err, results) {
+      if (err) throw err;
+
+     var getIDstring = "SELECT * FROM " + table + " WHERE " + cols[1] + " = " + vals[1] + ";";
+
+     connection.query(getIDstring, function (err, results) {
+        if (err) throw err;
+
+       // if (results[0].userPhoto == null){
+        //   results[0].userPhoto = “http://via.placeholder.com/150x150“; (373B)
+
+
+       // }
+        console.log("post photo update user info", results[0].userPhoto);
+
+        var splitPhoto = results[0].userPhoto.split("/")
+        console.log("first", splitPhoto[0]);
+        splitPhoto[0] = "..";
+        console.log("split", splitPhoto[0]);
+        var joinPhoto = splitPhoto.join("/");
+        console.log(joinPhoto);
+        var newString = "UPDATE user SET " + cols[0] + " = '" + joinPhoto + "' WHERE " + cols[1] + " = " + vals[1] + ";";
+
+        connection.query(newString, function (err, data) {
+          if (err) throw err;
+          console.log(data);
+          cb(data);
+        })
+        
+      })
+    })
+    
+ }
 }
 
 // Export the orm object for the model (models.js).
