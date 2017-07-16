@@ -1,9 +1,9 @@
 <section>
     <!-- START Page content-->
-    <section class="main-content">
+    <section class="main-content" id = 'mainSection'>
         <div class="row">
         <form method="post" action="/addPlayer/{{this.playerName}}">
-            <button type="submit" class="addbtn btn-labeled btn-primary pull-right">
+            <button type="submit" id = "addFavPlayer" class="addbtn btn-labeled btn-primary pull-right">
                <span class="btn-label"><i class="fa fa-plus-circle"></i>
                </span>Add Player {{this.playerName}}
             </button>
@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <!-- START panel-->
-                <div class="panel panel-default">
+                <div class="panel panel-default" id = 'playerPanel'>
                     <div class="panel-heading">Player</div>
                     <div class="panel-body">
                         <h1></h1>
@@ -29,7 +29,7 @@
             </div>
             <div class="col-lg-6">
                 <!-- START panel-->
-                <div class="panel panel-default">
+                <div class="panel panel-default" id = 'positionPanel'>
                     <div class="panel-heading">Position</div>
                     <div class="panel-playerbody panel-body">
                         <h4 id ="position"></h4>
@@ -40,7 +40,7 @@
 
             <div class="col-lg-6">
                 <!-- START panel-->
-                <div class="panel-margin panel panel-default">
+                <div class="panel-margin panel panel-default" id = 'teamPanel'>
                     <div class="panel-heading">Team</div>
                     <div class="panel-playerbody panel-body">
                         <h4 id ="team"></h4>
@@ -54,7 +54,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <!-- START panel-->
-                <div class="panel-charttop panel panel-default">
+                <div class="panel-charttop panel panel-default" id = 'tdPanel'>
                     <div class="panel-heading"><h4>Touchdowns</h4></div>
                     <div class="panel-body">
                         <canvas id = "firstChart" height = "400" width = "400" ></canvas>
@@ -67,7 +67,7 @@
             <!-- Chart 2-->
                 <div class="col-lg-6">
                     <!-- START panel-->
-                    <div class="panel-charttop panel panel-default">
+                    <div class="panel-charttop panel panel-default" id = 'passingPanel'>
                         <div class="panel-heading"><h4>Passing Rating</h4></div>
                         <div class="panel-body">
                             <canvas id = "secondChart" height = "400" width = "400"></canvas>
@@ -83,7 +83,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <!-- START panel-->
-                <div class="panel panel-default">
+                <div class="panel panel-default" id = "ppgPanel">
                     <div class="panel-heading"><h4>Yards Per Game</h4></div>
                     <div class="panel-body">
                         <canvas id = "thirdChart" height = "400" width = "400"></canvas>
@@ -96,7 +96,7 @@
             <!-- Chart 4-->
             <div class="col-lg-6">
                 <!-- START panel-->
-                <div class="panel panel-default">
+                <div class="panel panel-default" id = "interceptionPanel">
                     <div class="panel-heading"><h4>Interceptions</h4></div>
                     <div class="panel-body">
                         <canvas id = "fourthChart" height = "400" width = '400'></canvas>
@@ -152,6 +152,23 @@
 
 <!-- START Script for Chart.JS-->
 <script>
+
+if("{{this.playerName}}" === "Sorry, player not found. Please enter valid player.") {
+        $('#mainSection').append('<h1>{{this.playerName}}<h1>')
+        $('#mainSection').append('<hr>')
+        $("#addFavPlayer").hide();
+        $('#playerPanel').hide();
+        $('#positionPanel').hide();
+        $('#teamPanel').hide();
+        $("#tdPanel").hide();
+        $('#passingPanel').hide();
+        $('#ppgPanel').hide();
+        $("#interceptionPanel").hide();
+
+        // $('#addTeamsButton').hide();
+    }
+
+
     var data1 = [];
     var data2 = [];
     var data3 = [];
