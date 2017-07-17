@@ -349,6 +349,7 @@ var orm = {
               if (err) throw err;
              
               cb(result[0].id);
+              console.log("id of new user in orm", result[0].id);
             });
 
             
@@ -433,6 +434,7 @@ var orm = {
   },
 
   uploadPhoto : function(table, cols, vals, cb){
+
     var queryString = "UPDATE " + table + " SET " + cols[0] + " = '" + vals[0] + "' WHERE " + cols[1] + " = " + vals[1] + ";";
 
    console.log(queryString);
