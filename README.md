@@ -4,8 +4,21 @@
 
 This is project 2 for the UCF Full-time Coding Bootcamp.
 
+![](/readmeimages/FantasiLanding.png)
+
 This application will allow a user to create an account and view stats for any NFL team, player, and position. The user can add specific teams and players to their "favorites" to aid them in creating their Fantasy Football league. 
 
+##Player Info
+
+![](/readmeimages/player.png)
+
+##Team Info
+
+![](/readmeimages/team.png)
+
+##Position Rankings
+
+![](/readmeimages/position.png)
 
 Technologies used: 
 - HTML
